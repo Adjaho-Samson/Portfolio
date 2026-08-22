@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Certifications | TchatzDEv</title>
+    <meta
+      name="description"
+      content="Certifications de ADJAHO Samson Guy-Emmanuel Trésor."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="certification.css" />
+  </head>
+  <body>
+    <div class="grid-background"></div>
+    <canvas id="collapse" aria-hidden="true"></canvas>
+
+    <header class="header">
+      <nav class="navbar">
+        <a href="index.html" class="logo">Tchatz<span>DEv</span></a>
+        <ul class="nav-links">
+          <li><a href="index.html#home">Accueil</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="index.html#skills">Compétences</a></li>
+          <li><a href="index.html#projects">Projets</a></li>
+          <li><a href="certification.html">Certifications</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Ouvrir le menu">☰</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="certifications-page">
+        <div class="section-header">
+          <span>05</span>
+          <p>CERTIFICATIONS</p>
+          <h1>Mes certifications</h1>
+        </div>
+
+        <div class="certifications-intro">
+          <p>&gt; cat certifications.log</p>
+          <p>
+            Chaque certification représente une nouvelle étape dans mon parcours
+            d'apprentissage.
+          </p>
+        </div>
+
+        <div class="certifications-grid">
+          <article
+            class="certification-card"
+            data-pdf="Certificats/HTML & CSS.pdf"
+          >
+            <div class="certification-top">
+              <span>CERT_001</span>
+              <span class="certification-status">VERIFIED</span>
+            </div>
+            <div class="certification-body">
+              <span class="certification-icon">&lt;/&gt;</span>
+              <h2>HTML & CSS</h2>
+              <p class="certification-platform">OpenClassrooms</p>
+              <p>
+                Certification attestant de mes connaissances dans les bases du
+                développement web avec HTML et CSS.
+              </p>
+              <div class="certification-actions">
+                <button class="btn-view">Ouvrir</button>
+                <a
+                  class="btn-download"
+                  href="Certificats/HTML & CSS.pdf"
+                  download
+                  >Télécharger</a
+                >
+              </div>
+              <div class="certification-info">
+                <span>STATUS: OBTAINED</span>
+                <span>2026</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="certification-card"
+            data-pdf="Certificats/Vibe Coding.pdf"
+          >
+            <div class="certification-top">
+              <span>CERT_002</span>
+              <span class="certification-status">VERIFIED</span>
+            </div>
+            <div class="certification-body">
+              <span class="certification-icon">&lt;/&gt;</span>
+              <h2>Vibe Coding</h2>
+              <p class="certification-platform">OpenClassrooms</p>
+              <p>Certification Vibe Coding — compétences pratiques en JS.</p>
+              <div class="certification-actions">
+                <button class="btn-view">Ouvrir</button>
+                <a
+                  class="btn-download"
+                  href="Certificats/Vibe Coding.pdf"
+                  download
+                  >Télécharger</a
+                >
+              </div>
+              <div class="certification-info">
+                <span>STATUS: OBTAINED</span>
+                <span>2026</span>
+              </div>
+            </div>
+          </article>
+          <article
+            class="certification-card"
+            data-pdf="Certificats/Certification Git & Github.pdf"
+          >
+            <div class="certification-top">
+              <span>CERT_003</span>
+              <span class="certification-status">VERIFIED</span>
+            </div>
+            <div class="certification-body">
+              <span class="certification-icon">&lt;/&gt;</span>
+              <h2>Git & Github</h2>
+              <p class="certification-platform">OpenClassrooms</p>
+              <p>
+                Certification Git & Github — Capacité à déployer et gérer des
+                projets sur Github.
+              </p>
+              <div class="certification-actions">
+                <button class="btn-view">Ouvrir</button>
+                <a
+                  class="btn-download"
+                  href="Certificats/Certification Git & Github.pdf"
+                  download
+                  >Télécharger</a
+                >
+              </div>
+              <div class="certification-info">
+                <span>STATUS: OBTAINED</span>
+                <span>2026</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="certification-back">
+          <a href="index.html">← Retour au portfolio</a>
+        </div>
+        <div
+          id="cert-modal"
+          class="cert-modal"
+          aria-hidden="true"
+          role="dialog"
+        >
+          <div class="cert-modal-panel">
+            <button
+              id="cert-close"
+              class="cert-modal-close"
+              aria-label="Fermer"
+            >
+              ✕
+            </button>
+            <iframe
+              id="cert-viewer"
+              src=""
+              title="Visionneuse de certificat"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><strong>TchatzDEv</strong><span>//</span> ADJAHO Samson</div>
+      <p>&copy; 2026 TchatzDEv. Built with code & curiosity.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

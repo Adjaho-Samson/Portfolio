@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>TchatzDEv | ADJAHO Samson</title>
+    <meta
+      name="description"
+      content="Portfolio de ADJAHO Samson Guy-Emmanuel Trésor, étudiant en Systèmes Informatiques et Logiciels et développeur web en formation."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="grid-background"></div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <canvas id="collapse" aria-hidden="true"></canvas>
+
+    <header class="header">
+      <nav class="navbar">
+        <a href="#home" class="logo">Tchatz<span>DEv</span></a>
+        <ul class="nav-links">
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#skills">Compétences</a></li>
+          <li><a href="#projects">Projets</a></li>
+          <li><a href="certification.html">Certifications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-btn" aria-label="Ouvrir le menu">☰</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-content">
+          <div class="terminal-status">
+            <span class="status-dot"></span><span>SYSTEM ONLINE</span>
+          </div>
+          <p class="hero-command">&gt; whoami</p>
+          <h1 id="main-name" class="name-reveal">
+            <span class="name-text"
+              >ADJAHO Samson <span>Guy-Emmanuel Trésor</span></span
+            >
+          </h1>
+          <h2>
+            <span class="bracket">[</span>SIL STUDENT
+            <span class="bracket">//</span> WEB DEVELOPER IN TRAINING<span
+              class="bracket"
+              >]</span
+            >
+          </h2>
+          <p class="hero-description">
+            Étudiant en deuxième année de
+            <strong>Systèmes Informatiques et Logiciels</strong> à ESM-Bénin. Je
+            construis actuellement mes compétences en développement web avant de
+            commencer mon parcours en cybersécurité.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">Explorer mes projets</a>
+            <a href="#about" class="btn btn-secondary"
+              >Découvrir mon parcours</a
+            >
+          </div>
+          <div class="hero-terminal">
+            <span class="terminal-green">samson@tchatzdev</span>
+            <span>:</span>
+            <span class="terminal-blue">~</span>
+            <span>$</span>
+            <span class="typing-text">learning --web --security</span>
+          </div>
+        </div>
+
+        <div class="hero-profile">
+          <div class="profile-frame">
+            <div class="profile-corner top-left"></div>
+            <div class="profile-corner top-right"></div>
+            <div class="profile-corner bottom-left"></div>
+            <div class="profile-corner bottom-right"></div>
+            <img
+              src="images/Photo de Samson.jpeg"
+              alt="Photo de ADJAHO Samson"
+            />
+            <div class="profile-label">
+              <span>USER</span><strong>TCHATZDEV</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section about">
+        <div class="section-header">
+          <span>01</span>
+          <p>ABOUT_ME</p>
+          <h2>Qui suis-je ?</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Je m'appelle <strong>ADJAHO Samson Guy-Emmanuel Trésor</strong>,
+              j'ai 20 ans et je suis étudiant en deuxième année de Systèmes
+              Informatiques et Logiciels à ESM-Bénin.
+            </p>
+            <p>
+              Titulaire d'un <strong>Baccalauréat C</strong>, j'ai
+              progressivement découvert ma passion pour le numérique et
+              l'informatique.
+            </p>
+            <p>
+              Aujourd'hui, je me forme principalement au
+              <strong>développement web</strong>. Je transforme ce que
+              j'apprends en projets concrets afin de progresser étape par étape.
+            </p>
+            <p>
+              Ma prochaine étape est la <strong>cybersécurité</strong>. Je
+              commencerai ma formation dans ce domaine à partir de septembre.
+            </p>
+          </div>
+          <div class="about-terminal">
+            <div class="terminal-header">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="green">$</span> cat about.txt</p>
+              <p class="terminal-output">Name: ADJAHO Samson</p>
+              <p class="terminal-output">Field: Computer Science</p>
+              <p class="terminal-output">Current: Web Development</p>
+              <p class="terminal-output">Next: Cybersecurity</p>
+              <p><span class="green">$</span> <span class="cursor">█</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section skills">
+        <div class="section-header">
+          <span>02</span>
+          <p>SKILLS</p>
+          <h2>Ce que j'apprends</h2>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card">
+            <div class="skill-number">01</div>
+            <h3>HTML5</h3>
+            <p>Structure et organisation des pages web.</p>
+            <div class="skill-tag">LEARNING</div>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">02</div>
+            <h3>CSS3</h3>
+            <p>Design, mise en page, responsive et interfaces.</p>
+            <div class="skill-tag">LEARNING</div>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">03</div>
+            <h3>JavaScript</h3>
+            <p>Programmation et interactivité web.</p>
+            <div class="skill-tag">LEARNING</div>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">04</div>
+            <h3>Python</h3>
+            <p>Programmation, logique et automatisation.</p>
+            <div class="skill-tag">LEARNING</div>
+          </article>
+          <article class="skill-card">
+            <div class="skill-number">05</div>
+            <h3>Langage C</h3>
+            <p>Bases de programmation et algorithmique.</p>
+            <div class="skill-tag">LEARNING</div>
+          </article>
+          <article class="skill-card future">
+            <div class="skill-number">06</div>
+            <h3>Cybersecurity</h3>
+            <p>Prochaine étape de mon parcours à partir de septembre.</p>
+            <div class="skill-tag">NEXT_MISSION</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="section projects">
+        <div class="section-header">
+          <span>03</span>
+          <p>PROJECTS</p>
+          <h2>Mes projets</h2>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-top">
+              <span>PROJECT_001</span><span class="project-status">ONLINE</span>
+            </div>
+            <div class="project-preview">
+              <img
+                src="images/trinahook.png"
+                alt="Trina Hook preview"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="project-content">
+              <h3>Trina Hook</h3>
+              <p>
+                Mon premier site web hébergé. Initialement créé comme exercice,
+                le projet a ensuite été rendu accessible en ligne.
+              </p>
+              <div class="project-tech">
+                <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span>
+              </div>
+              <a
+                href="https://trinahook.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >ACCESS_PROJECT →</a
+              >
+            </div>
+          </article>
+
+          <article class="project-card locked">
+            <div class="project-top">
+              <span>PROJECT_002</span><span class="project-status">LOCKED</span>
+            </div>
+            <div class="project-preview"><span>█████████</span></div>
+            <div class="project-content">
+              <h3>Next Project</h3>
+              <p>
+                Un nouveau projet est actuellement en préparation.<br />Le code
+                sera bientôt disponible.
+              </p>
+              <div class="project-tech"><span>???</span></div>
+              <span class="locked-text">ACCESS_DENIED</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section mission">
+        <div class="mission-box">
+          <div class="mission-content">
+            <span class="mission-code">NEXT_MISSION.exe</span>
+            <h2>WEB <span>→</span> CYBER</h2>
+            <p>Aujourd'hui je construis. Demain, j'apprendrai à protéger.</p>
+            <div class="mission-terminal">
+              <span>$</span><span>./start_cybersecurity.sh</span
+              ><span class="blink">█</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <div class="section-header">
+          <span>04</span>
+          <p>CONTACT</p>
+          <h2>Connectons-nous</h2>
+        </div>
+        <div class="contact-content">
+          <p>
+            Une question, une collaboration ou simplement envie d'échanger
+            autour de l'informatique ?
+          </p>
+          <div class="contact-links">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">GitHub</a>
+            <a href="#" target="_blank">LinkedIn</a>
+            <a href="mailto:votre-email@example.com">Email</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><strong>TchatzDEv</strong><span>//</span> ADJAHO Samson</div>
+      <p>&copy; 2026 TchatzDEv. Built with code & curiosity.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
