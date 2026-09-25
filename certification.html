@@ -3,11 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Certifications | TchatzDEv</title>
+    <title>Certifications | ADJAHO Samson</title>
     <meta
       name="description"
       content="Certifications de ADJAHO Samson Guy-Emmanuel Trésor."
     />
+    <link
+      rel="canonical"
+      href="https://tchatzdev.vercel.app/certification.html"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#030203" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Certifications | ADJAHO Samson" />
+    <meta
+      property="og:description"
+      content="Certifications de ADJAHO Samson en développement web, JavaScript, Git et administration Linux."
+    />
+    <meta
+      property="og:url"
+      content="https://tchatzdev.vercel.app/certification.html"
+    />
+    <meta
+      property="og:image"
+      content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Certifications | ADJAHO Samson" />
+    <meta
+      name="twitter:description"
+      content="Certifications de ADJAHO Samson en développement web, JavaScript, Git et administration Linux."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Certifications de ADJAHO Samson",
+        "description": "Certifications de ADJAHO Samson en développement web, JavaScript, Git et administration Linux.",
+        "url": "https://tchatzdev.vercel.app/certification.html",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Portfolio de ADJAHO Samson",
+          "url": "https://tchatzdev.vercel.app/"
+        }
+      }
+    </script>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,12 +69,15 @@
 
     <header class="header">
       <nav class="navbar">
-        <a href="#home" class="logo"
-          ><img src="images/tchatz.jpeg" alt="TchatzDEv" /><span
-            >TchatzDEv</span
-          ></a
+        <a href="index.html#home" class="logo"
+          ><img
+            src="images/tchatz.jpeg"
+            alt="Logo TchatzDEv"
+            width="42"
+            height="42"
+          /><span>TchatzDEv</span></a
         >
-        <ul class="nav-links">
+        <ul id="site-navigation" class="nav-links">
           <li><a href="index.html#home">Accueil</a></li>
           <li><a href="index.html#about">À propos</a></li>
           <li><a href="index.html#skills">Compétences</a></li>
@@ -37,7 +85,14 @@
           <li><a href="certification.html">Certifications</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
-        <button class="menu-btn" aria-label="Ouvrir le menu">☰</button>
+        <button
+          class="menu-btn"
+          type="button"
+          aria-label="Ouvrir le menu"
+          aria-controls="site-navigation"
+        >
+          ☰
+        </button>
       </nav>
     </header>
 

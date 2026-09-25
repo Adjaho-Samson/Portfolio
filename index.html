@@ -3,11 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>TchatzDEv | ADJAHO Samson</title>
+    <title>ADJAHO Samson | Développeur web en formation</title>
     <meta
       name="description"
       content="Portfolio de ADJAHO Samson Guy-Emmanuel Trésor, étudiant en Systèmes Informatiques et Logiciels et développeur web en formation."
     />
+    <link rel="canonical" href="https://tchatzdev.vercel.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#030203" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta
+      property="og:title"
+      content="ADJAHO Samson | Développeur web en formation"
+    />
+    <meta
+      property="og:description"
+      content="Découvrez le portfolio de ADJAHO Samson, étudiant en systèmes informatiques et développeur web en formation."
+    />
+    <meta property="og:url" content="https://tchatzdev.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="ADJAHO Samson | Développeur web en formation"
+    />
+    <meta
+      name="twitter:description"
+      content="Portfolio de ADJAHO Samson, étudiant en systèmes informatiques et développeur web en formation."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "ADJAHO Samson Guy-Emmanuel Trésor",
+        "alternateName": "TchatzDEv",
+        "jobTitle": "Développeur web en formation",
+        "description": "Étudiant en Systèmes Informatiques et Logiciels et développeur web en formation.",
+        "url": "https://tchatzdev.vercel.app/",
+        "image": "https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg",
+        "sameAs": [
+          "https://github.com/Adjaho-Samson",
+          "https://www.facebook.com/profile.php?id=61593514138547"
+        ],
+        "knowsAbout": [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Python",
+          "Langage C",
+          "Cybersécurité"
+        ]
+      }
+    </script>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,11 +80,14 @@
     <header class="header">
       <nav class="navbar">
         <a href="#home" class="logo"
-          ><img src="images/tchatz.jpeg" alt="TchatzDEv" /><span
-            >TchatzDEv</span
-          ></a
+          ><img
+            src="images/tchatz.jpeg"
+            alt="Logo TchatzDEv"
+            width="42"
+            height="42"
+          /><span>TchatzDEv</span></a
         >
-        <ul class="nav-links">
+        <ul id="site-navigation" class="nav-links">
           <li><a href="#home">Accueil</a></li>
           <li><a href="#about">À propos</a></li>
           <li><a href="#skills">Compétences</a></li>
@@ -37,7 +95,14 @@
           <li><a href="certification.html">Certifications</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <button class="menu-btn" aria-label="Ouvrir le menu">☰</button>
+        <button
+          class="menu-btn"
+          type="button"
+          aria-label="Ouvrir le menu"
+          aria-controls="site-navigation"
+        >
+          ☰
+        </button>
       </nav>
     </header>
 
@@ -202,7 +267,7 @@
             <div class="project-preview">
               <img
                 src="images/trinahook.png"
-                alt="Trina Hook preview"
+                alt="Aperçu du site Trina Hook"
                 style="width: 100%; height: 100%; object-fit: cover"
               />
             </div>
@@ -230,7 +295,7 @@
             <div class="project-preview">
               <img
                 src="images/princeart.png"
-                alt="Trina Hook preview"
+                alt="Aperçu du site Prince Art"
                 style="width: 100%; height: 100%; object-fit: cover"
               />
             </div>
@@ -297,9 +362,24 @@
             autour de l'informatique ?
           </p>
           <div class="contact-links">
-            <a href="https://www.facebook.com/profile.php?id=61593514138547" target="_blank">Facebook</a>
-            <a href="https://github.com/Adjaho-Samson" target="_blank">GitHub</a>
-            <a href="https://wa.me/+22955741060" target="_blank">WhatsApp</a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61593514138547"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Facebook</a
+            >
+            <a
+              href="https://github.com/Adjaho-Samson"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            <a
+              href="https://wa.me/+22955741060"
+              target="_blank"
+              rel="noopener noreferrer"
+              >WhatsApp</a
+            >
             <a href="mailto:tchatzdev@gmail.com">Email</a>
           </div>
         </div>
