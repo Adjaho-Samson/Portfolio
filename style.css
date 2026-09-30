@@ -16,9 +16,9 @@ html {
   --green2: #ff6161;
   --text: #ffecec;
   --muted: #b68f8f;
-  --border: rgba(255,43,43,0.12);
-  --font: "Inter",sans-serif;
-  --mono: "JetBrains Mono",monospace;
+  --border: rgba(255, 43, 43, 0.12);
+  --font: "Inter", sans-serif;
+  --mono: "JetBrains Mono", monospace;
 }
 
 body {
@@ -47,24 +47,31 @@ button {
   inset: 0;
   z-index: -3;
   background-image:
-    linear-gradient(rgba(255,43,43,0.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,43,43,0.03) 1px,transparent 1px);
+    linear-gradient(rgba(255, 43, 43, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 43, 43, 0.03) 1px, transparent 1px);
   background-size: 38px 38px;
-  mask-image: linear-gradient(to bottom,rgba(0,0,0,0.85),transparent 90%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 90%);
 }
 
 .grid-background:after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 20%,rgba(255,43,43,0.08),transparent 35%);
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(255, 43, 43, 0.08),
+    transparent 35%
+  );
 }
 
 .grid-background:before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(0,0,0,0) 50%,rgba(255,255,255,0.02) 51%);
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0) 50%,
+    rgba(255, 255, 255, 0.02) 51%
+  );
   background-size: 100% 4px;
   pointer-events: none;
   mix-blend-mode: overlay;
@@ -84,20 +91,20 @@ button {
   top: 0;
   width: 100%;
   overflow: hidden;
-  clip-path: var(--clip,none);
+  clip-path: var(--clip, none);
 }
 
 .glitch::before {
   color: var(--green);
   mix-blend-mode: screen;
-  transform: translate(2px,-2px);
+  transform: translate(2px, -2px);
   opacity: 0.8;
 }
 
 .glitch::after {
   color: var(--green2);
   mix-blend-mode: screen;
-  transform: translate(-2px,2px);
+  transform: translate(-2px, 2px);
   opacity: 0.6;
 }
 
@@ -133,7 +140,7 @@ button {
   display: inline-block;
   opacity: 0;
   transform: translateY(22px) skewY(6deg);
-  filter: drop-shadow(0 0 8px rgba(255,43,43,0.25));
+  filter: drop-shadow(0 0 8px rgba(255, 43, 43, 0.25));
 }
 
 @keyframes char-reveal {
@@ -157,7 +164,7 @@ button {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(5,8,7,0.82);
+  background: rgba(5, 8, 7, 0.82);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(14px);
 }
@@ -188,12 +195,12 @@ button {
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid var(--green);
-  box-shadow: 0 0 15px rgba(255,43,43,0.3);
+  box-shadow: 0 0 15px rgba(255, 43, 43, 0.3);
 }
 
 .logo span {
   color: var(--green);
-  text-shadow: 0 0 18px rgba(255,43,43,0.6);
+  text-shadow: 0 0 18px rgba(255, 43, 43, 0.6);
 }
 
 .nav-links {
@@ -211,7 +218,7 @@ button {
 
 .nav-links a:hover {
   color: var(--green);
-  text-shadow: 0 0 10px rgba(255,43,43,0.5);
+  text-shadow: 0 0 10px rgba(255, 43, 43, 0.5);
 }
 
 .menu-btn {
@@ -240,7 +247,7 @@ button {
   gap: 10px;
   padding: 7px 12px;
   border: 1px solid var(--border);
-  background: rgba(255,43,43,0.035);
+  background: rgba(255, 43, 43, 0.035);
   font-family: var(--mono);
   font-size: 0.72rem;
   color: var(--green);
@@ -264,7 +271,7 @@ button {
 }
 
 .hero h1 {
-  font-size: clamp(2.8rem,6vw,5.7rem);
+  font-size: clamp(2.8rem, 6vw, 5.7rem);
   line-height: 0.98;
   letter-spacing: -4px;
   margin-bottom: 25px;
@@ -273,7 +280,7 @@ button {
 .hero h1 span {
   display: block;
   color: var(--green);
-  text-shadow: 0 0 30px rgba(255,43,43,0.18);
+  text-shadow: 0 0 30px rgba(255, 43, 43, 0.18);
 }
 
 .hero h2 {
@@ -317,11 +324,11 @@ button {
   background: var(--green);
   color: #1b0000;
   font-weight: 700;
-  box-shadow: 0 0 30px rgba(255,43,43,0.18);
+  box-shadow: 0 0 30px rgba(255, 43, 43, 0.18);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 40px rgba(255,43,43,0.28);
+  box-shadow: 0 0 40px rgba(255, 43, 43, 0.28);
   transform: translateY(-3px);
 }
 
@@ -331,7 +338,7 @@ button {
 }
 
 .btn-secondary:hover {
-  background: rgba(255,43,43,0.06);
+  background: rgba(255, 43, 43, 0.06);
   transform: translateY(-3px);
 }
 
@@ -367,9 +374,9 @@ button {
   width: 340px;
   height: 420px;
   padding: 12px;
-  border: 1px solid rgba(255,43,43,0.3);
-  background: rgba(255,43,43,0.025);
-  box-shadow: 0 0 50px rgba(255,43,43,0.08);
+  border: 1px solid rgba(255, 43, 43, 0.3);
+  background: rgba(255, 43, 43, 0.025);
+  box-shadow: 0 0 50px rgba(255, 43, 43, 0.08);
 }
 
 .profile-frame:before,
@@ -406,7 +413,7 @@ button {
   left: 25px;
   bottom: 25px;
   padding: 10px 14px;
-  background: rgba(5,8,7,0.9);
+  background: rgba(5, 8, 7, 0.9);
   border-left: 2px solid var(--green);
   font-family: var(--mono);
 }
@@ -488,7 +495,7 @@ button {
 .about-text {
   padding: 35px;
   border: 1px solid var(--border);
-  background: rgba(11,18,14,0.65);
+  background: rgba(11, 18, 14, 0.65);
 }
 
 .about-text p {
@@ -544,7 +551,7 @@ button {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
 
@@ -552,7 +559,7 @@ button {
   position: relative;
   padding: 30px;
   border: 1px solid var(--border);
-  background: rgba(11,18,14,0.7);
+  background: rgba(11, 18, 14, 0.7);
   transition: 0.3s;
   overflow: hidden;
 }
@@ -569,9 +576,9 @@ button {
 }
 
 .skill-card:hover {
-  border-color: rgba(255,43,43,0.45);
+  border-color: rgba(255, 43, 43, 0.45);
   transform: translateY(-6px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 .skill-card:hover:before {
@@ -612,20 +619,20 @@ button {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 25px;
 }
 
 .project-card {
   border: 1px solid var(--border);
-  background: rgba(11,18,14,0.7);
+  background: rgba(11, 18, 14, 0.7);
   overflow: hidden;
   transition: 0.3s;
 }
 
 .project-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255,43,43,0.4);
+  border-color: rgba(255, 43, 43, 0.4);
 }
 
 .project-top {
@@ -647,11 +654,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle,rgba(255,43,43,0.12),transparent 60%),#060a08;
+  background:
+    radial-gradient(circle, rgba(255, 43, 43, 0.12), transparent 60%), #060a08;
   font-family: var(--mono);
   font-size: 1.7rem;
   color: var(--green);
-  text-shadow: 0 0 25px rgba(255,43,43,0.4);
+  text-shadow: 0 0 25px rgba(255, 43, 43, 0.4);
 }
 
 .project-content {
@@ -703,8 +711,14 @@ button {
 .mission-box {
   position: relative;
   padding: 70px 50px;
-  border: 1px solid rgba(255,43,43,0.25);
-  background: radial-gradient(circle at 70% 50%,rgba(255,43,43,0.08),transparent 40%),#060a08;
+  border: 1px solid rgba(255, 43, 43, 0.25);
+  background:
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(255, 43, 43, 0.08),
+      transparent 40%
+    ),
+    #060a08;
   overflow: hidden;
 }
 
@@ -712,7 +726,7 @@ button {
   content: "";
   position: absolute;
   inset: 15px;
-  border: 1px solid rgba(255,43,43,0.05);
+  border: 1px solid rgba(255, 43, 43, 0.05);
   pointer-events: none;
 }
 
@@ -728,7 +742,7 @@ button {
 }
 
 .mission h2 {
-  font-size: clamp(2.8rem,7vw,6rem);
+  font-size: clamp(2.8rem, 7vw, 6rem);
   letter-spacing: -4px;
   margin: 15px 0;
 }
@@ -781,7 +795,7 @@ button {
 .contact-links a:hover {
   color: var(--green);
   border-color: var(--green);
-  box-shadow: 0 0 20px rgba(255,43,43,0.08);
+  box-shadow: 0 0 20px rgba(255, 43, 43, 0.08);
 }
 
 .footer {
@@ -860,7 +874,7 @@ button {
   }
 
   .skills-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .projects-grid {
@@ -934,7 +948,7 @@ button {
     left: 0;
     width: 100%;
     padding: 25px;
-    background: rgba(5,8,7,0.98);
+    background: rgba(5, 8, 7, 0.98);
     border-bottom: 1px solid var(--border);
     flex-direction: column;
     align-items: center;
@@ -948,7 +962,7 @@ button {
     left: 0 !important;
     width: 100% !important;
     padding: 25px !important;
-    background: rgba(5,5,5,0.98) !important;
+    background: rgba(5, 5, 5, 0.98) !important;
     z-index: 1100 !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -957,17 +971,6 @@ button {
 
   .menu-btn {
     z-index: 1101;
-  }
-
-  .hidden {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity 0.7s ease,transform 0.7s ease;
-  }
-
-  .hidden.show {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -993,7 +996,7 @@ button {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(11,6,6,0.7);
+  background: rgba(11, 6, 6, 0.7);
   z-index: 9999;
 }
 
@@ -1007,7 +1010,7 @@ button {
   background: #090506;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid rgba(255,43,43,0.08);
+  border: 1px solid rgba(255, 43, 43, 0.08);
 }
 
 .cert-modal-close {
@@ -1027,10 +1030,22 @@ button {
 .hidden {
   opacity: 0;
   transform: translateY(25px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
 .show {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s ease,transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hidden,
+  .show {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

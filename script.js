@@ -27,20 +27,33 @@ if (menuBtn && navLinks) {
   });
 }
 
-// Intersection observer for reveal animations (guarded)
-const sections = document.querySelectorAll(".section");
-if (sections.length > 0 && "IntersectionObserver" in window) {
+// Reveal page content as it enters the viewport.
+const revealElements = document.querySelectorAll(
+  ".hero-content, .hero-profile, .section-header, .about-grid > *, .skills-grid > *, .projects-grid > *, .mission-box, .contact-content, .certifications-intro, .certification-card, .certification-back, .footer > *",
+);
+if (revealElements.length > 0 && "IntersectionObserver" in window) {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
       });
     },
-    { threshold: 0.15 },
+    { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
   );
-  sections.forEach((section) => {
-    section.classList.add("hidden");
-    observer.observe(section);
+  revealElements.forEach((element) => {
+    const siblingIndex = Array.prototype.indexOf.call(
+      element.parentElement.children,
+      element,
+    );
+    element.style.setProperty(
+      "--reveal-delay",
+      `${Math.min(siblingIndex * 90, 360)}ms`,
+    );
+    element.classList.add("hidden");
+    observer.observe(element);
   });
 }
 
