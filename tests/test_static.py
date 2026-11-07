@@ -153,6 +153,39 @@ class StaticPortfolioTests(unittest.TestCase):
         self.assertIn('id="tchatz-music"', catalog)
         self.assertEqual(self.texts["index.html"].count('class="project-card"'), 3)
 
+    def test_stylesheets_and_scripts_are_versioned_for_cache_busting(self):
+        """Après un déploiement, un navigateur ne doit jamais rejouer l'ancien CSS."""
+        assets = (
+            "assets/css/portfolio.css",
+            "assets/css/orbits.css",
+            "assets/js/theme.js",
+            "assets/js/main.js",
+        )
+        for relative in assets:
+            digest = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()[:10]
+            expected = f"{relative}?v={digest}"
+            for filename, text in self.texts.items():
+                with self.subTest(asset=relative, page=filename):
+                    self.assertIn(expected, text)
+        config = json.loads((ROOT / "vercel.json").read_text())
+        rules = {
+            rule["source"]: {h["key"]: h["value"] for h in rule["headers"]}
+            for rule in config["headers"]
+        }
+        # Les URL versionnées peuvent être mises en cache un an ; le HTML et les
+        # images doivent, eux, être revalidés régulièrement.
+        for source in ("/assets/css/(.*)", "/assets/js/(.*)", "/assets/fonts/(.*)"):
+            self.assertIn("immutable", rules[source]["Cache-Control"])
+        self.assertEqual(
+            rules["/(.*).html"]["Cache-Control"], "public, max-age=0, must-revalidate"
+        )
+        self.assertLessEqual(
+            int(re.search(r"max-age=(\d+)", rules["/assets/images/(.*)"]["Cache-Control"]).group(1)),
+            86400,
+        )
+        # Aucune règle générale ne doit réimposer un cache long aux assets non versionnés.
+        self.assertNotIn("/assets/(.*)", rules)
+
     def test_no_repository_access_in_public_interface(self):
         for filename, doc in self.documents.items():
             for tag, kind, raw, attrs in doc.links:

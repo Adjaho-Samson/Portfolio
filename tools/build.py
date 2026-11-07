@@ -6,6 +6,7 @@ so Vercel can deploy the repository without a framework or runtime dependency.
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import math
@@ -26,6 +27,17 @@ def data(name):
 
 def fill(template, values):
     return re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: str(values[m.group(1)]), template)
+
+
+def asset_url(relative_path):
+    """Return the asset path with a short content hash as a query string.
+
+    The hash changes as soon as the file changes, so browsers and the CDN keep
+    asking for exactly the bytes that belong to the published HTML instead of
+    replaying a stale stylesheet for up to a day after a deploy.
+    """
+    digest = hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()[:10]
+    return f"{relative_path}?v={digest}"
 
 
 def icon(name, extra=""):
@@ -364,6 +376,16 @@ def build(check=False):
             changed.append("assets/css/orbits.css")
     else:
         orbits_css.write_text(generated_css, encoding="utf-8")
+
+    # Les feuilles et scripts référencés par les pages portent l'empreinte de
+    # leur contenu : après un déploiement, le navigateur récupère la nouvelle
+    # version au lieu de servir un cache d'un jour (voir vercel.json).
+    versioned_assets = {
+        "CSS_PORTFOLIO": asset_url("assets/css/portfolio.css"),
+        "CSS_ORBITS": asset_url("assets/css/orbits.css"),
+        "JS_THEME": asset_url("assets/js/theme.js"),
+        "JS_MAIN": asset_url("assets/js/main.js"),
+    }
     for filename, page in site["pages"].items():
         content = (SRC / "pages" / filename).read_text(encoding="utf-8")
         content = re.sub(r"\{\{icon:([a-z0-9-]+)\}\}", lambda m: icon(m.group(1)), content)
@@ -409,6 +431,7 @@ def build(check=False):
                 "HEADER": nav,
                 "FOOTER": footer(site, ""),
                 "CONTENT": content,
+                **versioned_assets,
             },
         )
         result = "\n".join(line.rstrip() for line in result.splitlines()) + "\n"

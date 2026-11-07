@@ -83,6 +83,8 @@ Le test démarre son propre serveur local et applique les en-têtes de `vercel.j
 
 Le preset est « Other », sans commande de build, avec la racine comme sortie. `vercel.json` fixe cette configuration et les en-têtes de sécurité. Les fichiers HTML générés doivent être à jour avant publication. `.vercelignore` exclut les sources de maintenance, les tests et la documentation du contenu servi publiquement.
 
+**Cache et mises à jour visibles.** Le HTML est servi en `max-age=0, must-revalidate` : un déploiement est donc visible au premier rechargement. Les feuilles et scripts sont référencés avec l’empreinte de leur contenu (`assets/css/portfolio.css?v=…`, générée par `tools/build.py`), ce qui autorise un cache `immutable` d’un an sans jamais figer une ancienne version : dès que le fichier change, l’URL change. Les polices suivent la même règle ; les images sont revalidées au plus tard après une heure. Ne jamais réintroduire de règle `Cache-Control` longue sur `/assets/(.*)` : elle masquerait les correctifs CSS après publication (voir `docs/CACHE-NAVIGATEUR-2026-11.md`).
+
 Les URL historiques `index.html` et `certification.html` sont conservées. `projets.html` est ajouté au sitemap. Le fichier de vérification Google est conservé. Aucun déploiement distant n’est effectué par les scripts de test.
 
 ## Contenus et ressources
