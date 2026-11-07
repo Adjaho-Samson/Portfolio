@@ -1,0 +1,139 @@
+{
+  "title": "Mes compétences",
+  "description": "Douze technologies organisées en trois orbites autour de mon portrait : fondations web, frameworks et back-end, puis logiciel, systèmes et qualité.",
+  "orbits": [
+    {
+      "id": "fondations",
+      "label": "Fondations web",
+      "radius": 0.46,
+      "duration": 32,
+      "direction": "normal",
+      "offset": -90
+    },
+    {
+      "id": "frameworks",
+      "label": "Frameworks & back-end",
+      "radius": 0.675,
+      "duration": 48,
+      "direction": "reverse",
+      "offset": 30
+    },
+    {
+      "id": "logiciel",
+      "label": "Logiciel, systèmes & qualité",
+      "radius": 0.875,
+      "duration": 60,
+      "direction": "normal",
+      "offset": 30
+    }
+  ],
+  "groups": [
+    {
+      "id": "web",
+      "title": "Web & interfaces",
+      "icon": "fa-laptop-code",
+      "summary": "Construire des pages accessibles, rapides et agréables à parcourir.",
+      "skills": ["html5", "css3", "javascript", "react", "vuejs", "php"]
+    },
+    {
+      "id": "mobile",
+      "title": "Logiciel & mobile",
+      "icon": "fa-mobile-screen",
+      "summary": "Concevoir des outils qui fonctionnent aussi hors du navigateur.",
+      "skills": ["python", "kotlin", "android"]
+    },
+    {
+      "id": "pratiques",
+      "title": "Pratiques & systèmes",
+      "icon": "fa-terminal",
+      "summary": "Versionner, administrer et vérifier la qualité de ce qui est livré.",
+      "skills": ["git", "linux", "accessibilite"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "html5",
+      "label": "HTML5",
+      "icon": "brand-html5",
+      "orbit": "fondations",
+      "kind": "Langage de structuration"
+    },
+    {
+      "id": "css3",
+      "label": "CSS3",
+      "icon": "brand-css",
+      "orbit": "fondations",
+      "kind": "Mise en forme et responsive"
+    },
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "icon": "brand-javascript",
+      "orbit": "fondations",
+      "kind": "Interactions et logique côté client"
+    },
+    {
+      "id": "react",
+      "label": "React",
+      "icon": "brand-react",
+      "orbit": "frameworks",
+      "kind": "Interfaces par composants"
+    },
+    {
+      "id": "vuejs",
+      "label": "Vue.js",
+      "icon": "brand-vuedotjs",
+      "orbit": "frameworks",
+      "kind": "Interfaces progressives"
+    },
+    {
+      "id": "php",
+      "label": "PHP",
+      "icon": "brand-php",
+      "orbit": "frameworks",
+      "kind": "Logique côté serveur"
+    },
+    {
+      "id": "python",
+      "label": "Python",
+      "icon": "brand-python",
+      "orbit": "logiciel",
+      "kind": "Scripts et automatisation"
+    },
+    {
+      "id": "kotlin",
+      "label": "Kotlin",
+      "icon": "brand-kotlin",
+      "orbit": "logiciel",
+      "kind": "Développement Android natif"
+    },
+    {
+      "id": "android",
+      "label": "Android natif",
+      "icon": "brand-android",
+      "orbit": "logiciel",
+      "kind": "Applications mobiles"
+    },
+    {
+      "id": "git",
+      "label": "Git & GitHub",
+      "icon": "brand-github",
+      "orbit": "logiciel",
+      "kind": "Versionnement et collaboration"
+    },
+    {
+      "id": "linux",
+      "label": "Linux",
+      "icon": "brand-linux",
+      "orbit": "logiciel",
+      "kind": "Systèmes et ligne de commande"
+    },
+    {
+      "id": "accessibilite",
+      "label": "Accessibilité web",
+      "icon": "fa-universal-access",
+      "orbit": "logiciel",
+      "kind": "Qualité d’usage pour tous"
+    }
+  ]
+}

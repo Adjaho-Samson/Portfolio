@@ -4,11 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#f7f8fc" />
+    <meta name="theme-color" content="#1b1d21" />
     <title>{{TITLE}}</title>
     <meta name="description" content="{{DESCRIPTION}}" />
     <link rel="canonical" href="{{CANONICAL}}" />
     <meta name="robots" content="{{ROBOTS}}" />
+    <meta name="author" content="Samson Adjaho" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="TchatzDev" />
@@ -35,13 +36,21 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="assets/fonts/manrope-latin.woff2"
+      href="assets/fonts/plus-jakarta-sans-variable-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/inter-variable-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <script src="assets/js/theme.js"></script>
     <link rel="stylesheet" href="assets/css/portfolio.css" />
+    <link rel="stylesheet" href="assets/css/orbits.css" />
     <script type="application/ld+json">
       {{SCHEMA}}
     </script>
@@ -49,7 +58,8 @@
   </head>
   <body data-page="{{PAGE_ID}}">
     <a class="skip-link" href="#contenu">Aller au contenu</a>
-    {{ICON_SPRITE}} {{HEADER}}
+    {{ICON_SPRITE}}
+    {{HEADER}}
     <main id="contenu" tabindex="-1">{{CONTENT}}</main>
     {{FOOTER}}
   </body>

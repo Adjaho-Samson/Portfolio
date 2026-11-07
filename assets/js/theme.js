@@ -14,7 +14,7 @@
     root.dataset.theme = theme;
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#0e1729" : "#f7f8fc");
+      ?.setAttribute("content", theme === "dark" ? "#121417" : "#1b1d21");
     const label =
       theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre";
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {

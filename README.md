@@ -2,6 +2,8 @@
 
 Portfolio statique de **Samson Adjaho** : réalisations web, application Android, certifications, compétences, services et initiative AGORA. Aucun framework, backend applicatif, compte visiteur ou traceur d’audience n’est nécessaire au fonctionnement du site.
 
+Identité visuelle : bordeaux profond (`#7c1f2f`), anthracite (`#1b1d21`), blanc cassé (`#f4f1ec`). Titres en **Plus Jakarta Sans**, textes en **Inter**, polices variables auto-hébergées. Icônes **Font Awesome Free 7** et marques **Simple Icons 16**, intégrées dans un sprite SVG local.
+
 ## Pages
 
 - `index.html` — accueil et sélection de réalisations ;
@@ -9,7 +11,7 @@ Portfolio statique de **Samson Adjaho** : réalisations web, application Android
 - `certification.html` — certificats originaux, aperçus et téléchargements ;
 - `404.html` — page d’erreur statique.
 
-Les seules destinations externes des cartes de projets sont les démonstrations (« Visiter le projet ») et le téléchargement binaire direct de l’APK Tchatz Music. Aucun lien vers un dépôt, un profil de développement ou une page de code source n’est proposé dans l’interface.
+Les seules destinations externes des cartes de projets sont les démonstrations (« Visiter le projet »). L’APK de Tchatz Music n’est plus un lien GitHub : le fichier officiel est hébergé par le site dans `assets/downloads/` et servi en pièce jointe (`application/vnd.android.package-archive`). Aucun lien vers un dépôt, un profil de développement ou une page de code source n’est proposé dans l’interface.
 
 ## Développer et générer
 
@@ -30,10 +32,16 @@ Prérequis : Python 3.11+ pour la génération et les tests structurels. Aucune 
 | `src/data/` | Informations du site, projets et certifications |
 | `tools/build.py` | Génération HTML, cartes réutilisables et métadonnées structurées |
 | `assets/css/portfolio.css` | Tokens clair/sombre, composants et responsive mobile-first |
+| `assets/css/orbits.css` | Généré : rayons, durées et positions de la constellation |
+| `src/data/skills.json` | Compétences, orbites et groupes affichés |
+| `assets/downloads/` | APK officiel de Tchatz Music servi directement par le site |
 | `assets/js/theme.js` | Thème initial système, choix explicite et persistance locale |
 | `assets/js/main.js` | Menu, révélations progressives et visionneuse de certificats |
 | `assets/images/` | Captures fournies, portrait optimisé et aperçus réels des PDF |
-| `assets/fonts/` | Polices locales et licences OFL |
+| `assets/fonts/` | Plus Jakarta Sans et Inter (variables, latin) et licences OFL |
+| `assets/icons/` | Licences des jeux d’icônes (Font Awesome Free, Simple Icons) |
+| `tools/icon_data.py` | Généré : tracés officiels du sprite SVG |
+| `tools/sync_icons.py` | Régénère `icon_data.py` depuis les paquets npm officiels |
 | `Certificats/` | PDF originaux, conservés sans modification |
 | `tests/` | Vérifications structurelles et navigateur |
 | `docs/` | Audit initial et compte rendu de validation |
@@ -49,6 +57,11 @@ python3 -m unittest tests/test_static.py -v
 node --check assets/js/theme.js
 node --check assets/js/main.js
 ```
+
+Les tests couvrent l’identité visuelle, le logo, le pied de page, la
+constellation (12 compétences, 3 orbites, noms accessibles, positions générées
+sans style inline à cause de la CSP), les icônes officielles et le téléchargement
+de l’APK (fichier réel, taille, empreinte SHA-256, en-têtes Vercel).
 
 Navigateur réel Chromium (layouts, thèmes, menu, dialogues, accessibilité axe-core, en-têtes de sécurité et absence de requêtes externes) :
 
@@ -79,6 +92,8 @@ Les URL historiques `index.html` et `certification.html` sont conservées. `proj
 - Tchatz Music utilise son logo officiel. Aucune capture réelle de l’interface Android n’étant disponible, aucune interface mobile n’est simulée.
 - Les quatre aperçus de certification sont rendus depuis les PDF originaux. Les intitulés, dates et numéros proviennent de ces documents.
 - L’APK v1.0.0 est un build debug réellement publié. Les limites de signature et d’installation sont indiquées avant téléchargement.
-- Les polices Manrope et DM Mono sont auto-hébergées ; leurs licences sont jointes.
+- Les polices Plus Jakarta Sans et Inter sont auto-hébergées ; leurs licences sont jointes.
+- Les icônes Font Awesome Free 7 (CC BY 4.0) et Simple Icons 16 (CC0 1.0) sont intégrées en SVG ; licences dans `assets/icons/`.
+- L’APK `assets/downloads/Tchatz-Music-1.0.0-debug.apk` (14 821 978 octets, SHA-256 `99595ce5…305e2b`) est identique à l’asset publié de la release `v1.0.0`.
 
-L’audit préalable et les résultats effectivement obtenus sont documentés dans `docs/AUDIT-INITIAL-2026-11.md` et `docs/COMPTE-RENDU-2026-11.md`.
+L’audit préalable et les résultats effectivement obtenus sont documentés dans `docs/AUDIT-INITIAL-2026-11.md`, `docs/COMPTE-RENDU-2026-11.md` et, pour la refonte bordeaux/anthracite, `docs/REFONTE-BORDEAUX-2026-11.md`.

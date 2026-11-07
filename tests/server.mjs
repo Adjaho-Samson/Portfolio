@@ -18,6 +18,7 @@ const types = {
   ".webp": "image/webp",
   ".jpg": "image/jpeg",
   ".png": "image/png",
+  ".apk": "application/vnd.android.package-archive",
   ".woff2": "font/woff2",
   ".pdf": "application/pdf",
   ".xml": "application/xml",
