@@ -1,0 +1,11 @@
+# Keep maintenance sources and tests out of the public static deployment.
+src
+tools
+tests
+docs
+.vscode
+.git
+.gitignore
+README.md
+test-results
+node_modules

@@ -1,0 +1,56 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="TchatzDev, accueil"
+      ><span class="brand-mark" aria-hidden="true">t<span>.</span></span
+      ><span>Tchatz<span class="brand-accent">Dev</span></span></a
+    >
+    <div class="header-actions">
+      <button
+        class="theme-toggle"
+        type="button"
+        hidden
+        data-theme-toggle
+        aria-label="Activer le mode sombre"
+        title="Activer le mode sombre"
+      >
+        <svg class="icon theme-icon-moon" aria-hidden="true">
+          <use href="#icon-moon"></use>
+        </svg>
+        <svg class="icon theme-icon-sun" aria-hidden="true">
+          <use href="#icon-sun"></use>
+        </svg>
+        <span class="theme-label" data-theme-label>Mode sombre</span>
+      </button>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="navigation"
+        aria-label="Ouvrir le menu"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+    <nav class="navigation" id="navigation" aria-label="Navigation principale">
+      <ul class="nav-links">
+        <li><a href="{{PREFIX}}index.html#parcours">À propos</a></li>
+        <li>
+          <a href="{{PREFIX}}projets.html" {{CURRENT_PROJECTS}}>Mes projets</a>
+        </li>
+        <li>
+          <a href="{{PREFIX}}certification.html" {{CURRENT_CERTIFICATIONS}}
+            >Certifications</a
+          >
+        </li>
+        <li><a href="{{PREFIX}}index.html#agora">AGORA</a></li>
+        <li>
+          <a class="nav-contact" href="{{PREFIX}}index.html#contact"
+            >Me contacter
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-arrow-up-right"></use></svg
+          ></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

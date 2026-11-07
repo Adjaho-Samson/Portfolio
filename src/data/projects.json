@@ -1,0 +1,97 @@
+[
+  {
+    "id": "tchatzsafe",
+    "name": "TchatzSafe",
+    "category": "sites-web",
+    "kind": "Éducation numérique",
+    "status": "Application web publiée",
+    "featured": true,
+    "url": "https://tchatzsafe.vercel.app/",
+    "image": "tchatzsafe.webp",
+    "imageAlt": "Page d’accueil de TchatzSafe, avec ses accès aux menaces, formations, quiz et conseils",
+    "summary": "Rendre la cybersécurité compréhensible et concrète, même sans bagage technique.",
+    "context": "Des réflexes numériques simples et fiables sont difficiles à adopter lorsque les risques sont expliqués dans un langage trop technique.",
+    "features": [
+      "Formations, fiches de menaces et quiz pédagogiques.",
+      "Progression sauvegardée sur l’appareil et analyseur local.",
+      "Application installable, avec cache hors connexion après un premier accès en ligne."
+    ],
+    "technologies": ["HTML", "CSS", "JavaScript", "PWA"]
+  },
+  {
+    "id": "tchatz-klassio",
+    "name": "Tchatz Klassio",
+    "category": "sites-web",
+    "kind": "Outil pour les étudiants",
+    "status": "Prototype web publié",
+    "featured": true,
+    "url": "https://tchatzklassio.vercel.app/",
+    "image": "tchatz-klassio.webp",
+    "imageAlt": "Page d’accueil de Tchatz Klassio : rejoindre une classe ou ouvrir l’espace responsable",
+    "summary": "Retrouver les documents de sa classe au même endroit, sans se perdre dans les groupes de discussion.",
+    "context": "Les supports de cours se dispersent. Klassio rassemble les ressources par classe et par matière, dans un format adapté aux usages universitaires locaux.",
+    "features": [
+      "Rejoindre une classe avec un code, sans compte étudiant.",
+      "Cours, TD et exercices classés par matière.",
+      "Publication enseignante par lien dédié et consultation hors connexion des documents conservés."
+    ],
+    "technologies": ["React", "Vite", "PWA"]
+  },
+  {
+    "id": "speedtype",
+    "name": "SpeedType",
+    "category": "sites-web",
+    "kind": "Apprentissage interactif",
+    "status": "Application web publiée",
+    "featured": true,
+    "url": "https://speedtype-tau.vercel.app/",
+    "image": "speedtype.webp",
+    "imageAlt": "Interface de SpeedType avec test de frappe, précision, durée et meilleur score local",
+    "summary": "Un jeu de frappe minimaliste pour s’entraîner à taper plus vite et avec davantage de précision.",
+    "context": "Mesurer sa progression et pratiquer régulièrement grâce à une interface légère, conçue pour rester disponible même hors connexion.",
+    "features": [
+      "Exercices de frappe avec mesure des performances.",
+      "Records et préférences enregistrés localement.",
+      "Application installable et utilisable hors ligne après son premier chargement réussi."
+    ],
+    "technologies": ["HTML", "CSS", "JavaScript", "PWA"]
+  },
+  {
+    "id": "trinahook",
+    "name": "Trina Hook",
+    "category": "sites-web",
+    "kind": "Vitrine artisanale",
+    "status": "Site web publié",
+    "featured": false,
+    "url": "https://trinahook.vercel.app/",
+    "image": "trinahook.webp",
+    "imageAlt": "Accueil de Trina Hook consacré aux créations en maille faites main",
+    "summary": "Une vitrine pour les créations en maille faites main et le savoir-faire de Trina Hook.",
+    "context": "Mon premier site web publié : donner une présence numérique à un univers artisanal et rendre ses créations découvertes plus facilement.",
+    "features": [
+      "Présentation des créations et de l’histoire de la marque.",
+      "Galerie de créations avec catégories.",
+      "Accès direct au contact WhatsApp."
+    ],
+    "technologies": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": "princeart",
+    "name": "Prince Art",
+    "category": "sites-web",
+    "kind": "Portfolio créatif",
+    "status": "Site web publié",
+    "featured": false,
+    "url": "https://princeart.vercel.app/",
+    "image": "princeart.webp",
+    "imageAlt": "Accueil du portfolio de Prince-Abraham Junior Shègun ADJAHO, juriste, écrivain et artiste",
+    "summary": "Un univers éditorial où le droit, les mots et la création artistique se rencontrent.",
+    "context": "Présenter les différentes facettes de Prince-Abraham Junior Shègun ADJAHO dans un portfolio à l’identité affirmée.",
+    "features": [
+      "Présentation du parcours et des univers de création.",
+      "Pages consacrées aux écrits et aux réalisations artistiques.",
+      "Parcours de navigation et accès au contact."
+    ],
+    "technologies": ["HTML", "CSS", "JavaScript"]
+  }
+]

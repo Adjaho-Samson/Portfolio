@@ -1,0 +1,39 @@
+{
+  "name": "Samson Adjaho",
+  "legalName": "Samson Guy-Emmanuel Trésor Adjaho",
+  "brand": "TchatzDev",
+  "origin": "https://tchatzdev.vercel.app",
+  "email": "tchatzdev@gmail.com",
+  "whatsapp": "https://wa.me/22955741060",
+  "facebook": "https://www.facebook.com/profile.php?id=61593514138547",
+  "location": "Abomey-Calavi, Bénin",
+  "school": "ESM-Bénin",
+  "field": "Systèmes Informatiques et Logiciels",
+  "pages": {
+    "index.html": {
+      "path": "/",
+      "title": "TchatzDev — Samson Adjaho, développeur web & Android",
+      "description": "Portfolio de Samson Adjaho, étudiant en Systèmes Informatiques et Logiciels à ESM-Bénin. Découvrez ses projets web, son application Android et ses certifications.",
+      "label": "Accueil"
+    },
+    "projets.html": {
+      "path": "/projets.html",
+      "title": "Mes projets — Sites web & applications | TchatzDev",
+      "description": "Découvrez TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook, Prince Art et Tchatz Music : des réalisations web et Android de Samson Adjaho.",
+      "label": "Projets"
+    },
+    "certification.html": {
+      "path": "/certification.html",
+      "title": "Mes certifications — Samson Adjaho | TchatzDev",
+      "description": "Certificats OpenClassrooms de Samson Guy-Emmanuel Trésor Adjaho : HTML & CSS, agents IA et vibe coding, Git et GitHub, administration Linux. Aperçus et PDF originaux.",
+      "label": "Certifications"
+    },
+    "404.html": {
+      "path": "/404.html",
+      "title": "Page introuvable | TchatzDev",
+      "description": "Cette page n’existe pas ou a été déplacée. Retrouvez les projets et le parcours de Samson Adjaho.",
+      "label": "Page introuvable",
+      "noindex": true
+    }
+  }
+}
