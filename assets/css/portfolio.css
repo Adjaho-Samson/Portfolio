@@ -141,6 +141,12 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
+  /* Filet de sécurité : aucune barre de défilement horizontale, même si un
+     élément décoratif déborde. `clip` (contrairement à `hidden`) ne crée pas
+     de conteneur de défilement : l'en-tête collant reste fonctionnel.
+     Socle du site (color-mix, aspect-ratio, clip-path…) : `clip` est
+     disponible partout où le reste du design l'est déjà. */
+  overflow-x: clip;
 }
 @view-transition {
   navigation: auto;
@@ -887,6 +893,13 @@ main:focus {
   aspect-ratio: 1;
   justify-self: center;
   isolation: isolate;
+  /* Les pistes d'orbite sont des carrés invisibles en rotation : leur boîte
+     englobante (diagonale du carré) dépassait la scène et créait un
+     débordement horizontal document. On rogne ce débordement sans toucher
+     aux pastilles : `overflow-clip-margin` laisse de la place aux pastilles,
+     au survol (scale 1.12) et aux contours de focus. */
+  overflow: clip;
+  overflow-clip-margin: 34px;
 }
 .constellation::before {
   content: "";
