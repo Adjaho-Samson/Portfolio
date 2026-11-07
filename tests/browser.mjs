@@ -1,7 +1,8 @@
 /* Real Chromium checks: layouts, themes, navigation, dialogs, accessibility,
    network isolation and production security headers. Run after tests/npm ci. */
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdir, stat, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import { startServer } from "./server.mjs";
@@ -16,8 +17,9 @@ const browser = await chromium.launch({
     ? [
         "--no-sandbox",
         "--disable-dev-shm-usage",
-        "--single-process",
-        "--disable-gpu",
+        "--use-gl=angle",
+        "--use-angle=swiftshader",
+        "--enable-unsafe-swiftshader",
       ]
     : [],
 });
@@ -306,13 +308,142 @@ try {
     5,
   );
   assert.equal(
-    await page.getByRole("link", { name: /Télécharger l’APK debug/ }).count(),
+    await page.getByRole("link", { name: /Télécharger l’APK Android/ }).count(),
     1,
   );
-  assert.equal(await page.locator('a[href*="github.com"]').count(), 1);
-  results.interactions.push(
-    "five demo links and one direct APK link; no repository links",
+  assert.equal(await page.locator('a[href*="github.com"]').count(), 0);
+  // The download button points at a real same-origin APK, never a profile,
+  // a repository page or a fictitious URL.
+  const apkHref = await page
+    .locator('.download-panel a[download]')
+    .getAttribute("href");
+  assert.equal(apkHref, "assets/downloads/Tchatz-Music-1.0.0-debug.apk");
+  const apkResponse = await context.request.get(`${server.url}/${apkHref}`);
+  assert.equal(apkResponse.status(), 200);
+  assert.equal(
+    apkResponse.headers()["content-type"],
+    "application/vnd.android.package-archive",
   );
+  const apkBytes = Buffer.from(await apkResponse.body());
+  assert.equal(apkBytes.length, 14821978);
+  assert.equal(
+    createHash("sha256").update(apkBytes).digest("hex"),
+    "99595ce59ce95f051fed3e7b2b6d8c00e22052888c0c1cab6c07a8f280305e2b",
+  );
+  assert.equal(apkBytes.subarray(0, 2).toString(), "PK");
+  results.interactions.push(
+    "five demo links and one direct, checksum-verified APK; no repository links",
+  );
+
+  // Android and desktop both trigger a real download of the same file.
+  for (const [label, userAgent] of [
+    [
+      "Android",
+      "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Mobile Safari/537.36",
+    ],
+    ["desktop", undefined],
+  ]) {
+    const downloadContext = await browser.newContext({
+      userAgent,
+      acceptDownloads: true,
+      viewport: { width: 412, height: 915 },
+    });
+    const downloadPage = await downloadContext.newPage();
+    await downloadPage.goto(`${server.url}/projets.html`, {
+      waitUntil: "networkidle",
+    });
+    const [download] = await Promise.all([
+      downloadPage.waitForEvent("download"),
+      downloadPage.locator(".download-panel a[download]").click(),
+    ]);
+    assert.equal(download.suggestedFilename(), "Tchatz-Music-1.0.0-debug.apk");
+    const file = await download.path();
+    assert.equal((await stat(file)).size, 14821978);
+    const status = await downloadPage
+      .locator("[data-download-status]")
+      .textContent();
+    assert.match(status, /Téléchargement de Tchatz-Music-1\.0\.0-debug\.apk/);
+    if (label === "desktop") assert.match(status, /Android/);
+    await downloadContext.close();
+  }
+  results.interactions.push(
+    "APK download triggered from Android and desktop user agents",
+  );
+
+  // The constellation freezes on hover, names the skill and pauses on demand.
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto(server.url, { waitUntil: "networkidle" });
+  const pause = page.locator("[data-orbit-pause]");
+  await pause.click();
+  assert.equal(await pause.getAttribute("aria-pressed"), "true");
+  assert.equal(
+    await page.locator("[data-constellation]").getAttribute("data-paused"),
+    "true",
+  );
+  assert.equal(
+    await page
+      .locator(".orbit-path")
+      .first()
+      .evaluate((node) => getComputedStyle(node).animationPlayState),
+    "paused",
+  );
+  // Paused, the satellites stop moving, so a real pointer hover is possible.
+  // Hovering names the skill and freezes the whole system.
+  await page.locator(".satellite").first().hover({ force: true });
+  assert.match(
+    await page.locator("[data-constellation]").getAttribute("class"),
+    /is-frozen/,
+  );
+  assert.equal(await page.locator("[data-caption-name]").textContent(), "HTML5");
+  assert.equal(
+    await page.locator("[data-caption-kind]").textContent(),
+    "Langage de structuration",
+  );
+  await page.mouse.move(5, 5);
+  assert.equal(await pause.getAttribute("aria-pressed"), "true");
+  await pause.click();
+  assert.equal(await pause.getAttribute("aria-pressed"), "false");
+  assert.equal(
+    await page.locator("[data-constellation]").getAttribute("data-paused"),
+    "false",
+  );
+  // While running, a pointer entering a satellite still freezes the system.
+  await page.locator(".satellite").nth(3).dispatchEvent("pointerenter");
+  assert.match(
+    await page.locator("[data-constellation]").getAttribute("class"),
+    /is-frozen/,
+  );
+  assert.equal(await page.locator("[data-caption-name]").textContent(), "React");
+  await page.locator(".satellite").nth(3).dispatchEvent("pointerleave");
+  assert.equal(await page.locator("[data-caption-name]").textContent(), "12 compétences");
+  // Keyboard: focusing a satellite names it, without trapping focus.
+  await page.locator(".satellite").first().focus();
+  assert.equal(await page.locator("[data-caption-name]").textContent(), "HTML5");
+  results.interactions.push(
+    "constellation hover freeze, live skill caption, pause control and keyboard focus",
+  );
+
+  // Reduced motion: the system is static and the pause control disappears.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(
+    await page.locator("[data-constellation]").getAttribute("data-paused"),
+    "true",
+  );
+  assert.equal(
+    await page.locator("[data-orbit-pause]").isVisible(),
+    false,
+  );
+  assert.equal(
+    await page
+      .locator(".satellite-chip")
+      .first()
+      .evaluate((node) => getComputedStyle(node).animationName),
+    "none",
+  );
+  results.interactions.push("constellation respects reduced motion");
+  await page.emulateMedia({ reducedMotion: "reduce" });
 
   // Every local button/link has a real handler or destination; no audience requests.
   await page.goto(server.url, { waitUntil: "networkidle" });
@@ -388,8 +519,9 @@ try {
       ? [
           "--no-sandbox",
           "--disable-dev-shm-usage",
-          "--single-process",
-          "--disable-gpu",
+          "--use-gl=angle",
+          "--use-angle=swiftshader",
+          "--enable-unsafe-swiftshader",
         ]
       : [],
   });
@@ -425,8 +557,9 @@ try {
       ? [
           "--no-sandbox",
           "--disable-dev-shm-usage",
-          "--single-process",
-          "--disable-gpu",
+          "--use-gl=angle",
+          "--use-angle=swiftshader",
+          "--enable-unsafe-swiftshader",
         ]
       : [],
   });

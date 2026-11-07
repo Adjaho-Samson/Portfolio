@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
+import hashlib
 import json
 import re
 import subprocess
@@ -11,7 +12,12 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "projets.html", "certification.html", "404.html")
-APK = "https://github.com/Adjaho-Samson/Tchatz-Music-Android/releases/download/v1.0.0/Tchatz-Music-debug.apk"
+APK = "assets/downloads/Tchatz-Music-1.0.0-debug.apk"
+APK_SHA256 = "99595ce59ce95f051fed3e7b2b6d8c00e22052888c0c1cab6c07a8f280305e2b"
+SKILLS = [
+    "HTML5", "CSS3", "JavaScript", "React", "PHP", "Vue.js",
+    "Python", "Kotlin", "Android natif", "Git & GitHub", "Linux", "Accessibilité web",
+]
 
 
 class Document(HTMLParser):
@@ -144,13 +150,13 @@ class StaticPortfolioTests(unittest.TestCase):
         self.assertIn("Android 8.0 et plus", catalog)
         self.assertIn("build debug", catalog)
         self.assertIn("Aucune capture réelle", catalog)
+        self.assertIn('id="tchatz-music"', catalog)
         self.assertEqual(self.texts["index.html"].count('class="project-card"'), 3)
 
     def test_no_repository_access_in_public_interface(self):
         for filename, doc in self.documents.items():
             for tag, kind, raw, attrs in doc.links:
-                if "github.com" in raw.lower():
-                    self.assertEqual(raw, APK, f"{filename}: repository/profile link {raw}")
+                self.assertNotIn("github.com", raw.lower(), f"{filename}: {raw}")
                 if tag == "a" and attrs.get("target") == "_blank":
                     self.assertIn("noopener", attrs.get("rel", ""))
                     self.assertIn("noreferrer", attrs.get("rel", ""))
@@ -158,6 +164,123 @@ class StaticPortfolioTests(unittest.TestCase):
             self.assertNotRegex(readable, r"Code source|Voir le code|Repository|Espace administrateur")
         for schema in self.documents["index.html"].schemas:
             self.assertNotIn("https://github.com/Adjaho-Samson", schema.get("sameAs", []))
+
+    def test_apk_is_served_directly_from_the_site(self):
+        """Le bouton déclenche le fichier hébergé ici : ni profil ni dépôt."""
+        site = json.loads((ROOT / "src/data/site.json").read_text())
+        release = site["release"]
+        self.assertEqual(release["file"], APK)
+        apk = ROOT / APK
+        self.assertTrue(apk.is_file(), APK)
+        data = apk.read_bytes()
+        self.assertEqual(len(data), release["sizeBytes"])
+        self.assertEqual(hashlib.sha256(data).hexdigest(), APK_SHA256)
+        self.assertEqual(data[:2], b"PK", "APK illisible : ce n'est pas une archive ZIP")
+        for filename in ("index.html", "projets.html"):
+            text = self.texts[filename]
+            self.assertNotIn("github.com/Adjaho-Samson", text)
+        page = self.texts["projets.html"]
+        self.assertIn(f'href="{APK}"', page)
+        self.assertIn('download="Tchatz-Music-1.0.0-debug.apk"', page)
+        self.assertIn('type="application/vnd.android.package-archive"', page)
+        self.assertIn(APK_SHA256, page)
+        self.assertNotRegex(page, r"releases/download|/releases|/blob/|/tree/")
+        # Aucune promesse de version PC ni de fausse confirmation.
+        self.assertIn("Android uniquement", page)
+        self.assertNotIn("Version PC", page)
+        self.assertNotIn("Windows", page.split("Android uniquement")[0].split("Télécharger l’application")[-1])
+        status = (ROOT / "assets/js/main.js").read_text()
+        self.assertNotIn("window.open", status)
+        self.assertNotIn("fetch(", status)
+        self.assertIn("data-download-status", status)
+        config = json.loads((ROOT / "vercel.json").read_text())
+        rules = {rule["source"]: {h["key"]: h["value"] for h in rule["headers"]} for rule in config["headers"]}
+        self.assertEqual(
+            rules["/assets/downloads/(.*).apk"]["Content-Type"],
+            "application/vnd.android.package-archive",
+        )
+        self.assertEqual(rules["/assets/downloads/(.*).apk"]["Content-Disposition"], "attachment")
+
+    def test_skill_constellation_matches_the_requested_list_and_stays_static(self):
+        skills = json.loads((ROOT / "src/data/skills.json").read_text())
+        labels = [s["label"] for s in skills["skills"]]
+        self.assertEqual(sorted(labels), sorted(SKILLS))
+        self.assertEqual(len(skills["orbits"]), 3)
+        self.assertEqual(len({s["id"] for s in skills["skills"]}), 12)
+        index = self.texts["index.html"]
+        self.assertEqual(index.count('class="satellite"'), 12)
+        self.assertEqual(index.count('class="orbit"'), 3)
+        # Chaque compétence garde son nom accessible et son icône officielle.
+        for skill in skills["skills"]:
+            self.assertIn(f'data-skill="{skill["id"]}"', index)
+            self.assertIn(f'data-name="{skill["label"]}"', index.replace("&amp;", "&"))
+            self.assertIn(f'#icon-{skill["icon"]}', index)
+        self.assertIn('id="icon-brand-html5"', index)
+        self.assertIn('id="icon-brand-kotlin"', index)
+        self.assertIn('id="icon-fa-universal-access"', index)
+        # Les positions sont générées dans une feuille dédiée, pas en style inline
+        # (la CSP de production refuse les styles en ligne).
+        orbits = (ROOT / "assets/css/orbits.css").read_text()
+        for skill in skills["skills"]:
+            self.assertIn(f'.satellite[data-skill="{skill["id"]}"]', orbits)
+        self.assertIn("assets/css/orbits.css", index)
+        self.assertNotRegex(index, r'data-skill="[a-z]+" style=')
+        self.assertNotIn("style=", index.split("<main")[1].split("</main>")[0])
+        main_js = (ROOT / "assets/js/main.js").read_text()
+        self.assertIn("prefers-reduced-motion", main_js)
+        self.assertIn("data-orbit-pause", index)
+        self.assertIn("is-frozen", main_js)
+        self.assertIn("--dur:", orbits)
+
+    def test_fontawesome_sprites_are_official_and_local(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        from icon_data import ICON_LIBRARY
+
+        for name, (_view_box, body, credit) in ICON_LIBRARY.items():
+            self.assertTrue(body.strip(), name)
+            self.assertIn("currentColor", body + "currentColor", name)
+            self.assertTrue(credit.startswith(("Font Awesome", "Simple Icons")), name)
+        index = self.texts["index.html"]
+        for required in ("fa-envelope", "fa-handshake", "fa-laptop-code", "fa-mobile-screen", "fa-download"):
+            self.assertIn(f'id="icon-{required}"', index, required)
+        # Chaque symbole déclaré est réellement utilisé quelque part.
+        for name in ICON_LIBRARY:
+            self.assertIn(f"#icon-{name}", "".join(self.texts.values()), name)
+        self.assertTrue((ROOT / "assets/icons/LICENSE.md").is_file())
+        self.assertTrue((ROOT / "assets/icons/LICENSE-fontawesome.txt").is_file())
+        self.assertTrue((ROOT / "assets/icons/LICENSE-simple-icons.md").is_file())
+
+    def test_identity_logo_footer_and_typography(self):
+        css = (ROOT / "assets/css/portfolio.css").read_text()
+        # Nouvelle identité : bordeaux, anthracite, blanc cassé.
+        for token in ("--wine:", "--ink:", "--bg:", "--on-inverse:"):
+            self.assertIn(token, css)
+        self.assertIn('[data-theme="dark"]', css)
+        # Typographie : Plus Jakarta Sans pour les titres, Inter pour les textes.
+        self.assertIn("Plus Jakarta Sans", css)
+        self.assertIn("Inter", css)
+        self.assertNotIn("Manrope", css)
+        self.assertNotIn("DM Mono", css)
+        self.assertTrue((ROOT / "assets/fonts/plus-jakarta-sans-variable-latin.woff2").is_file())
+        self.assertTrue((ROOT / "assets/fonts/inter-variable-latin.woff2").is_file())
+        for font in ("fontsource", "manrope"):
+            self.assertEqual(list((ROOT / "assets/fonts").glob(f"*{font}*")), [])
+        # Logo : un T seul, plus de point sous le T.
+        favicon = (ROOT / "assets/favicon.svg").read_text()
+        self.assertIn("<path", favicon)
+        self.assertNotIn("<circle", favicon)
+        for filename, text in self.texts.items():
+            self.assertIn('class="brand-mark"', text)
+            self.assertNotIn('class="brand-mark" aria-hidden="true">t<span>', text)
+        # Pied de page refondu, sans la mention d'audience supprimée.
+        for filename, text in self.texts.items():
+            footer = text.split('<footer class="site-footer">')[1]
+            self.assertNotRegex(footer.lower(), r"aucun traceur|tracker|site statique")
+            self.assertIn("data-current-year", footer)
+            self.assertIn("footer-nav", footer)
+            self.assertIn("footer-socials", footer)
+            self.assertIn("Réalisations", footer)
+        self.assertIn("footer-brand", self.texts["index.html"])
 
     def test_backend_integration_and_tracking_are_removed(self):
         for name in ("admin.html", "admin.js", "admin.css", "analytics-config.js", "supabase", "docs/supabase-analytics.md"):
@@ -214,9 +337,12 @@ class StaticPortfolioTests(unittest.TestCase):
             for tag, kind, raw, attrs in doc.links:
                 if tag in {"script", "img"} or (tag == "link" and attrs.get("rel") in {"stylesheet", "preload", "icon"}):
                     self.assertFalse(raw.startswith("http"), f"{filename}: remote asset {raw}")
-        self.assertLess(sum(p.stat().st_size for p in (ROOT / "assets/fonts").glob("*.woff2")), 60000)
+        # Deux familles variables, sous-ensemble latin : Plus Jakarta Sans
+        # (titres) et Inter (textes), préchargées et auto-hébergées.
+        self.assertLess(sum(p.stat().st_size for p in (ROOT / "assets/fonts").glob("*.woff2")), 80000)
         self.assertLess((ROOT / "assets/images/trinahook.webp").stat().st_size, 100000)
-        self.assertFalse(list(ROOT.rglob("*.apk")))
+        # Un seul APK, celui réellement proposé au téléchargement.
+        self.assertEqual(sorted(p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.apk")), [APK])
 
 
 if __name__ == "__main__":

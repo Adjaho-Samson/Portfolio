@@ -1,0 +1,20 @@
+/* Généré par tools/build.py à partir de src/data/skills.json.
+   Positions des orbites et des compétences : aucune règle écrite à la main.
+   Les coordonnées sont des pourcentages de la scène : la scène étant
+   carrée, les orbites restent parfaitement circulaires et aucun élément
+   ne peut sortir de son cadre. */
+.orbit[data-orbit="fondations"],.orbit-path[data-orbit="fondations"] { --r: 0.46; --dur: 32s; --dir: normal; --dir-counter: reverse; }
+.satellite[data-skill="html5"] { --x: 0.000%; --y: -23.000%; }
+.satellite[data-skill="css3"] { --x: 19.919%; --y: 11.500%; }
+.satellite[data-skill="javascript"] { --x: -19.919%; --y: 11.500%; }
+.orbit[data-orbit="frameworks"],.orbit-path[data-orbit="frameworks"] { --r: 0.675; --dur: 48s; --dir: reverse; --dir-counter: normal; }
+.satellite[data-skill="react"] { --x: 29.228%; --y: 16.875%; }
+.satellite[data-skill="vuejs"] { --x: -29.228%; --y: 16.875%; }
+.satellite[data-skill="php"] { --x: -0.000%; --y: -33.750%; }
+.orbit[data-orbit="logiciel"],.orbit-path[data-orbit="logiciel"] { --r: 0.875; --dur: 60s; --dir: normal; --dir-counter: reverse; }
+.satellite[data-skill="python"] { --x: 37.889%; --y: 21.875%; }
+.satellite[data-skill="kotlin"] { --x: 0.000%; --y: 43.750%; }
+.satellite[data-skill="android"] { --x: -37.889%; --y: 21.875%; }
+.satellite[data-skill="git"] { --x: -37.889%; --y: -21.875%; }
+.satellite[data-skill="linux"] { --x: -0.000%; --y: -43.750%; }
+.satellite[data-skill="accessibilite"] { --x: 37.889%; --y: -21.875%; }

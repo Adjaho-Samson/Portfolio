@@ -2,24 +2,41 @@
   "name": "Samson Adjaho",
   "legalName": "Samson Guy-Emmanuel Trésor Adjaho",
   "brand": "TchatzDev",
+  "tagline": "Des idées, du code, des solutions utiles.",
   "origin": "https://tchatzdev.vercel.app",
   "email": "tchatzdev@gmail.com",
   "whatsapp": "https://wa.me/22955741060",
+  "whatsappLabel": "+229 55 74 10 60",
   "facebook": "https://www.facebook.com/profile.php?id=61593514138547",
   "location": "Abomey-Calavi, Bénin",
   "school": "ESM-Bénin",
   "field": "Systèmes Informatiques et Logiciels",
+  "release": {
+    "label": "Tchatz Music 1.0.0",
+    "version": "1.0.0",
+    "date": "2026-11-03",
+    "dateLabel": "3 novembre 2026",
+    "file": "assets/downloads/Tchatz-Music-1.0.0-debug.apk",
+    "fileName": "Tchatz-Music-1.0.0-debug.apk",
+    "sizeBytes": 14821978,
+    "sizeLabel": "14,8 Mo",
+    "sha256": "99595ce59ce95f051fed3e7b2b6d8c00e22052888c0c1cab6c07a8f280305e2b",
+    "minAndroid": "Android 8.0 (API 26)",
+    "targetAndroid": "API 35",
+    "channel": "build debug signé avec la clé de développement du dépôt",
+    "upstream": "https://github.com/Adjaho-Samson/Tchatz-Music-Android/releases/tag/v1.0.0"
+  },
   "pages": {
     "index.html": {
       "path": "/",
       "title": "TchatzDev — Samson Adjaho, développeur web & Android",
-      "description": "Portfolio de Samson Adjaho, étudiant en Systèmes Informatiques et Logiciels à ESM-Bénin. Découvrez ses projets web, son application Android et ses certifications.",
+      "description": "Portfolio de Samson Adjaho, étudiant en Systèmes Informatiques et Logiciels à ESM-Bénin. Projets web, application Android Tchatz Music, compétences et certifications.",
       "label": "Accueil"
     },
     "projets.html": {
       "path": "/projets.html",
-      "title": "Mes projets — Sites web & applications | TchatzDev",
-      "description": "Découvrez TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook, Prince Art et Tchatz Music : des réalisations web et Android de Samson Adjaho.",
+      "title": "Mes projets — Sites web & application Android | TchatzDev",
+      "description": "TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook, Prince Art et l’application Android Tchatz Music : les réalisations de Samson Adjaho, avec captures réelles et téléchargement APK direct.",
       "label": "Projets"
     },
     "certification.html": {

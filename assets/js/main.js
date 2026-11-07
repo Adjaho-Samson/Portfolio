@@ -1,5 +1,9 @@
-/* Navigation, progressive reveal and the certificate dialog. No network calls. */
+/* Navigation, constellation de compétences, téléchargement APK et visionneuse
+   de certificats. Aucune requête réseau, aucune mesure d'audience. */
 (() => {
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------------------------------------------------------------- Menu -- */
   const header = document.querySelector(".site-header");
   const menuButton = document.querySelector(".menu-toggle");
   const navigation = document.querySelector(".navigation");
@@ -38,17 +42,105 @@
         setOpen(false, true);
       }
     });
-    // The dropdown is non-modal. Close it when keyboard focus leaves the header.
+    // Le panneau n'est pas modal : il se referme quand le focus le quitte.
     document.addEventListener("focusin", (event) => {
       if (!header.contains(event.target)) setOpen(false);
     });
   }
 
+  /* ------------------------------------------------------------ Année ---- */
   document.querySelectorAll("[data-current-year]").forEach((element) => {
     element.textContent = String(new Date().getFullYear());
   });
 
-  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /* ------------------------------------------------- Constellation ----- */
+  /* Les orbites tournent en CSS. Ce script ne fait que : figer le système au
+     survol, révéler le nom de la compétence pointée, proposer une pause
+     explicite au clavier et couper l'animation si la personne la refuse. */
+  document.querySelectorAll("[data-constellation]").forEach((scene) => {
+    // La légende et la pause vivent à côté de la scène, dans la même figure.
+    const figure = scene.closest(".constellation-figure") ?? scene.parentElement;
+    const captionName = figure?.querySelector("[data-caption-name]");
+    const captionKind = figure?.querySelector("[data-caption-kind]");
+    const total = scene.querySelectorAll(".satellite").length;
+    const pauseButton = figure?.querySelector("[data-orbit-pause]");
+    const pauseLabel = pauseButton?.querySelector("[data-orbit-pause-label]");
+    const restName = total ? `${total} compétences` : "Compétences";
+    const restKind = "Web, mobile et systèmes";
+
+    const describe = (node) => {
+      if (!captionName || !captionKind) return;
+      const name = node?.dataset.name;
+      const kind = node?.dataset.kind;
+      captionName.textContent = name || restName;
+      captionKind.textContent = kind || restKind;
+    };
+
+    scene.querySelectorAll(".satellite").forEach((node) => {
+      // Le pointeur peut traverser la pastille en mouvement : on écoute la
+      // scène entière et on résout la compétence réellement survolée.
+      node.addEventListener("pointerenter", () => {
+        describe(node);
+        scene.classList.add("is-frozen");
+      });
+      node.addEventListener("pointerleave", () => {
+        scene.classList.remove("is-frozen");
+        if (!node.contains(document.activeElement)) describe(null);
+      });
+      node.addEventListener("focus", () => describe(node));
+      node.addEventListener("blur", () => describe(null));
+    });
+    // Sur écran tactile, le nom reste affiché après un appui.
+    scene.addEventListener("click", (event) => {
+      const node = event.target.closest(".satellite");
+      if (node) describe(node);
+    });
+
+    if (motion.matches) {
+      scene.dataset.paused = "true";
+      if (pauseButton) {
+        pauseButton.hidden = true;
+      }
+    } else if (pauseButton) {
+      pauseButton.addEventListener("click", () => {
+        const paused = pauseButton.getAttribute("aria-pressed") === "true";
+        pauseButton.setAttribute("aria-pressed", String(!paused));
+        scene.dataset.paused = String(!paused);
+        if (pauseLabel) {
+          pauseLabel.textContent = paused
+            ? "Mettre en pause"
+            : "Reprendre le mouvement";
+        }
+      });
+    }
+    motion.addEventListener?.("change", (event) => {
+      if (!event.matches) return;
+      scene.dataset.paused = "true";
+      scene.classList.remove("is-frozen");
+      if (pauseButton) pauseButton.hidden = true;
+      describe(null);
+    });
+  });
+
+  /* ------------------------------------------------ Téléchargement APK -- */
+  /* Le lien est un vrai fichier servi par le site : aucun script ne fabrique
+     d'URL ni ne simule une fin de téléchargement. On indique seulement le
+     contexte matériel (aucune version PC) et l'état du fichier. */
+  document.querySelectorAll("[data-download]").forEach((panel) => {
+    const link = panel.querySelector('a[download]');
+    const status = panel.querySelector("[data-download-status]");
+    if (!link || !status) return;
+    const fileName = link.getAttribute("download") || "l’application";
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    link.addEventListener("click", () => {
+      status.hidden = false;
+      status.textContent = isAndroid
+        ? `Téléchargement de ${fileName} lancé. Ouvrez le fichier depuis la notification ou le dossier Téléchargements pour installer l’application.`
+        : `Téléchargement de ${fileName} lancé dans le dossier Téléchargements. Ce fichier s’installe uniquement sur Android.`;
+    });
+  });
+
+  /* ------------------------------------------------------ Révélations --- */
   const items = [...document.querySelectorAll("[data-reveal]")];
   let observer;
   const showAll = () => {
@@ -67,7 +159,7 @@
       { threshold: 0.06, rootMargin: "0px 0px -20px 0px" },
     );
     items.forEach((item) => {
-      // Above-the-fold content and anchor targets never wait for an animation.
+      // Le contenu au-dessus de la ligne de flottaison n'attend jamais.
       if (
         item.getBoundingClientRect().top < window.innerHeight ||
         item.querySelector(":target")
@@ -86,15 +178,11 @@
     if (reveal) reveal.classList.add("is-visible");
   });
 
+  /* -------------------------------------------------- Certification ----- */
   const dialog = document.getElementById("certificate-dialog");
   const preview = document.getElementById("certificate-preview");
   const closeButton = document.getElementById("certificate-close");
-  if (
-    dialog &&
-    preview &&
-    closeButton &&
-    typeof dialog.showModal === "function"
-  ) {
+  if (dialog && preview && closeButton && typeof dialog.showModal === "function") {
     let trigger = null;
     const title = document.getElementById("dialog-title");
     const description = document.getElementById("dialog-description");
@@ -139,6 +227,6 @@
       trigger?.focus();
     });
   }
-  // Without native dialog support (or without JavaScript), certificate controls
-  // remain ordinary links to the original PDFs.
+  // Sans dialogue natif (ou sans JavaScript), les contrôles restent des liens
+  // vers les PDF originaux.
 })();
