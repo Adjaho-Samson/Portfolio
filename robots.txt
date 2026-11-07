@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /analytics-config.js
 
 Sitemap: https://tchatzdev.vercel.app/sitemap.xml

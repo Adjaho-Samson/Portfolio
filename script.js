@@ -1,370 +1,384 @@
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
+(() => {
+  const menuButton = document.querySelector(".menu-toggle");
+  const navigation = document.querySelector(".nav-links");
 
-if (menuBtn && navLinks) {
-  menuBtn.setAttribute("aria-expanded", "false");
-  menuBtn.addEventListener("click", () => {
-    const opened = navLinks.classList.toggle("active");
-    // also toggle a body-level flag to ensure menu is visible above everything
-    document.body.classList.toggle("menu-open", opened);
-    menuBtn.textContent = opened ? "✕" : "☰";
-    menuBtn.setAttribute("aria-expanded", opened ? "true" : "false");
-    if (opened) {
-      const first = navLinks.querySelector("a");
-      if (first) first.focus();
-    } else {
-      menuBtn.focus();
-    }
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("active");
-      document.body.classList.remove("menu-open");
-      menuBtn.textContent = "☰";
-      menuBtn.setAttribute("aria-expanded", "false");
-    });
-  });
-}
-
-// Reveal page content as it enters the viewport.
-const revealElements = document.querySelectorAll(
-  ".hero-content, .hero-profile, .section-header, .about-grid > *, .skills-grid > *, .projects-grid > *, .mission-box, .contact-content, .certifications-intro, .certification-card, .certification-back, .footer > *",
-);
-if (revealElements.length > 0 && "IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
-  );
-  revealElements.forEach((element) => {
-    const siblingIndex = Array.prototype.indexOf.call(
-      element.parentElement.children,
-      element,
-    );
-    element.style.setProperty(
-      "--reveal-delay",
-      `${Math.min(siblingIndex * 90, 360)}ms`,
-    );
-    element.classList.add("hidden");
-    observer.observe(element);
-  });
-}
-
-// Accessibility: close menus/modals on Escape (example for future modals)
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    if (navLinks && navLinks.classList.contains("active")) {
-      navLinks.classList.remove("active");
-      if (menuBtn) {
-        menuBtn.textContent = "☰";
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.focus();
-      }
-    }
+  function closeMenu({ returnFocus = false } = {}) {
+    if (!menuButton || !navigation) return;
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Ouvrir le menu");
+    navigation.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    if (returnFocus) menuButton.focus();
   }
-});
 
-/* Particles background (lightweight) */
-(function initParticles() {
-  const canvas = document.getElementById("particles");
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext("2d");
-
-  let w = innerWidth;
-  let h = innerHeight;
-  let DPR = Math.min(2, window.devicePixelRatio || 1);
-  canvas.style.width = w + "px";
-  canvas.style.height = h + "px";
-  canvas.width = Math.floor(w * DPR);
-  canvas.height = Math.floor(h * DPR);
-  ctx.scale(DPR, DPR);
-
-  const particles = [];
-  const area = w * h;
-  const base = Math.floor(area / 90000);
-  const maxCount = w < 700 ? 40 : 120;
-  const count = Math.max(20, Math.min(maxCount, base));
-
-  function rand(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-  for (let i = 0; i < count; i++)
-    particles.push({
-      x: rand(0, w),
-      y: rand(0, h),
-      vx: rand(-0.3, 0.3),
-      vy: rand(-0.6, 0.6),
-      r: rand(0.6, 1.6),
+  if (menuButton && navigation) {
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute(
+        "aria-label",
+        isOpen ? "Ouvrir le menu" : "Fermer le menu",
+      );
+      navigation.classList.toggle("is-open", !isOpen);
+      document.body.classList.toggle("menu-open", !isOpen);
+      if (!isOpen) navigation.querySelector("a")?.focus();
     });
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
+    });
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.innerWidth > 740) closeMenu();
+      },
+      { passive: true },
+    );
+    document.addEventListener("click", (event) => {
+      if (
+        menuButton.getAttribute("aria-expanded") === "true" &&
+        !navigation.contains(event.target) &&
+        !menuButton.contains(event.target)
+      )
+        closeMenu();
+    });
+  }
 
-  let resizeTimeout = null;
-  window.addEventListener(
-    "resize",
-    () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        w = innerWidth;
-        h = innerHeight;
-        DPR = Math.min(2, window.devicePixelRatio || 1);
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        canvas.width = Math.floor(w * DPR);
-        canvas.height = Math.floor(h * DPR);
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(DPR, DPR);
-      }, 120);
-    },
-    { passive: true },
-  );
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      menuButton?.getAttribute("aria-expanded") === "true"
+    )
+      closeMenu({ returnFocus: true });
+  });
 
-  let frame = 0;
-  function step() {
-    frame++;
-    ctx.clearRect(0, 0, w, h);
-    for (let p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = w;
-      if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h;
-      if (p.y > h) p.y = 0;
-      ctx.beginPath();
-      ctx.fillStyle = "rgba(255,43,43,0.9)";
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // connect close particles, run less often to save CPU
-    if (frame % 3 === 0) {
-      const threshold = 90 * 90; // squared distance threshold (~90px)
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < threshold) {
-            const alpha = Math.max(0, 0.12 - (d2 / threshold) * 0.12);
-            ctx.strokeStyle = "rgba(255,43,43," + alpha + ")";
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
+  const reducedMotion = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const revealItems = document.querySelectorAll("[data-reveal]");
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+  } else {
+    revealItems.forEach((item) => item.classList.add("hidden"));
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            currentObserver.unobserve(entry.target);
           }
-        }
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-  step();
-})();
-
-// Close mobile menu when switching to larger viewports to avoid hidden nav
-window.addEventListener(
-  "resize",
-  () => {
-    try {
-      if (window.innerWidth > 900) {
-        if (navLinks && navLinks.classList.contains("active"))
-          navLinks.classList.remove("active");
-        document.body.classList.remove("menu-open");
-        if (menuBtn) {
-          menuBtn.setAttribute("aria-expanded", "false");
-          menuBtn.textContent = "☰";
-        }
-      }
-    } catch (e) {
-      /* ignore */
-    }
-  },
-  { passive: true },
-);
-
-/* Name reveal (split into chars and animate) */
-(function animateNameReveal() {
-  const nameText = document.querySelector("#main-name .name-text");
-  if (!nameText) return;
-  if (nameText.dataset.animated) return;
-  const txt = nameText.textContent.trim();
-  nameText.textContent = "";
-  for (let i = 0; i < txt.length; i++) {
-    const ch = txt[i] === " " ? "\u00A0" : txt[i];
-    const span = document.createElement("span");
-    span.className = "char";
-    span.textContent = ch;
-    span.style.animation = `char-reveal 0.82s cubic-bezier(.2,.9,.2,1) ${(i * 0.03).toFixed(2)}s both`;
-    nameText.appendChild(span);
-  }
-  nameText.dataset.animated = "1";
-})();
-
-/* Collapse effect: horizontal slices that fall (system collapse) */
-(function initCollapse() {
-  const canvas = document.getElementById("collapse");
-  if (!canvas || !canvas.getContext) return;
-  if (window.innerWidth < 700) return; // disable on small screens
-  const ctx = canvas.getContext("2d");
-  let w = (canvas.width = innerWidth);
-  let h = (canvas.height = innerHeight);
-  let DPR = Math.min(2, window.devicePixelRatio || 1);
-  canvas.width = Math.floor(w * DPR);
-  canvas.height = Math.floor(h * DPR);
-  canvas.style.width = w + "px";
-  canvas.style.height = h + "px";
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-
-  const slices = [];
-  let animating = false;
-
-  function spawnBurst() {
-    const burst = Math.floor(rand(6, 18));
-    for (let i = 0; i < burst; i++) {
-      const y = rand(0, h * 0.8);
-      const sh = Math.floor(rand(6, 90));
-      slices.push({
-        x: 0,
-        y: y,
-        h: sh,
-        vy: rand(2, 7),
-        rot: rand(-0.08, 0.08),
-        alpha: 1,
-        wobble: rand(0.2, 1.2),
-      });
-    }
-    animating = true;
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" },
+    );
+    revealItems.forEach((item) => observer.observe(item));
   }
 
-  function rand(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+  const year = document.getElementById("current-year");
+  if (year) year.textContent = String(new Date().getFullYear());
 
-  let last = performance.now();
-  function frame(t) {
-    const dt = t - last;
-    last = t;
-    ctx.clearRect(0, 0, w, h);
-    if (slices.length === 0) {
-      animating = false;
-    } else {
-      animating = true;
-    }
-    for (let i = slices.length - 1; i >= 0; i--) {
-      const s = slices[i];
-      s.y += s.vy * (dt / 16);
-      s.vy += 0.08 * (dt / 16);
-      s.rot += 0.002 * (dt / 16) * (s.wobble > 0.8 ? 1 : 0.6);
-      s.alpha -= 0.006 * (dt / 16);
-      if (s.alpha <= 0 || s.y > h + s.h) {
-        slices.splice(i, 1);
-        continue;
-      }
-      // draw slice
-      ctx.save();
-      ctx.translate(w / 2, s.y + s.h / 2);
-      ctx.rotate(s.rot);
-      ctx.globalAlpha = Math.max(0, s.alpha);
-      const grad = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
-      grad.addColorStop(0, "rgba(10,3,3,0)");
-      grad.addColorStop(0.3, "rgba(255,43,43,0.12)");
-      grad.addColorStop(1, "rgba(30,10,10,0.06)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(-w / 2, -s.h / 2, w, s.h);
-      // subtle noise lines
-      ctx.strokeStyle = "rgba(255,80,80,0.06)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(-w / 2, -s.h / 4);
-      ctx.lineTo(w / 2, -s.h / 4);
-      ctx.moveTo(-w / 2, s.h / 6);
-      ctx.lineTo(w / 2, s.h / 6);
-      ctx.stroke();
-      ctx.restore();
-    }
-    if (animating) requestAnimationFrame(frame);
-  }
-
-  // start loop when a burst exists
-  function schedule() {
-    spawnBurst();
-    if (!animating) requestAnimationFrame(frame);
-    // schedule next burst with some randomness
-    setTimeout(schedule, Math.floor(rand(4000, 9000)));
-  }
-
-  // initial small delay
-  setTimeout(() => {
-    schedule();
-  }, 1200);
-
-  // resize handling
-  let to = null;
-  window.addEventListener(
-    "resize",
-    () => {
-      clearTimeout(to);
-      to = setTimeout(() => {
-        w = innerWidth;
-        h = innerHeight;
-        DPR = Math.min(2, window.devicePixelRatio || 1);
-        canvas.width = Math.floor(w * DPR);
-        canvas.height = Math.floor(h * DPR);
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-        slices.length = 0;
-      }, 120);
-    },
-    { passive: true },
+  // No requests are sent until configuration is present and the visitor opts in.
+  // Do Not Track and Global Privacy Control always suppress collection.
+  const analyticsConfig = window.PORTFOLIO_ANALYTICS;
+  const privacyBanner = document.getElementById("privacy-banner");
+  const privacySettings = document.getElementById("privacy-settings");
+  const privacyCopy = document.getElementById("privacy-copy");
+  const privacyAccept = document.getElementById("privacy-accept");
+  const privacyRefuse = document.getElementById("privacy-refuse");
+  const preferenceKey = "tchatzdev.analytics.preference.v1";
+  const doNotTrack =
+    navigator.doNotTrack === "1" ||
+    window.doNotTrack === "1" ||
+    navigator.globalPrivacyControl === true;
+  const analyticsUrl = String(analyticsConfig?.supabaseUrl || "").replace(
+    /\/+$/,
+    "",
   );
-})();
+  const functionName = String(
+    analyticsConfig?.functionName || "portfolio-event",
+  );
+  const analyticsReady = Boolean(
+    analyticsUrl &&
+      analyticsConfig?.publishableKey &&
+      /^https:\/\//.test(analyticsUrl) &&
+      /^[a-z0-9-]+$/.test(functionName) &&
+      !location.pathname.endsWith("admin.html"),
+  );
+  let preferenceStorage;
+  try {
+    preferenceStorage = window.localStorage;
+  } catch {
+    preferenceStorage = null;
+  }
+  let tracker = null;
+  let trackingActive = false;
+  let preferences = null;
+  try {
+    preferences = preferenceStorage?.getItem(preferenceKey);
+  } catch {
+    /* ask again next visit */
+  }
 
-/* Certificate modal viewer */
-(function initCertModal() {
+  const closePrivacyBanner = () => {
+    if (privacyBanner) privacyBanner.hidden = true;
+    privacySettings?.focus();
+  };
+  const openPrivacyBanner = ({ focus = true } = {}) => {
+    if (!privacyBanner) return;
+    if (doNotTrack) {
+      if (privacyCopy)
+        privacyCopy.textContent =
+          "Votre navigateur signale Do Not Track ou Global Privacy Control. Aucun événement ne sera envoyé tant que cette préférence est active.";
+      if (privacyAccept) privacyAccept.hidden = true;
+      if (privacyRefuse) privacyRefuse.textContent = "Compris";
+    }
+    privacyBanner.hidden = false;
+    if (focus)
+      (privacyAccept && !privacyAccept.hidden
+        ? privacyAccept
+        : privacyRefuse
+      )?.focus();
+  };
+  const setPreference = (value) => {
+    preferences = value;
+    try {
+      preferenceStorage?.setItem(preferenceKey, value);
+    } catch {
+      /* applies for this page view */
+    }
+    if (value === "accepted") startAnalytics();
+    else {
+      trackingActive = false;
+      try {
+        const store = window.sessionStorage;
+        store.removeItem("tchatzdev.analytics.session.v1");
+        store.removeItem(
+          `tchatzdev.analytics.page.v1:${location.pathname || "/"}`,
+        );
+      } catch {
+        /* storage can be disabled */
+      }
+    }
+    if (privacyAccept) privacyAccept.hidden = false;
+    if (privacyRefuse) privacyRefuse.textContent = "Refuser";
+    if (privacyBanner) privacyBanner.hidden = true;
+    privacySettings?.focus();
+  };
+
+  function startAnalytics() {
+    if (!analyticsReady || doNotTrack) return;
+    trackingActive = true;
+    if (!tracker) {
+      let storage;
+      try {
+        storage = window.sessionStorage;
+      } catch {
+        storage = {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        };
+      }
+      const sessionKey = "tchatzdev.analytics.session.v1";
+      const createSessionId = () => {
+        if (window.crypto?.getRandomValues)
+          return Array.from(
+            window.crypto.getRandomValues(new Uint8Array(16)),
+            (byte) => byte.toString(16).padStart(2, "0"),
+          ).join("");
+        return Array.from({ length: 32 }, () =>
+          Math.floor(Math.random() * 16).toString(16),
+        ).join("");
+      };
+      let sessionId;
+      try {
+        sessionId = storage.getItem(sessionKey);
+        if (!sessionId) {
+          sessionId = createSessionId();
+          storage.setItem(sessionKey, sessionId);
+        }
+      } catch {
+        sessionId = createSessionId();
+      }
+      const referrerInfo = (() => {
+        if (!document.referrer)
+          return { referrer_source: "direct", referrer_domain: null };
+        try {
+          const host = new URL(document.referrer).hostname
+            .replace(/^www\./, "")
+            .toLowerCase();
+          const search =
+            /google\.|bing\.|yahoo\.|duckduckgo\.|baidu\.|yandex\./.test(host);
+          const social =
+            /facebook\.|instagram\.|linkedin\.|tiktok\.|twitter\.|x\.com$|whatsapp\.|t\.co$/.test(
+              host,
+            );
+          return {
+            referrer_source: search ? "search" : social ? "social" : "referral",
+            referrer_domain: host.slice(0, 120),
+          };
+        } catch {
+          return { referrer_source: "other", referrer_domain: null };
+        }
+      })();
+      const agent = navigator.userAgent;
+      const browser = /Edg\//.test(agent)
+        ? "Edge"
+        : /Firefox\//.test(agent)
+          ? "Firefox"
+          : /CriOS|Chrome\//.test(agent)
+            ? "Chrome"
+            : /Safari\//.test(agent)
+              ? "Safari"
+              : /Opera|OPR\//.test(agent)
+                ? "Opera"
+                : "Other";
+      const device = /iPad|Tablet|PlayBook|Silk/i.test(agent)
+        ? "tablet"
+        : /Mobi|Android/i.test(agent)
+          ? "mobile"
+          : "desktop";
+      const send = (eventType, projectSlug = null) => {
+        if (!trackingActive) return;
+        const body = {
+          event_type: eventType,
+          session_id: sessionId,
+          path: location.pathname || "/",
+          project_slug: projectSlug,
+          ...referrerInfo,
+          device_category: device,
+          browser,
+        };
+        fetch(`${analyticsUrl}/functions/v1/${functionName}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: analyticsConfig.publishableKey,
+          },
+          body: JSON.stringify(body),
+          keepalive: true,
+          credentials: "omit",
+        }).catch(() => {});
+      };
+      tracker = { storage, sessionKey, send };
+      document.querySelectorAll("[data-track-project]").forEach((link) => {
+        if (link.dataset.analyticsBound) return;
+        link.dataset.analyticsBound = "true";
+        link.addEventListener("click", () =>
+          send("project_click", link.dataset.trackProject),
+        );
+      });
+      document
+        .querySelectorAll("[data-track-music-download]")
+        .forEach((link) => {
+          if (link.dataset.analyticsBound) return;
+          link.dataset.analyticsBound = "true";
+          link.addEventListener("click", () => send("music_download"));
+        });
+      const projectCards = [
+        ...document.querySelectorAll("[data-track-project-view]"),
+      ];
+      if (projectCards.length && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries, currentObserver) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting || entry.intersectionRatio < 0.55)
+                return;
+              const slug = entry.target.dataset.trackProjectView;
+              const seenKey = `tchatzdev.analytics.project-view.v1:${slug}`;
+              try {
+                if (!storage.getItem(seenKey)) {
+                  storage.setItem(seenKey, "1");
+                  send("project_view", slug);
+                }
+              } catch {
+                send("project_view", slug);
+              }
+              currentObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.55 },
+        );
+        projectCards.forEach((card) => observer.observe(card));
+      }
+    }
+    const pageSeenKey = `tchatzdev.analytics.page.v1:${location.pathname || "/"}`;
+    try {
+      if (!tracker.storage.getItem(pageSeenKey)) {
+        tracker.storage.setItem(pageSeenKey, "1");
+        tracker.send("page_view");
+      }
+    } catch {
+      tracker.send("page_view");
+    }
+  }
+
+  if (analyticsReady && privacySettings && privacyBanner) {
+    privacySettings.hidden = false;
+    privacySettings.addEventListener("click", openPrivacyBanner);
+    privacyAccept?.addEventListener("click", () =>
+      doNotTrack ? closePrivacyBanner() : setPreference("accepted"),
+    );
+    privacyRefuse?.addEventListener("click", () =>
+      doNotTrack ? closePrivacyBanner() : setPreference("refused"),
+    );
+    if (doNotTrack) {
+      // Do not prompt or collect when the browser has explicitly opted out.
+    } else if (preferences === "accepted") startAnalytics();
+    else if (!preferences) openPrivacyBanner({ focus: false });
+  }
+
+  // The PDF viewer keeps keyboard focus predictable and retains the existing
+  // certification links/downloads instead of replacing them.
   const modal = document.getElementById("cert-modal");
   const viewer = document.getElementById("cert-viewer");
-  const closeBtn = document.getElementById("cert-close");
-  if (!modal || !viewer) return;
-
-  function openModal(url) {
-    try {
-      viewer.src = url ? encodeURI(url) : "";
-    } catch (e) {
-      viewer.src = url || "";
-    }
-    modal.setAttribute("aria-hidden", "false");
-    closeBtn && closeBtn.focus();
+  const closeButton = document.getElementById("cert-close");
+  if (modal && viewer) {
+    let previouslyFocused = null;
+    const closeModal = () => {
+      if (modal.getAttribute("aria-hidden") !== "false") return;
+      viewer.src = "";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("menu-open");
+      previouslyFocused?.focus();
+    };
+    const openModal = (pdf, trigger) => {
+      if (!pdf) return;
+      previouslyFocused = trigger;
+      viewer.src = encodeURI(pdf);
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("menu-open");
+      closeButton?.focus();
+    };
+    document.querySelectorAll(".certification-card").forEach((card) => {
+      const viewButton = card.querySelector(".btn-view");
+      viewButton?.addEventListener("click", () =>
+        openModal(card.dataset.pdf, viewButton),
+      );
+    });
+    closeButton?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+      if (
+        event.key === "Tab" &&
+        modal.getAttribute("aria-hidden") === "false"
+      ) {
+        const focusable = [...modal.querySelectorAll("button, iframe")].filter(
+          (node) => !node.disabled,
+        );
+        if (event.shiftKey && document.activeElement === focusable[0]) {
+          event.preventDefault();
+          focusable.at(-1)?.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === focusable.at(-1)
+        ) {
+          event.preventDefault();
+          focusable[0]?.focus();
+        }
+      }
+    });
   }
-  function closeModal() {
-    viewer.src = "";
-    modal.setAttribute("aria-hidden", "true");
-  }
-
-  document.querySelectorAll(".certification-card").forEach((card) => {
-    const btn = card.querySelector(".btn-view");
-    const pdf = card.dataset.pdf;
-    if (btn)
-      btn.addEventListener("click", () => {
-        if (pdf) openModal(pdf);
-        else window.open(pdf || "#", "_blank");
-      });
-  });
-
-  if (closeBtn) closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false")
-      closeModal();
-  });
 })();

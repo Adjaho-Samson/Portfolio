@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Certifications | ADJAHO Samson</title>
+    <title>Certifications — Samson Adjaho | TchatzDev</title>
     <meta
       name="description"
       content="Certifications de ADJAHO Samson Guy-Emmanuel Trésor."
@@ -13,7 +13,7 @@
       href="https://tchatzdev.vercel.app/certification.html"
     />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#030203" />
+    <meta name="theme-color" content="#111411" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:title" content="Certifications | ADJAHO Samson" />
@@ -57,47 +57,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="certification.css" />
-    <link rel="icon" type="image/png" href="images/tchatz.jpeg" />
+    <link rel="icon" type="image/jpeg" href="images/tchatz.jpeg" />
   </head>
   <body>
-    <div class="grid-background"></div>
-    <canvas id="collapse" aria-hidden="true"></canvas>
-
-    <header class="header">
-      <nav class="navbar">
-        <a href="index.html#home" class="logo"
-          ><img
-            src="images/tchatz.jpeg"
-            alt="Logo TchatzDEv"
-            width="42"
-            height="42"
-          /><span>TchatzDEv</span></a
+    <a class="skip-link" href="#certifications">Aller au contenu</a>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Navigation principale">
+        <a class="brand" href="index.html" aria-label="TchatzDev, accueil"
+          ><span class="brand-mark">t<span>.</span></span
+          ><span class="brand-name">Tchatz<span>Dev</span></span></a
         >
-        <ul id="site-navigation" class="nav-links">
-          <li><a href="index.html#home">Accueil</a></li>
-          <li><a href="index.html#about">À propos</a></li>
-          <li><a href="index.html#skills">Compétences</a></li>
-          <li><a href="index.html#projects">Projets</a></li>
-          <li><a href="certification.html">Certifications</a></li>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navigation"
+          aria-label="Ouvrir le menu"
+        >
+          <span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navigation">
+          <li><a href="index.html#parcours">À propos</a></li>
+          <li><a href="index.html#realisations">Réalisations</a></li>
+          <li><a href="index.html#android">Android</a></li>
+          <li><a href="index.html#agora">AGORA</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
-        <button
-          class="menu-btn"
-          type="button"
-          aria-label="Ouvrir le menu"
-          aria-controls="site-navigation"
-        >
-          ☰
-        </button>
       </nav>
     </header>
 
     <main>
-      <section class="certifications-page">
+      <section class="certifications-page" id="certifications">
         <div class="section-header">
           <span>05</span>
           <p>CERTIFICATIONS</p>
@@ -130,7 +123,7 @@
                 développement web avec HTML et CSS.
               </p>
               <div class="certification-actions">
-                <button class="btn-view">Ouvrir</button>
+                <button class="btn-view" type="button">Ouvrir</button>
                 <a
                   class="btn-download"
                   href="Certificats/HTML & CSS.pdf"
@@ -159,7 +152,7 @@
               <p class="certification-platform">OpenClassrooms</p>
               <p>Certification Vibe Coding — compétences pratiques en JS.</p>
               <div class="certification-actions">
-                <button class="btn-view">Ouvrir</button>
+                <button class="btn-view" type="button">Ouvrir</button>
                 <a
                   class="btn-download"
                   href="Certificats/Vibe Coding.pdf"
@@ -190,7 +183,7 @@
                 projets sur Github.
               </p>
               <div class="certification-actions">
-                <button class="btn-view">Ouvrir</button>
+                <button class="btn-view" type="button">Ouvrir</button>
                 <a
                   class="btn-download"
                   href="Certificats/Certification Git & Github.pdf"
@@ -221,7 +214,7 @@
                 système
               </p>
               <div class="certification-actions">
-                <button class="btn-view">Ouvrir</button>
+                <button class="btn-view" type="button">Ouvrir</button>
                 <a
                   class="btn-download"
                   href="Certificats/Administrer un système linux.pdf"
@@ -245,9 +238,15 @@
           class="cert-modal"
           aria-hidden="true"
           role="dialog"
+          aria-modal="true"
+          aria-labelledby="cert-modal-title"
         >
           <div class="cert-modal-panel">
+            <h2 id="cert-modal-title" class="visually-hidden">
+              Aperçu du certificat
+            </h2>
             <button
+              type="button"
               id="cert-close"
               class="cert-modal-close"
               aria-label="Fermer"
@@ -264,11 +263,68 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div><strong>TchatzDEv</strong><span>//</span> ADJAHO Samson</div>
-      <p>&copy; 2026 TchatzDEv. Built with code & curiosity.</p>
+    <aside
+      class="privacy-banner"
+      id="privacy-banner"
+      aria-labelledby="privacy-title"
+      hidden
+    >
+      <div>
+        <p class="privacy-banner-title" id="privacy-title">
+          Vous choisissez la mesure d’audience
+        </p>
+        <p class="privacy-banner-copy" id="privacy-copy">
+          Avec votre accord, je mesure les pages consultées et les clics sur les
+          projets, avec des catégories générales d’appareil et de provenance.
+          Aucun cookie ni adresse IP n’est conservé dans les statistiques du
+          portfolio.
+        </p>
+      </div>
+      <div class="privacy-banner-actions">
+        <button type="button" id="privacy-accept" class="button button-primary">
+          Autoriser</button
+        ><button
+          type="button"
+          id="privacy-refuse"
+          class="button button-outline"
+        >
+          Refuser
+        </button>
+      </div>
+    </aside>
+    <footer class="site-footer">
+      <div class="wrap footer-main">
+        <a class="brand footer-brand" href="index.html"
+          ><span class="brand-mark">t<span>.</span></span
+          ><span class="brand-name">Tchatz<span>Dev</span></span></a
+        >
+        <p>
+          Des idées, du code, des solutions utiles.<br /><span
+            >Créé avec soin à Abomey-Calavi, Bénin.</span
+          >
+        </p>
+        <div class="footer-nav">
+          <a href="admin.html">Espace administrateur</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span
+          >© <span id="current-year">2026</span> Samson Adjaho ·
+          TchatzDev</span
+        ><span class="privacy-note"
+          >Mesure facultative : pages et clics ; aucune IP stockée dans les
+          statistiques.</span
+        ><button
+          class="privacy-settings"
+          id="privacy-settings"
+          type="button"
+          hidden
+        >
+          Préférences de mesure</button
+        ><a href="#certifications">Retour en haut ↑</a>
+      </div>
     </footer>
-
-    <script src="script.js"></script>
+    <script src="analytics-config.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

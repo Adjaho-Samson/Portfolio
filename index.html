@@ -1,25 +1,27 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>ADJAHO Samson | Développeur web en formation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#111411" />
+    <title>TchatzDev — Samson Adjaho, développeur web & logiciel</title>
     <meta
       name="description"
-      content="Portfolio de ADJAHO Samson Guy-Emmanuel Trésor, étudiant en Systèmes Informatiques et Logiciels et développeur web en formation."
+      content="Portfolio de Samson Adjaho, alias TchatzDev : étudiant en Systèmes Informatiques et Logiciels, développeur web et Android, fondateur d’AGORA."
     />
     <link rel="canonical" href="https://tchatzdev.vercel.app/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#030203" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="TchatzDev" />
     <meta
       property="og:title"
-      content="ADJAHO Samson | Développeur web en formation"
+      content="TchatzDev — Samson Adjaho, développeur web & logiciel"
     />
     <meta
       property="og:description"
-      content="Découvrez le portfolio de ADJAHO Samson, étudiant en systèmes informatiques et développeur web en formation."
+      content="Je conçois des expériences numériques utiles, du web aux applications Android. Découvrez mes projets et mon initiative AGORA."
     />
     <meta property="og:url" content="https://tchatzdev.vercel.app/" />
     <meta
@@ -27,460 +29,806 @@
       content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="ADJAHO Samson | Développeur web en formation"
-    />
+    <meta name="twitter:title" content="TchatzDev — Samson Adjaho" />
     <meta
       name="twitter:description"
-      content="Portfolio de ADJAHO Samson, étudiant en systèmes informatiques et développeur web en formation."
+      content="Développeur web et logiciel, étudiant en SIL et fondateur d’AGORA."
     />
     <meta
       name="twitter:image"
       content="https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg"
     />
+    <link rel="icon" href="images/tchatz.jpeg" type="image/jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "ADJAHO Samson Guy-Emmanuel Trésor",
-        "alternateName": "TchatzDEv",
-        "jobTitle": "Développeur web en formation",
-        "description": "Étudiant en Systèmes Informatiques et Logiciels et développeur web en formation.",
+        "name": "Samson ADJAHO",
+        "alternateName": "TchatzDev",
         "url": "https://tchatzdev.vercel.app/",
         "image": "https://tchatzdev.vercel.app/images/Photo%20de%20Samson.jpeg",
+        "jobTitle": "Développeur web et logiciel",
+        "description": "Étudiant en Systèmes Informatiques et Logiciels, développeur web et Android, fondateur d’AGORA.",
         "sameAs": [
           "https://github.com/Adjaho-Samson",
           "https://www.facebook.com/profile.php?id=61593514138547"
         ],
         "knowsAbout": [
-          "HTML",
-          "CSS",
+          "Développement web",
+          "Kotlin",
+          "Android",
+          "Cybersécurité",
           "JavaScript",
-          "Python",
-          "Langage C",
-          "Cybersécurité"
+          "Python"
         ]
       }
     </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": ["WebSite", "CreativeWork"],
-        "name": "TchatzSafe",
-        "alternateName": "TchatzSafe — Comprendre les pièges numériques",
-        "description": "Plateforme éducative de cybersécurité conçue pour aider chacun à reconnaître les menaces numériques et à adopter de meilleurs réflexes en ligne.",
-        "url": "https://tchatzsafe.vercel.app",
-        "inLanguage": "fr",
-        "isAccessibleForFree": true,
-        "author": {
-          "@type": "Person",
-          "name": "ADJAHO Samson Guy-Emmanuel Trésor",
-          "alternateName": "TchatzDEv",
-          "url": "https://tchatzdev.vercel.app/"
-        },
-        "sameAs": "https://github.com/Adjaho-Samson/TchatzSafe"
-      }
-    </script>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/png" href="images/tchatz.jpeg" />
+    <script src="analytics-config.js" defer></script>
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="grid-background"></div>
-    <canvas id="particles" aria-hidden="true"></canvas>
-    <canvas id="collapse" aria-hidden="true"></canvas>
-
-    <header class="header">
-      <nav class="navbar">
-        <a href="#home" class="logo"
-          ><img
-            src="images/tchatz.jpeg"
-            alt="Logo TchatzDEv"
-            width="42"
-            height="42"
-          /><span>TchatzDEv</span></a
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Navigation principale">
+        <a class="brand" href="#accueil" aria-label="TchatzDev, accueil"
+          ><span class="brand-mark">t<span>.</span></span
+          ><span class="brand-name">Tchatz<span>Dev</span></span></a
         >
-        <ul id="site-navigation" class="nav-links">
-          <li><a href="#home">Accueil</a></li>
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#skills">Compétences</a></li>
-          <li><a href="#projects">Projets</a></li>
-          <li><a href="certification.html">Certifications</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
         <button
-          class="menu-btn"
+          class="menu-toggle"
           type="button"
+          aria-expanded="false"
+          aria-controls="navigation"
           aria-label="Ouvrir le menu"
-          aria-controls="site-navigation"
         >
-          ☰
+          <span></span><span></span>
         </button>
+        <ul class="nav-links" id="navigation">
+          <li><a href="#parcours">À propos</a></li>
+          <li><a href="#realisations">Réalisations</a></li>
+          <li><a href="#android">Android</a></li>
+          <li><a href="#agora">AGORA</a></li>
+          <li>
+            <a class="nav-contact" href="#contact"
+              >Me contacter <span aria-hidden="true">↗</span></a
+            >
+          </li>
+        </ul>
       </nav>
     </header>
 
-    <main>
-      <section id="home" class="hero">
-        <div class="hero-content">
-          <div class="terminal-status">
-            <span class="status-dot"></span><span>SYSTEM ONLINE</span>
-          </div>
-          <p class="hero-command">&gt; whoami</p>
-          <h1 id="main-name" class="name-reveal">
-            <span class="name-text"
-              >ADJAHO Samson <span>Guy-Emmanuel Trésor</span></span
-            >
-          </h1>
-          <h2>
-            <span class="bracket">[</span>SIL STUDENT
-            <span class="bracket">//</span> WEB DEVELOPER IN TRAINING<span
-              class="bracket"
-              >]</span
-            >
-          </h2>
-          <p class="hero-description">
-            Étudiant en deuxième année de
-            <strong>Systèmes Informatiques et Logiciels</strong> à ESM-Bénin. Je
-            construis actuellement mes compétences en développement web avant de
-            commencer mon parcours en cybersécurité.
+    <main id="contenu">
+      <section class="hero wrap" id="accueil" aria-labelledby="hero-title">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">
+            <span class="availability-dot" aria-hidden="true"></span> PORTFOLIO
+            PERSONNEL <span class="eyebrow-divider">/</span> ABOMEY-CALAVI,
+            BÉNIN
           </p>
-          <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">Explorer mes projets</a>
-            <a href="#about" class="btn btn-secondary"
-              >Découvrir mon parcours</a
+          <h1 id="hero-title">
+            Je transforme<br />des idées en
+            <span class="text-accent">solutions utiles.</span>
+          </h1>
+          <p class="hero-intro">
+            Moi, c’est <strong>Samson Adjaho</strong>, développeur web et
+            logiciel en formation. J’imagine, je construis et j’améliore des
+            produits numériques avec curiosité et exigence.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#realisations"
+              >Découvrir mon travail <span aria-hidden="true">↓</span></a
+            >
+            <a class="text-link" href="mailto:tchatzdev@gmail.com"
+              >Parlons de votre idée <span aria-hidden="true">↗</span></a
             >
           </div>
-          <div class="hero-terminal">
-            <span class="terminal-green">samson@tchatzdev</span>
-            <span>:</span>
-            <span class="terminal-blue">~</span>
-            <span>$</span>
-            <span class="typing-text">learning --web --security</span>
+          <div class="hero-meta">
+            <span>Étudiant en Systèmes Informatiques et Logiciels</span
+            ><span class="meta-separator" aria-hidden="true">·</span
+            ><span>Développement web & Android</span>
           </div>
         </div>
-
-        <div class="hero-profile">
-          <div class="profile-frame">
-            <div class="profile-corner top-left"></div>
-            <div class="profile-corner top-right"></div>
-            <div class="profile-corner bottom-left"></div>
-            <div class="profile-corner bottom-right"></div>
+        <div class="hero-visual" data-reveal>
+          <div class="portrait-orbit orbit-one" aria-hidden="true"></div>
+          <div class="portrait-orbit orbit-two" aria-hidden="true"></div>
+          <figure class="portrait-card">
             <img
               src="images/Photo de Samson.jpeg"
-              alt="Photo de ADJAHO Samson"
+              alt="Samson Adjaho, développeur et fondateur de TchatzDev"
+              width="720"
+              height="900"
+              fetchpriority="high"
             />
-            <div class="profile-label">
-              <span>USER</span><strong>TCHATZDEV</strong>
-            </div>
+            <figcaption>
+              <span class="portrait-caption-label"
+                >EN APPRENTISSAGE, EN CONSTRUCTION</span
+              ><span class="portrait-caption-name"
+                >Samson <strong>Adjaho</strong></span
+              >
+            </figcaption>
+          </figure>
+          <span class="visual-index" aria-hidden="true">01 — 04</span>
+          <div class="floating-note">
+            <span class="note-star" aria-hidden="true">✳</span
+            ><span
+              >Curieux par nature.<br /><strong
+                >Constructeur par choix.</strong
+              ></span
+            >
           </div>
+        </div>
+        <a class="scroll-cue" href="#parcours"
+          ><span aria-hidden="true">↓</span> FAIRE DÉFILER</a
+        >
+      </section>
+
+      <section class="intro-strip" aria-label="Ma démarche">
+        <div class="wrap intro-strip-inner">
+          <span class="strip-label">MA DÉMARCHE</span>
+          <p>
+            Comprendre le besoin<span>·</span>Construire avec
+            soin<span>·</span>Apprendre en livrant
+          </p>
+          <span class="strip-mark" aria-hidden="true">T.</span>
         </div>
       </section>
 
-      <section id="about" class="section about">
-        <div class="section-header">
-          <span>01</span>
-          <p>ABOUT_ME</p>
-          <h2>Qui suis-je ?</h2>
+      <section
+        class="section wrap about-section"
+        id="parcours"
+        aria-labelledby="about-title"
+      >
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">01 <span>/</span> LE PARCOURS</p>
+          <h2 id="about-title">
+            Du problème à<br /><span class="text-muted"
+              >une première version.</span
+            >
+          </h2>
         </div>
         <div class="about-grid">
-          <div class="about-text">
+          <div class="about-copy" data-reveal>
             <p>
-              Je m'appelle <strong>ADJAHO Samson Guy-Emmanuel Trésor</strong>,
-              j'ai 20 ans et je suis étudiant en deuxième année de Systèmes
-              Informatiques et Logiciels à ESM-Bénin.
+              Je suis étudiant en
+              <strong>Systèmes Informatiques et Logiciels</strong> à ESM-Bénin
+              et développeur passionné par la création de produits numériques.
             </p>
             <p>
-              Titulaire d'un <strong>Baccalauréat C</strong>, j'ai
-              progressivement découvert ma passion pour le numérique et
-              l'informatique.
+              J’aime partir d’un besoin concret, explorer les possibilités, puis
+              donner forme à une solution accessible et utile. Mes projets sont
+              aussi un terrain d’apprentissage : j’y expérimente, je corrige et
+              je progresse.
             </p>
             <p>
-              Aujourd'hui, je me forme principalement au
-              <strong>développement web</strong>. Je transforme ce que
-              j'apprends en projets concrets afin de progresser étape par étape.
+              Je m’intéresse au web, au logiciel et au développement Android
+              natif. La cybersécurité fait également partie des domaines que je
+              souhaite approfondir.
             </p>
-            <p>
-              Ma prochaine étape est la <strong>cybersécurité</strong>. Je
-              commencerai ma formation dans ce domaine à partir de septembre.
-            </p>
+            <a class="text-link" href="certification.html"
+              >Voir mes certifications <span aria-hidden="true">↗</span></a
+            >
           </div>
-          <div class="about-terminal">
-            <div class="terminal-header">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="terminal-body">
-              <p><span class="green">$</span> cat about.txt</p>
-              <p class="terminal-output">Name: ADJAHO Samson</p>
-              <p class="terminal-output">Field: Computer Science</p>
-              <p class="terminal-output">Current: Web Development</p>
-              <p class="terminal-output">Next: Cybersecurity</p>
-              <p><span class="green">$</span> <span class="cursor">█</span></p>
+          <div class="principles" data-reveal>
+            <article class="principle">
+              <span class="principle-number">01</span>
+              <div>
+                <h3>Résoudre des problèmes réels</h3>
+                <p>
+                  Des outils pensés pour des personnes, des usages et des
+                  contextes concrets.
+                </p>
+              </div>
+              <span class="principle-arrow" aria-hidden="true">↗</span>
+            </article>
+            <article class="principle">
+              <span class="principle-number">02</span>
+              <div>
+                <h3>Apprendre en construisant</h3>
+                <p>
+                  Transformer les idées en projets tangibles, puis les faire
+                  évoluer.
+                </p>
+              </div>
+              <span class="principle-arrow" aria-hidden="true">↗</span>
+            </article>
+            <article class="principle">
+              <span class="principle-number">03</span>
+              <div>
+                <h3>Soigner l’expérience</h3>
+                <p>
+                  La clarté, l’accessibilité et le détail comptent autant que la
+                  technique.
+                </p>
+              </div>
+              <span class="principle-arrow" aria-hidden="true">↗</span>
+            </article>
+            <div class="learning-note">
+              <span class="learning-dot" aria-hidden="true"></span
+              ><span
+                ><strong>En évolution</strong><br />Une pratique en progression,
+                projet après projet.</span
+              ><span class="learning-code">SAMSON.EXE</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="skills" class="section skills">
-        <div class="section-header">
-          <span>02</span>
-          <p>SKILLS</p>
-          <h2>Ce que j'apprends</h2>
-        </div>
-        <div class="skills-grid">
-          <article class="skill-card">
-            <div class="skill-number">01</div>
-            <h3>HTML5</h3>
-            <p>Structure et organisation des pages web.</p>
-            <div class="skill-tag">LEARNING</div>
-          </article>
-          <article class="skill-card">
-            <div class="skill-number">02</div>
-            <h3>CSS3</h3>
-            <p>Design, mise en page, responsive et interfaces.</p>
-            <div class="skill-tag">LEARNING</div>
-          </article>
-          <article class="skill-card">
-            <div class="skill-number">03</div>
-            <h3>JavaScript</h3>
-            <p>Programmation et interactivité web.</p>
-            <div class="skill-tag">LEARNING</div>
-          </article>
-          <article class="skill-card">
-            <div class="skill-number">04</div>
-            <h3>Python</h3>
-            <p>Programmation, logique et automatisation.</p>
-            <div class="skill-tag">LEARNING</div>
-          </article>
-          <article class="skill-card">
-            <div class="skill-number">05</div>
-            <h3>Langage C</h3>
-            <p>Bases de programmation et algorithmique.</p>
-            <div class="skill-tag">LEARNING</div>
-          </article>
-          <article class="skill-card future">
-            <div class="skill-number">06</div>
-            <h3>Cybersecurity</h3>
-            <p>Prochaine étape de mon parcours à partir de septembre.</p>
-            <div class="skill-tag">NEXT_MISSION</div>
-          </article>
-        </div>
-      </section>
-
-      <section id="projects" class="section projects">
-        <div class="section-header">
-          <span>03</span>
-          <p>PROJECTS</p>
-          <h2>Mes projets</h2>
-        </div>
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-top">
-              <span>PROJECT_001</span><span class="project-status">ONLINE</span>
-            </div>
-            <div class="project-preview">
-              <img
-                src="images/trinahook.png"
-                alt="Aperçu du site Trina Hook"
-                style="width: 100%; height: 100%; object-fit: cover"
-              />
-            </div>
-            <div class="project-content">
-              <h3>Trina Hook</h3>
-              <p>
-                Mon premier site web hébergé. Initialement créé comme exercice,
-                le projet a ensuite été rendu accessible en ligne.
-              </p>
-              <div class="project-tech">
-                <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span>
-              </div>
-              <a
-                href="https://trinahook.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >ACCESS_PROJECT →</a
+      <section class="skills-band" aria-labelledby="skills-title">
+        <div class="wrap skills-inner">
+          <div class="skills-heading">
+            <p class="eyebrow">02 <span>/</span> BOÎTE À OUTILS</p>
+            <h2 id="skills-title">
+              Des bases solides.<br /><span class="text-muted"
+                >Une curiosité active.</span
               >
-            </div>
-          </article>
-          <article class="project-card">
-            <div class="project-top">
-              <span>PROJECT_002</span><span class="project-status">ONLINE</span>
-            </div>
-            <div class="project-preview">
-              <img
-                src="images/princeart.png"
-                alt="Aperçu du site Prince Art"
-                style="width: 100%; height: 100%; object-fit: cover"
-              />
-            </div>
-            <div class="project-content">
-              <h3>Prince Art</h3>
-              <p>
-                PrinceArt est un univers personnel où se rencontrent le droit,
-                l’écriture et l’art.Un espace qui reflète à la fois son
-                expertise, sa créativité et sa personnalité.
-              </p>
-              <div class="project-tech">
-                <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span>
-              </div>
-              <a
-                href="https://princeart.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                >ACCESS_PROJECT →</a
-              >
-            </div>
-          </article>
-
-          <article
-            class="project-card featured"
-            aria-labelledby="project-tchatzsafe-title"
+            </h2>
+          </div>
+          <div
+            class="skills-list"
+            aria-label="Technologies et domaines d'apprentissage"
           >
-            <div class="project-top">
-              <span>PROJECT_003</span>
-              <span class="project-flags">
-                <span class="featured-flag">CYBERSÉCURITÉ</span>
-                <span class="project-status"
-                  ><span class="status-dot" aria-hidden="true"></span
-                  >ONLINE</span
-                >
-              </span>
-            </div>
-            <div class="featured-inner">
-              <div class="project-preview featured-preview">
+            <span>HTML & CSS</span><span>JavaScript</span><span>React</span
+            ><span>Python</span><span>Kotlin</span><span>Android</span
+            ><span>Supabase</span><span>Cybersécurité</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section wrap projects-section"
+        id="realisations"
+        aria-labelledby="projects-title"
+      >
+        <div class="section-heading project-heading" data-reveal>
+          <div>
+            <p class="eyebrow">03 <span>/</span> SÉLECTION DE PROJETS</p>
+            <h2 id="projects-title">
+              Conçus pour<br /><span class="text-muted"
+                >servir à quelque chose.</span
+              >
+            </h2>
+          </div>
+          <p class="heading-aside">
+            Des produits pédagogiques et des outils pratiques, développés autour
+            de besoins identifiés.
+          </p>
+        </div>
+        <div class="projects-list">
+          <article
+            class="project project-safe"
+            data-reveal
+            data-track-project-view="tchatzsafe"
+          >
+            <div class="project-visual">
+              <div class="project-cover safe-cover">
                 <img
                   src="images/tchatzsafe.png"
-                  alt="Aperçu de la page d'accueil de TchatzSafe : « Comprendre les pièges numériques. Apprendre à s'en protéger. »"
+                  alt="Capture réelle de la page d’accueil de TchatzSafe"
                   width="1200"
                   height="600"
                   loading="lazy"
                   decoding="async"
-                />
-                <span class="preview-scanlines" aria-hidden="true"></span>
-                <span
-                  class="preview-corner corner-tl"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  class="preview-corner corner-br"
-                  aria-hidden="true"
-                ></span>
+                /><span class="cover-label">CAPTURE DU PROJET</span>
               </div>
-              <div class="project-content">
-                <p class="project-kicker">&gt; cat tchatzsafe.spec</p>
-                <h3 id="project-tchatzsafe-title">Tchatz<span>Safe</span></h3>
-                <p>
-                  Une plateforme éducative de cybersécurité conçue pour aider
-                  chacun à reconnaître les menaces numériques et à adopter de
-                  meilleurs réflexes en ligne.
-                </p>
-                <ul class="project-specs">
-                  <li><span>PAGES</span><strong>07</strong></li>
-                  <li><span>LEÇONS</span><strong>15</strong></li>
-                  <li><span>QUIZ</span><strong>12</strong></li>
-                  <li><span>BACKEND</span><strong>AUCUN</strong></li>
-                </ul>
+              <span class="project-number">01</span>
+            </div>
+            <div class="project-details">
+              <div class="project-overline">
+                <span>ÉDUCATION NUMÉRIQUE</span
+                ><span class="status-pill status-live"
+                  ><i aria-hidden="true"></i> EN LIGNE</span
+                >
+              </div>
+              <h3>Tchatz<span class="text-accent">Safe</span></h3>
+              <p class="project-summary">
+                Rendre la cybersécurité compréhensible et concrète, même sans
+                bagage technique.
+              </p>
+              <p class="project-problem">
+                <strong>Le besoin</strong> Des réflexes numériques simples et
+                fiables sont difficiles à adopter lorsque les risques sont
+                expliqués dans un langage trop technique.
+              </p>
+              <ul class="feature-list">
+                <li>Formations, fiches de menaces et quiz pédagogiques.</li>
+                <li>
+                  Progression sauvegardée sur l’appareil et analyseur local.
+                </li>
+                <li>
+                  Application installable, cache hors connexion après un premier
+                  accès en ligne.
+                </li>
+              </ul>
+              <div class="project-footer">
                 <div class="project-tech">
-                  <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span>
+                  <span>HTML</span><span>CSS</span><span>JavaScript</span
+                  ><span>PWA</span>
                 </div>
-                <div class="project-actions">
-                  <a
-                    href="https://tchatzsafe.vercel.app"
-                    class="btn btn-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Visiter le projet</a
-                  >
-                  <a
-                    href="https://github.com/Adjaho-Samson/TchatzSafe"
-                    class="btn btn-secondary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Code source</a
-                  >
-                </div>
+                <span class="project-status-text"
+                  >Projet actif · version web publiée</span
+                >
+              </div>
+              <div class="project-actions">
+                <a
+                  class="button button-primary"
+                  href="https://tchatzsafe.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track-project="tchatzsafe"
+                  >Visiter le projet <span aria-hidden="true">↗</span></a
+                ><a
+                  class="button button-outline"
+                  href="https://github.com/Adjaho-Samson/TchatzSafe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Code source <span aria-hidden="true">↗</span></a
+                >
               </div>
             </div>
           </article>
 
-          <article class="project-card locked">
-            <div class="project-top">
-              <span>PROJECT_004</span><span class="project-status">LOCKED</span>
+          <article
+            class="project project-klassio"
+            data-reveal
+            data-track-project-view="tchatz-klassio"
+          >
+            <div class="project-visual">
+              <div
+                class="project-cover typographic-cover klassio-cover"
+                aria-label="Visuel typographique, aucune capture d’écran du produit n’est disponible dans ce portfolio"
+              >
+                <span class="cover-caption">TCHATZ / LEARNING</span
+                ><span class="cover-title"
+                  >Les ressources<br />de votre classe,<br /><em
+                    >au même endroit.</em
+                  ></span
+                ><span class="cover-shape" aria-hidden="true">K.</span
+                ><span class="cover-foot"
+                  >VISUEL TYPOGRAPHIQUE · PAS UNE CAPTURE D’ÉCRAN</span
+                >
+              </div>
+              <span class="project-number">02</span>
             </div>
-            <div class="project-preview"><span>█████████</span></div>
-            <div class="project-content">
-              <h3>Next Project</h3>
-              <p>
-                Un nouveau projet est actuellement en préparation.<br />Le code
-                sera bientôt disponible.
+            <div class="project-details">
+              <div class="project-overline">
+                <span>OUTIL POUR LES ÉTUDIANTS</span
+                ><span class="status-pill status-progress"
+                  ><i aria-hidden="true"></i> EN DÉVELOPPEMENT</span
+                >
+              </div>
+              <h3>Tchatz Klassio</h3>
+              <p class="project-summary">
+                Un espace simple pour retrouver les documents pédagogiques de sa
+                classe, sans se perdre dans les groupes de discussion.
               </p>
-              <div class="project-tech"><span>???</span></div>
-              <span class="locked-text">ACCESS_DENIED</span>
+              <p class="project-problem">
+                <strong>Le besoin</strong> Les supports de cours se dispersent.
+                Klassio rassemble les ressources par classe et par matière, dans
+                un format adapté aux usages universitaires locaux.
+              </p>
+              <ul class="feature-list">
+                <li>
+                  Rejoindre une classe avec un code, sans compte étudiant.
+                </li>
+                <li>Accéder aux cours, TD et exercices classés par matière.</li>
+                <li>
+                  Publication des enseignants par lien dédié et accès hors
+                  connexion.
+                </li>
+              </ul>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <span>React</span><span>Vite</span><span>Supabase</span
+                  ><span>PWA</span>
+                </div>
+                <span class="project-status-text"
+                  >Prototype web publié · itération active</span
+                >
+              </div>
+              <div class="project-actions">
+                <a
+                  class="button button-primary"
+                  href="https://tchatzklassio.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track-project="tchatz-klassio"
+                  >Visiter le projet <span aria-hidden="true">↗</span></a
+                ><a
+                  class="button button-outline"
+                  href="https://github.com/Adjaho-Samson/Tchatz-Klassio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Code source <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project project-speedtype"
+            data-reveal
+            data-track-project-view="speedtype"
+          >
+            <div class="project-visual">
+              <div
+                class="project-cover typographic-cover speed-cover"
+                aria-label="Visuel typographique de SpeedType, pas une capture du jeu"
+              >
+                <span class="cover-caption">ENTRAÎNEMENT / CLAVIER</span
+                ><span class="speed-word"
+                  >speed<span>type</span><b aria-hidden="true">_</b></span
+                ><span class="speed-stats"
+                  ><span>VITESSE</span><span>PRÉCISION</span
+                  ><span>RÉPÉTITION</span></span
+                ><span class="cover-foot"
+                  >VISUEL TYPOGRAPHIQUE · PAS UNE CAPTURE D’ÉCRAN</span
+                >
+              </div>
+              <span class="project-number">03</span>
+            </div>
+            <div class="project-details">
+              <div class="project-overline">
+                <span>APPRENTISSAGE INTERACTIF</span
+                ><span class="status-pill status-live"
+                  ><i aria-hidden="true"></i> EN LIGNE</span
+                >
+              </div>
+              <h3>SpeedType</h3>
+              <p class="project-summary">
+                Un jeu de frappe minimaliste pour s’entraîner à taper plus vite
+                et avec davantage de précision.
+              </p>
+              <p class="project-problem">
+                <strong>Le besoin</strong> Mesurer sa progression et pratiquer
+                régulièrement grâce à une interface légère, conçue pour rester
+                disponible même hors connexion.
+              </p>
+              <ul class="feature-list">
+                <li>Exercices de frappe avec mesure des performances.</li>
+                <li>Records et préférences enregistrés localement.</li>
+                <li>
+                  Application web installable et utilisable hors ligne après
+                  chargement.
+                </li>
+              </ul>
+              <div class="project-footer">
+                <div class="project-tech">
+                  <span>HTML</span><span>CSS</span><span>JavaScript</span
+                  ><span>PWA</span>
+                </div>
+                <span class="project-status-text">Application web publiée</span>
+              </div>
+              <div class="project-actions">
+                <a
+                  class="button button-primary"
+                  href="https://speedtype-tau.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track-project="speedtype"
+                  >Essayer SpeedType <span aria-hidden="true">↗</span></a
+                ><a
+                  class="button button-outline"
+                  href="https://github.com/Adjaho-Samson/SpeedType"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Code source <span aria-hidden="true">↗</span></a
+                >
+              </div>
             </div>
           </article>
         </div>
+        <div class="other-projects" data-reveal>
+          <div>
+            <p class="eyebrow">AUTRES EXPLORATIONS</p>
+            <p>
+              Des projets plus anciens qui ont nourri ma pratique et ma manière
+              de construire.
+            </p>
+          </div>
+          <div class="other-project-links">
+            <a
+              href="https://trinahook.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track-project="trinahook"
+              ><span>Trina Hook</span
+              ><small>Premier site web publié <b>↗</b></small></a
+            ><a
+              href="https://princeart.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track-project="princeart"
+              ><span>Prince Art</span
+              ><small>Univers éditorial et créatif <b>↗</b></small></a
+            >
+          </div>
+        </div>
       </section>
 
-      <section class="section mission">
-        <div class="mission-box">
-          <div class="mission-content">
-            <span class="mission-code">NEXT_MISSION.exe</span>
-            <h2>WEB <span>→</span> CYBER</h2>
-            <p>Aujourd'hui je construis. Demain, j'apprendrai à protéger.</p>
-            <div class="mission-terminal">
-              <span>$</span><span>./start_cybersecurity.sh</span
-              ><span class="blink">█</span>
+      <section
+        class="android-section"
+        id="android"
+        aria-labelledby="android-title"
+      >
+        <div class="wrap android-layout">
+          <div class="android-copy" data-reveal>
+            <p class="eyebrow">04 <span>/</span> AU-DELÀ DU NAVIGATEUR</p>
+            <h2 id="android-title">
+              Tchatz<br /><span class="android-accent">Music</span>
+            </h2>
+            <p class="android-lead">
+              Un lecteur musical Android natif, pensé pour écouter sa propre
+              bibliothèque — simplement et en privé.
+            </p>
+            <p>
+              L’application détecte les fichiers audio présents sur le téléphone
+              et les lit localement. Pas de compte, pas de serveur requis pour
+              écouter, pas de publicité ni de télémétrie.
+            </p>
+            <div class="android-badges">
+              <span>Kotlin</span><span>Android natif</span>
+              <span>Jetpack Compose</span><span>Media3 / ExoPlayer</span>
+              <span>Room</span><span>DataStore</span>
+            </div>
+            <ul class="android-features">
+              <li>
+                <span>01</span>Détection des fichiers musicaux sur l’appareil
+              </li>
+              <li><span>02</span>Lecture locale avec Media3 / ExoPlayer</li>
+              <li>
+                <span>03</span>Interface native, sans compte ni permission
+                Internet
+              </li>
+            </ul>
+            <div class="android-architecture">
+              <span>ARCHITECTURE LOCALE</span>
+              <p>
+                <strong>MediaStore / SAF facultatif</strong
+                ><i aria-hidden="true">→</i> <strong>Bibliothèque locale</strong
+                ><i aria-hidden="true">→</i>
+                <strong>MediaSession + ExoPlayer</strong>
+              </p>
+              <p class="architecture-detail">
+                Room conserve favoris, playlists et historique ; DataStore les
+                préférences. Aucun audio n’est copié en base.
+              </p>
+            </div>
+            <div class="android-note">
+              <span aria-hidden="true">i</span>
+              <p>
+                L’APK v1.0.0 est un build <strong>debug</strong> publié sur
+                GitHub, pas une version Play Store. Android peut demander
+                d’autoriser l’installation depuis cette source. Aucune capture
+                réelle de l’interface n’est incluse ; le téléphone illustré est
+                conceptuel.
+              </p>
+            </div>
+            <div class="android-actions">
+              <a
+                class="button button-primary"
+                href="https://github.com/Adjaho-Samson/Tchatz-Music-Android/releases/download/v1.0.0/Tchatz-Music-debug.apk"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track-music-download
+              >
+                Télécharger l’APK debug <span aria-hidden="true">↓</span>
+              </a>
+              <a
+                class="button button-outline"
+                href="https://github.com/Adjaho-Samson/Tchatz-Music-Android"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Code source <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="android-release-meta">
+              Version 1.0.0 · APK debug · GitHub Release · Android 8.0 et plus
+            </p>
+          </div>
+          <div class="device-stage" data-reveal>
+            <div class="device-glow" aria-hidden="true"></div>
+            <div
+              class="phone-frame"
+              aria-label="Illustration conceptuelle d’un téléphone Android, pas une capture d’écran de l’application"
+            >
+              <div class="phone-screen">
+                <div class="phone-status">
+                  <span>9:41</span><span>● ● ▰</span>
+                </div>
+                <div class="phone-speaker" aria-hidden="true"></div>
+                <div class="phone-content">
+                  <span class="phone-overline">LECTEUR LOCAL · ANDROID</span>
+                  <img
+                    class="phone-app-icon"
+                    src="images/tchatz-music-logo.png"
+                    alt="Logo officiel de Tchatz Music"
+                    width="72"
+                    height="72"
+                    loading="lazy"
+                  />
+                  <span class="phone-logo">Tchatz Music</span>
+                  <span class="phone-divider"></span
+                  ><span class="phone-concept"
+                    >Votre musique.<br /><strong
+                      >Sur votre appareil.</strong
+                    ></span
+                  ><span class="phone-caption"
+                    >ILLUSTRATION CONCEPTUELLE<br />L’INTERFACE RÉELLE N’EST PAS
+                    FOURNIE</span
+                  >
+                </div>
+                <div class="phone-home" aria-hidden="true"></div>
+              </div>
+            </div>
+            <span class="device-caption"
+              >APPLICATION ANDROID NATIVE <span>·</span> APERÇU CONCEPTUEL</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="agora-section" id="agora" aria-labelledby="agora-title">
+        <div class="wrap agora-layout">
+          <div class="agora-brand" data-reveal>
+            <p class="eyebrow">05 <span>/</span> INITIATIVE COLLECTIVE</p>
+            <div class="agora-wordmark" aria-hidden="true">
+              AG<span>O</span>RA<span class="wordmark-period">.</span>
+            </div>
+            <div class="agora-underline"></div>
+            <p class="agora-caption">UN COLLECTIF TECHNOLOGIQUE</p>
+          </div>
+          <div class="agora-copy" data-reveal>
+            <span class="founder-label"
+              ><span aria-hidden="true">✳</span> FONDATEUR & INITIATEUR</span
+            >
+            <h2 id="agora-title">
+              Le numérique gagne<br />à être <span>partagé.</span>
+            </h2>
+            <p class="agora-lead">
+              AGORA est un collectif technologique que j’ai fondé pour mettre
+              les compétences numériques au service des jeunes, des étudiants et
+              des petites entreprises, particulièrement dans le contexte
+              africain.
+            </p>
+            <p>
+              Notre ambition : réunir des talents complémentaires pour imaginer
+              des solutions utiles, rendre les organisations plus visibles et
+              ouvrir de nouvelles possibilités grâce au numérique.
+            </p>
+            <div class="agora-domains">
+              <span>Développement web & logiciel</span
+              ><span>Design graphique</span><span>Création audiovisuelle</span
+              ><span>Communication digitale</span
+              ><span>Accompagnement des petites entreprises</span>
+            </div>
+            <div class="agora-audience">
+              <span class="audience-icon" aria-hidden="true">↗</span>
+              <p>
+                <strong>Pour qui ?</strong><br />Jeunes, étudiants, associations
+                et petites entreprises en quête d’un partenaire numérique.
+              </p>
+            </div>
+            <div class="agora-role">
+              <span>MON ENGAGEMENT</span
+              ><strong
+                >Direction du collectif · Développement · Coordination des
+                initiatives</strong
+              >
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="section contact">
-        <div class="section-header">
-          <span>04</span>
-          <p>CONTACT</p>
-          <h2>Connectons-nous</h2>
-        </div>
-        <div class="contact-content">
+      <section
+        class="contact-section"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="wrap contact-inner" data-reveal>
+          <p class="eyebrow">06 <span>/</span> LE PROCHAIN ÉCHANGE</p>
+          <h2 id="contact-title">
+            Une idée à<br /><span>faire grandir ?</span>
+          </h2>
           <p>
-            Une question, une collaboration ou simplement envie d'échanger
-            autour de l'informatique ?
+            Une collaboration, une question ou simplement l’envie de parler
+            produit et technologie ? Ma boîte mail est ouverte.
           </p>
-          <div class="contact-links">
-            <a
-              href="https://www.facebook.com/profile.php?id=61593514138547"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Facebook</a
-            >
-            <a
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:tchatzdev@gmail.com"
+              >Écrire à Samson <span aria-hidden="true">↗</span></a
+            ><a
+              class="contact-social"
               href="https://github.com/Adjaho-Samson"
               target="_blank"
               rel="noopener noreferrer"
-              >GitHub</a
-            >
-            <a
-              href="https://wa.me/+22955741060"
+              >GitHub <span aria-hidden="true">↗</span></a
+            ><a
+              class="contact-social"
+              href="https://wa.me/22955741060"
               target="_blank"
               rel="noopener noreferrer"
-              >WhatsApp</a
+              >WhatsApp <span aria-hidden="true">↗</span></a
+            ><a
+              class="contact-social"
+              href="https://www.facebook.com/profile.php?id=61593514138547"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Facebook <span aria-hidden="true">↗</span></a
             >
-            <a href="mailto:tchatzdev@gmail.com">Email</a>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div><strong>TchatzDEv</strong><span>//</span> ADJAHO Samson</div>
-      <p>&copy; 2026 TchatzDEv. Built with code & curiosity.</p>
+    <aside
+      class="privacy-banner"
+      id="privacy-banner"
+      aria-labelledby="privacy-title"
+      hidden
+    >
+      <div>
+        <p class="privacy-banner-title" id="privacy-title">
+          Vous choisissez la mesure d’audience
+        </p>
+        <p class="privacy-banner-copy" id="privacy-copy">
+          Avec votre accord, je mesure les pages consultées et les clics sur les
+          projets, avec des catégories générales d’appareil et de provenance.
+          Aucun cookie ni adresse IP n’est conservé dans les statistiques du
+          portfolio.
+        </p>
+      </div>
+      <div class="privacy-banner-actions">
+        <button type="button" id="privacy-accept" class="button button-primary">
+          Autoriser</button
+        ><button
+          type="button"
+          id="privacy-refuse"
+          class="button button-outline"
+        >
+          Refuser
+        </button>
+      </div>
+    </aside>
+    <footer class="site-footer">
+      <div class="wrap footer-main">
+        <a class="brand footer-brand" href="#accueil"
+          ><span class="brand-mark">t<span>.</span></span
+          ><span class="brand-name">Tchatz<span>Dev</span></span></a
+        >
+        <p>
+          Des idées, du code, des solutions utiles.<br /><span
+            >Créé avec soin à Abomey-Calavi, Bénin.</span
+          >
+        </p>
+        <div class="footer-nav">
+          <a href="certification.html">Certifications</a
+          ><a href="admin.html">Espace administrateur</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span
+          >© <span id="current-year">2026</span> Samson Adjaho ·
+          TchatzDev</span
+        ><span class="privacy-note"
+          >Mesure facultative : pages et clics ; aucune IP stockée dans les
+          statistiques.</span
+        ><button
+          class="privacy-settings"
+          id="privacy-settings"
+          type="button"
+          hidden
+        >
+          Préférences de mesure</button
+        ><a href="#accueil">Retour en haut ↑</a>
+      </div>
     </footer>
-
-    <script src="script.js"></script>
   </body>
 </html>
