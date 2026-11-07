@@ -1,0 +1,168 @@
+<section class="page-intro wrap" aria-labelledby="projects-page-title">
+  <p class="eyebrow">Le travail, concrètement</p>
+  <h1 id="projects-page-title">Mes projets<span class="text-red">.</span></h1>
+  <p>
+    Du navigateur au téléphone : des réalisations conçues pour apprendre,
+    organiser, créer et rendre service.
+  </p>
+  <nav class="category-nav" aria-label="Catégories de projets">
+    <a href="#sites-web"
+      >{{icon:layout}} Sites web <span aria-hidden="true">↓</span></a
+    ><a href="#applications"
+      >{{icon:smartphone}} Applications <span aria-hidden="true">↓</span></a
+    >
+  </nav>
+</section>
+<section
+  class="section wrap catalog-section"
+  id="sites-web"
+  aria-labelledby="web-title"
+>
+  <div class="section-heading" data-reveal>
+    <div>
+      <p class="eyebrow">A / Sites web</p>
+      <h2 id="web-title">Des expériences dans le navigateur.</h2>
+      <p>Applications pédagogiques, outils pratiques et sites vitrines.</p>
+    </div>
+  </div>
+  <div class="project-grid catalog-grid" data-reveal>{{ALL_WEB_PROJECTS}}</div>
+</section>
+<section
+  class="section section-tinted"
+  id="applications"
+  aria-labelledby="applications-title"
+>
+  <div class="wrap">
+    <div class="section-heading" data-reveal>
+      <div>
+        <p class="eyebrow">B / Applications</p>
+        <h2 id="applications-title">Le logiciel, dans la poche.</h2>
+        <p>
+          Une application Android native, pensée autour de la bibliothèque
+          musicale de l’appareil.
+        </p>
+      </div>
+    </div>
+    <article
+      class="application-card"
+      id="tchatz-music"
+      aria-labelledby="music-title"
+      data-reveal
+    >
+      <div class="application-brand">
+        <img
+          src="assets/images/tchatz-music-logo.webp"
+          alt="Logo officiel de Tchatz Music : un T fusionné avec une note rouge"
+          width="256"
+          height="256"
+          loading="lazy"
+          decoding="async"
+        /><span class="app-wordmark">Tchatz Music</span
+        ><span class="app-tagline"
+          >Votre musique.<br /><strong>Sur votre appareil.</strong></span
+        >
+        <p class="visual-disclosure">
+          Identité visuelle officielle.<br />Aucune capture réelle de
+          l’interface mobile n’est encore disponible.
+        </p>
+      </div>
+      <div class="application-content">
+        <div class="card-overline">
+          <span>Android natif · Lecteur local</span
+          ><span class="tag tag-blue">APK v1.0.0</span>
+        </div>
+        <h3 id="music-title">Tchatz Music</h3>
+        <p class="card-summary">
+          Écouter sa propre bibliothèque musicale, simplement et en privé.
+        </p>
+        <p>
+          L’application détecte les fichiers audio présents sur le téléphone et
+          les lit localement. Pas de compte, pas de serveur requis pour écouter,
+          pas de publicité ni de télémétrie. Ce n’est pas un site web emballé
+          dans une application.
+        </p>
+        <div class="app-facts">
+          <div>
+            <span>Compatibilité</span><strong>Android 8.0 et plus</strong
+            ><small>API 26 minimum · cible API 35</small>
+          </div>
+          <div>
+            <span>Version disponible</span><strong>1.0.0 · build debug</strong
+            ><small>Publiée le 3 novembre 2026</small>
+          </div>
+        </div>
+        <h4>Fonctionnalités principales</h4>
+        <ul class="feature-list">
+          <li>
+            Bibliothèque automatique : titres, artistes, albums et pochettes
+            exposées par l’appareil.
+          </li>
+          <li>Recherche, tri, favoris, playlists et historique local.</li>
+          <li>
+            Lecture avec Media3 / ExoPlayer, notification et contrôles système
+            ou écran verrouillé.
+          </li>
+          <li>File de lecture, mini-lecteur et lecteur complet.</li>
+          <li>
+            Accès audio avec autorisation ; dossier local facultatif via SAF.
+          </li>
+        </ul>
+        <h4>Environnement technique vérifié</h4>
+        <div class="tags">
+          <span>Kotlin</span><span>Jetpack Compose</span
+          ><span>Media3 / ExoPlayer</span><span>Room</span><span>DataStore</span
+          ><span>MediaStore / SAF</span>
+        </div>
+        <div class="architecture">
+          <span class="eyebrow">Architecture locale</span>
+          <p>
+            MediaStore / SAF <span aria-hidden="true">→</span> Bibliothèque
+            <span aria-hidden="true">→</span> MediaSession + ExoPlayer
+          </p>
+          <small
+            >Room conserve les références des favoris, playlists et l’historique
+            ; DataStore conserve les préférences. Aucun audio n’est copié en
+            base et aucune permission Internet n’est demandée.</small
+          >
+        </div>
+        <div class="release-note">
+          {{icon:info}}
+          <p>
+            <strong>Avant d’installer.</strong> L’APK est un build debug, pas
+            une version Play Store. Android peut demander d’autoriser cette
+            source. La signature debug du runner peut changer : les mises à jour
+            par-dessus une installation existante ne sont pas garanties.
+            Désinstaller efface les données locales de l’application.
+          </p>
+        </div>
+        <div class="actions">
+          <a
+            class="button button-primary"
+            href="https://github.com/Adjaho-Samson/Tchatz-Music-Android/releases/download/v1.0.0/Tchatz-Music-debug.apk"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{icon:download}} Télécharger l’APK debug
+            <span class="visually-hidden"
+              >de Tchatz Music v1.0.0 (nouvel onglet)</span
+            ></a
+          >
+        </div>
+        <p class="release-meta">
+          Fichier APK · 14,8 Mo · lien de téléchargement direct, sans accès au
+          dépôt
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section wrap">
+  <div class="catalog-contact" data-reveal>
+    <div>
+      <p class="eyebrow">Et votre idée ?</p>
+      <h2>Parlons de ce que<br />vous souhaitez construire.</h2>
+    </div>
+    <a class="button button-primary" href="index.html#contact"
+      >Me contacter {{icon:arrow-up-right}}</a
+    >
+  </div>
+</section>

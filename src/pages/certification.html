@@ -1,0 +1,67 @@
+<section class="page-intro wrap" aria-labelledby="certifications-page-title">
+  <p class="eyebrow">Apprentissage & progression</p>
+  <h1 id="certifications-page-title">
+    Mes certifications<span class="text-red">.</span>
+  </h1>
+  <p>
+    Chaque certification représente une étape de mon parcours. Les aperçus
+    ci-dessous proviennent des PDF originaux, conservés sans modification.
+  </p>
+</section>
+<section
+  class="section wrap catalog-section"
+  id="certificats"
+  aria-label="Certificats obtenus"
+>
+  <div class="certificate-grid" data-reveal>{{CERTIFICATE_CARDS}}</div>
+  <div class="certificate-note">
+    {{icon:info}}
+    <p>
+      Les intitulés, dates et numéros sont repris des documents OpenClassrooms.
+      Aucun lien de vérification en ligne supplémentaire n’est fourni avec ces
+      certificats ; le PDF original reste accessible pour chacun.
+    </p>
+  </div>
+  <a class="text-link" href="index.html#certifications"
+    >{{icon:arrow-left}} Retour au portfolio</a
+  >
+</section>
+<dialog
+  class="certificate-dialog"
+  id="certificate-dialog"
+  aria-labelledby="dialog-title"
+  aria-describedby="dialog-description"
+>
+  <div class="dialog-header">
+    <div>
+      <p class="eyebrow">Aperçu du certificat original</p>
+      <h2 id="dialog-title">Certificat</h2>
+    </div>
+    <button
+      class="icon-button"
+      type="button"
+      id="certificate-close"
+      aria-label="Fermer l’aperçu"
+    >
+      {{icon:x}}
+    </button>
+  </div>
+  <p id="dialog-description" class="dialog-description"></p>
+  <img id="certificate-preview" alt="" width="1200" height="849" hidden />
+  <div class="dialog-actions">
+    <a
+      class="button button-primary"
+      id="certificate-open"
+      href="Certificats/HTML%20%26%20CSS.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Ouvrir le PDF {{icon:arrow-up-right}}</a
+    ><a
+      class="button button-secondary"
+      id="certificate-download"
+      href="Certificats/HTML%20%26%20CSS.pdf"
+      download
+      >{{icon:download}} Télécharger</a
+    >
+  </div>
+</dialog>
