@@ -1,0 +1,18 @@
+GSAP (GreenSock Animation Platform) — version 3.15.1
+https://gsap.com
+
+Le paquet npm officiel « gsap » ne contient pas de fichier LICENSE distinct ;
+le champ `license` de son `package.json` renvoie vers la licence standard
+GreenSock :
+
+    https://gsap.com/standard-license
+
+C'est ce document, dans sa version publiée par GreenSock, qui régit l'usage des
+fichiers `gsap.min.js` et `ScrollTrigger.min.js` servis par ce site. Il n'est
+pas reproduit ici pour éviter d'en figer une version approximative : se référer
+à l'URL ci-dessus.
+
+Aucun plugin de la « Club GreenSock » (payante) n'est inclus dans ce dépôt.
+
+Ce fichier remplace une reproduction erronée (texte MIT de Lenis) présente lors
+de la première intégration.

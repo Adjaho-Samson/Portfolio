@@ -1,19 +1,24 @@
 <section class="page-intro wrap" aria-labelledby="certifications-page-title">
-  <p class="eyebrow">Apprentissage & progression</p>
+  <p class="eyebrow">Apprentissage &amp; progression</p>
   <h1 id="certifications-page-title">
-    Mes certifications<span class="accent">.</span>
+    Apprendre,<br /><span class="accent">puis le prouver.</span>
   </h1>
   <p>
-    Chaque certification représente une étape de mon parcours. Les aperçus
-    ci-dessous proviennent des PDF originaux, conservés sans modification.
+    Quatre certificats OpenClassrooms obtenus en 2026. Les aperçus ci-dessous
+    proviennent des PDF originaux, conservés sans modification : intitulés,
+    dates et numéros sont ceux des documents.
   </p>
+  <nav class="category-nav" aria-label="Accès rapide">
+    <a href="index.html#parcours">{{icon:fa-arrow-left}} Mon parcours</a
+    ><a href="projets.html">{{icon:fa-laptop-code}} Mes projets</a>
+  </nav>
 </section>
 <section
   class="section wrap catalog-section"
   id="certificats"
   aria-label="Certificats obtenus"
 >
-  <div class="certificate-grid" data-reveal>{{CERTIFICATE_CARDS}}</div>
+  <div class="certificate-grid" data-reveal data-stagger>{{CERTIFICATE_CARDS}}</div>
   <div class="certificate-note">
     {{icon:fa-circle-info}}
     <p>
@@ -22,7 +27,7 @@
       certificats ; le PDF original reste accessible pour chacun.
     </p>
   </div>
-  <a class="text-link" href="index.html#certifications"
+  <a class="text-link cert-back-link" href="index.html#certifications"
     >{{icon:fa-arrow-left}} Retour au portfolio</a
   >
 </section>

@@ -7,6 +7,7 @@
     "status": "Application web publiée",
     "featured": true,
     "url": "https://tchatzsafe.vercel.app/",
+    "ctaLabel": "Explorer TchatzSafe",
     "image": "tchatzsafe.webp",
     "imageAlt": "Page d’accueil de TchatzSafe, avec ses accès aux menaces, formations, quiz et conseils",
     "summary": "Rendre la cybersécurité compréhensible et concrète, même sans bagage technique.",
@@ -16,7 +17,12 @@
       "Progression sauvegardée sur l’appareil et analyseur local.",
       "Application installable, avec cache hors connexion après un premier accès en ligne."
     ],
-    "technologies": ["HTML", "CSS", "JavaScript", "PWA"]
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PWA"
+    ]
   },
   {
     "id": "tchatz-klassio",
@@ -26,6 +32,7 @@
     "status": "Prototype web publié",
     "featured": true,
     "url": "https://tchatzklassio.vercel.app/",
+    "ctaLabel": "Voir Klassio",
     "image": "tchatz-klassio.webp",
     "imageAlt": "Page d’accueil de Tchatz Klassio : rejoindre une classe ou ouvrir l’espace responsable",
     "summary": "Retrouver les documents de sa classe au même endroit, sans se perdre dans les groupes de discussion.",
@@ -35,7 +42,52 @@
       "Cours, TD et exercices classés par matière.",
       "Publication enseignante par lien dédié et consultation hors connexion des documents conservés."
     ],
-    "technologies": ["React", "Vite", "PWA"]
+    "technologies": [
+      "React",
+      "Vite",
+      "PWA"
+    ]
+  },
+  {
+    "id": "agora-factures",
+    "name": "Agora Factures",
+    "category": "sites-web",
+    "kind": "Gestion & facturation",
+    "status": "Application web publiée",
+    "featured": true,
+    "url": "https://agorafactu.vercel.app",
+    "ctaLabel": "Ouvrir Agora Factures",
+    "image": "agora-factures.webp",
+    "imageAlt": "Icône officielle de l’application Agora Factures : un document validé",
+    "summary": "Créer factures et reçus, puis les imprimer ou les exporter en PDF, même sans connexion.",
+    "context": "De petites activités ont besoin de documents de facturation propres sans dépendre d’un service en ligne, d’un compte ou d’un abonnement.",
+    "features": [
+      "Documents facture ou reçu, numérotation automatique unique et devise configurable.",
+      "Données conservées localement dans IndexedDB, aucun serveur pour vos documents.",
+      "Fonctionne hors connexion après le premier chargement et peut être installée comme une application."
+    ],
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "IndexedDB",
+      "PWA"
+    ]
+  },
+  {
+    "id": "tchatzstudy",
+    "name": "TchatzStudy",
+    "category": "sites-web",
+    "kind": "Organisation des études",
+    "status": "",
+    "featured": false,
+    "url": "",
+    "image": "",
+    "imageAlt": "Visuel de marque TchatzStudy, capture d’écran à venir",
+    "summary": "Un espace pour organiser son travail d’étudiant et garder le fil d’un semestre.",
+    "context": "Entre cours, devoirs et révisions, le suivi se disperse souvent entre plusieurs outils. TchatzStudy rassemble l’organisation des études au même endroit.",
+    "features": [],
+    "technologies": []
   },
   {
     "id": "speedtype",
@@ -43,8 +95,9 @@
     "category": "sites-web",
     "kind": "Apprentissage interactif",
     "status": "Application web publiée",
-    "featured": true,
+    "featured": false,
     "url": "https://speedtype-tau.vercel.app/",
+    "ctaLabel": "Tester SpeedType",
     "image": "speedtype.webp",
     "imageAlt": "Interface de SpeedType avec test de frappe, précision, durée et meilleur score local",
     "summary": "Un jeu de frappe minimaliste pour s’entraîner à taper plus vite et avec davantage de précision.",
@@ -54,7 +107,12 @@
       "Records et préférences enregistrés localement.",
       "Application installable et utilisable hors ligne après son premier chargement réussi."
     ],
-    "technologies": ["HTML", "CSS", "JavaScript", "PWA"]
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "PWA"
+    ]
   },
   {
     "id": "trinahook",
@@ -64,6 +122,7 @@
     "status": "Site web publié",
     "featured": false,
     "url": "https://trinahook.vercel.app/",
+    "ctaLabel": "Voir le site",
     "image": "trinahook.webp",
     "imageAlt": "Accueil de Trina Hook consacré aux créations en maille faites main",
     "summary": "Une vitrine pour les créations en maille faites main et le savoir-faire de Trina Hook.",
@@ -73,7 +132,11 @@
       "Galerie de créations avec catégories.",
       "Accès direct au contact WhatsApp."
     ],
-    "technologies": ["HTML", "CSS", "JavaScript"]
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ]
   },
   {
     "id": "princeart",
@@ -83,6 +146,7 @@
     "status": "Site web publié",
     "featured": false,
     "url": "https://princeart.vercel.app/",
+    "ctaLabel": "Voir le site",
     "image": "princeart.webp",
     "imageAlt": "Accueil du portfolio de Prince-Abraham Junior Shègun ADJAHO, juriste, écrivain et artiste",
     "summary": "Un univers éditorial où le droit, les mots et la création artistique se rencontrent.",
@@ -92,6 +156,38 @@
       "Pages consacrées aux écrits et aux réalisations artistiques.",
       "Parcours de navigation et accès au contact."
     ],
-    "technologies": ["HTML", "CSS", "JavaScript"]
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ]
+  },
+  {
+    "id": "tchatz-music",
+    "name": "Tchatz Music",
+    "category": "applications",
+    "kind": "Application Android native",
+    "status": "APK v1.0.0 · build debug publié",
+    "featured": false,
+    "url": "",
+    "ctaLabel": "Découvrir l’application",
+    "image": "tchatz-music-logo.webp",
+    "imageAlt": "Logo officiel de Tchatz Music : un T monogramme et une note rouge",
+    "summary": "Votre bibliothèque musicale, lue localement sur votre téléphone, sans compte ni publicité.",
+    "context": "Écouter les fichiers audio déjà présents sur l’appareil, dans une application réellement native qui ne demande aucune permission Internet.",
+    "features": [
+      "Bibliothèque automatique : titres, artistes, albums et pochettes exposées par l’appareil.",
+      "Recherche, tri, favoris, playlists et historique local.",
+      "Lecture avec Media3 / ExoPlayer, notification et contrôles système ou écran verrouillé.",
+      "File de lecture, mini-lecteur et lecteur complet.",
+      "Accès audio avec autorisation ; dossier local facultatif via SAF."
+    ],
+    "technologies": [
+      "Kotlin",
+      "Jetpack Compose",
+      "Media3",
+      "Room",
+      "DataStore"
+    ]
   }
 ]

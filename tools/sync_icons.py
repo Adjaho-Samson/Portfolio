@@ -98,7 +98,9 @@ def clean(svg: str) -> tuple[str, str]:
 
 def main(source: Path) -> None:
     fa = source / "fortawesome-fontawesome-free-7.3.1" / "package" / "svgs"
-    simple = source / "simple-icons-16.36.0" / "package" / "icons"
+    if not fa.is_dir():
+        fa = source / "fortawesome-fontawesome-free-7.3.1" / "svgs"
+    simple = source / "simple-icons-16.37.0" / "package" / "icons"
     if not fa.is_dir() or not simple.is_dir():
         raise SystemExit(f"Extracted packages not found under {source}")
 

@@ -57,13 +57,14 @@ SPRITE = (
     + "</defs></svg>"
 )
 
-# Logo TchatzDev : un T solide, une barre d'accent grise et un dégradé bordeaux.
-# Le tracé est volontairement simple pour rester lisible à 16 px.
+# Logo TchatzDev : un monogramme T taillé, un accent rouge et une barre
+# métallique. Le tracé reste lisible à 16 px (favicon) comme à 104 px.
 LOGO_MARK = (
     '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
-    '<path d="M9 12h30v6.5H9z" fill="#F8F4EF"/>'
-    '<path d="M20.5 12H27v21.5l-6.5 6z" fill="#F8F4EF"/>'
-    '<path d="M13 42.5h22" stroke="#C9CDD4" stroke-width="2" stroke-linecap="round" opacity=".6"/>'
+    '<path d="M11 12.5h26v7H11z" fill="#F4F5F6"/>'
+    '<path d="M20.6 12.5H27.4V32.6L20.6 38.6z" fill="#F4F5F6"/>'
+    '<path d="M27.4 22.4h6.8v6.2h-6.8z" fill="#FF2D3F"/>'
+    '<path d="M14 41.5h20" stroke="#B9C0C8" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>'
     "</svg>"
 )
 
@@ -199,26 +200,92 @@ def skill_groups(skills):
 # --------------------------------------------------------------------------- #
 # Cartes de projets et certifications.
 # --------------------------------------------------------------------------- #
-def project_card(project):
-    pid, name = E(project["id"]), E(project["name"])
-    return f'''<article class="project-card" id="{pid}" aria-labelledby="{pid}-title">
-  <div class="project-image"><img src="assets/images/{E(project['image'])}" alt="{E(project['imageAlt'])}" width="1200" height="575" loading="lazy" decoding="async"><span class="image-label">Capture du projet</span></div>
-  <div class="project-body"><div class="card-overline"><span>{E(project['kind'])}</span><span class="project-kind">Web</span></div>
-    <h3 id="{pid}-title">{name}</h3><p class="card-summary">{E(project['summary'])}</p>
-    <p class="project-context"><strong>Le besoin.</strong> {E(project['context'])}</p>{features(project['features'])}
-    <div class="project-bottom">{tags(project['technologies'])}<p class="project-status">{icon('fa-circle-check')} {E(project['status'])}</p>
-      <a class="button button-primary" href="{E(project['url'], quote=True)}" target="_blank" rel="noopener noreferrer">Visiter le projet <span class="visually-hidden">: {name} (nouvel onglet)</span>{icon('fa-arrow-up-right-from-square')}</a>
+def project_card(project, featured=False):
+    """Carte de projet : visuel, besoin, livré, technologies, lien vérifié.
+
+    Rien n'est ajouté ici : le contenu vient entièrement de
+    `src/data/projects.json`. Une fiche sans capture ni URL publique reste
+    honnête : visuel de marque typographique et invitation à échanger.
+    """
+    pid = E(project["id"])
+    name = E(project["name"])
+    url = E(project["url"], quote=True) if project.get("url") else ""
+    badge = (
+        f'<span class="project-badge"><i aria-hidden="true"></i>{E(project["kind"])}</span>'
+    )
+    if project.get("image"):
+        visual = (
+            f'<img src="assets/images/{E(project["image"])}" alt="" width="1200"'
+            f' height="575" loading="lazy" decoding="async">'
+        )
+    else:
+        # Visuel de marque, clairement identifié : aucune capture n'est simulée.
+        initials = "".join(word[0] for word in project["name"].split()[:2]).upper()
+        visual = (
+            f'<div class="project-placeholder" role="img" aria-label="Visuel de marque'
+            f' {E(project["name"])}, capture d’écran à venir">'
+            f'<span class="placeholder-initials">{E(initials)}</span>'
+            f'<span class="placeholder-note">Visuel de marque · capture à venir</span></div>'
+        )
+    if url:
+        media = (
+            f'<a class="project-media" href="{url}" target="_blank" rel="noopener noreferrer"'
+            f' tabindex="-1" aria-hidden="true">{visual}{badge}</a>'
+        )
+        action = (
+            f'<a class="button button-primary" href="{url}" target="_blank" rel="noopener noreferrer">'
+            f'{E(project.get("ctaLabel", "Voir le projet"))}'
+            f'<span class="visually-hidden"> : {name} (nouvel onglet)</span>'
+            f'{icon("fa-arrow-up-right-from-square")}</a>'
+        )
+    else:
+        media = f'<div class="project-media">{visual}{badge}</div>'
+        action = (
+            f'<a class="button button-secondary" href="index.html#contact">'
+            f'En parler avec moi<span class="visually-hidden"> : {name}</span>'
+            f'{icon("fa-arrow-right")}</a>'
+        )
+    features_html = ""
+    if project.get("features"):
+        features_html = '<ul class="feature-list">' + "".join(
+            f"<li>{E(i)}</li>" for i in project["features"]
+        ) + "</ul>"
+    tech_html = tags(project["technologies"]) if project.get("technologies") else ""
+    status = (
+        f'<p class="project-status">{icon("fa-circle-check")} {E(project["status"])}</p>'
+        if project.get("status")
+        else ""
+    )
+    kind = "Web" if project["category"] == "sites-web" else "Android"
+    classes = "project-card is-featured" if featured else "project-card"
+    return f'''<article class="{classes}" id="{pid}" aria-labelledby="{pid}-title">
+  {media}
+  <div class="project-body">
+    <div class="project-overline"><span>{kind}</span><span class="project-kind">{E(project["kind"])}</span></div>
+    <h3 id="{pid}-title">{name}</h3>
+    <p class="project-summary">{E(project["summary"])}</p>
+    <p class="project-context"><strong>Le besoin.</strong> {E(project["context"])}</p>
+    {features_html}
+    <div class="project-bottom">
+      {tech_html}
+      {status}
+      {action}
     </div>
   </div>
 </article>'''
 
 
 def certificate_preview(cert):
+    """Aperçu réel du certificat dans la page d'accueil (vignette + meta)."""
     return (
         f'<a class="cert-preview" href="certification.html#{E(cert["id"])}">'
-        f'<span class="cert-preview-icon">{icon("fa-award")}</span>'
-        f'<div><h3>{E(cert["shortTitle"])}</h3>'
-        f'<p>{E(cert["issuer"])} · <time datetime="{cert["date"]}">{E(cert["dateLabel"])}</time></p></div>'
+        f'<span class="cert-preview-thumb">'
+        f'<img src="assets/images/certificats/{E(cert["id"])}.webp" alt="" width="1200"'
+        f' height="849" loading="lazy" decoding="async"></span>'
+        f'<span class="cert-preview-body"><span class="cert-preview-issuer">{E(cert["issuer"])}</span>'
+        f'<strong>{E(cert["shortTitle"])}</strong>'
+        f'<span class="cert-preview-date"><time datetime="{cert["date"]}">{E(cert["dateLabel"])}</time>'
+        f' · n° {E(cert["number"])}</span></span>'
         f'{icon("fa-arrow-right")}</a>'
     )
 
@@ -312,18 +379,18 @@ def schema_for(page, site, skills):
     }
 
 
-def footer(site, css, years="2026"):
+def footer(site, css="", years="2026"):
     links = [
+        ("index.html#projets", "Projets"),
         ("index.html#parcours", "À propos"),
         ("index.html#competences", "Compétences"),
         ("index.html#services", "Services"),
-        ("projets.html", "Mes projets"),
     ]
     project_links = [
         ("projets.html#sites-web", "Sites web"),
         ("projets.html#tchatz-music", "Tchatz Music"),
-        ("certification.html", "Certifications"),
         ("index.html#agora", "AGORA"),
+        ("certification.html", "Certifications"),
     ]
     nav_one = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for h, t in links)
     nav_two = "".join(f"<li><a href=\"{h}\">{t}</a></li>" for h, t in project_links)
@@ -362,6 +429,31 @@ def footer(site, css, years="2026"):
 </footer>'''
 
 
+def preloader():
+    """Voile de chargement : logo T et barre de progression réelle."""
+    return f'''<div class="preloader" data-preloader aria-hidden="true">
+  <div class="preloader-inner">
+    <span class="preloader-mark">{LOGO_MARK}</span>
+    <p class="preloader-name">Tchatz<span>Dev</span></p>
+    <div class="preloader-bar"><span></span></div>
+    <p class="preloader-meta"><span>Chargement</span><span class="preloader-count">00 %</span></p>
+  </div>
+</div>'''
+
+
+def cursor_layer():
+    """Curseur personnalisé : purement décoratif, masqué au tactile."""
+    return (
+        '<div class="cursor" data-cursor aria-hidden="true"></div>'
+        '<div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>'
+    )
+
+
+PROGRESS = (
+    '<div class="progress-bar" data-progress aria-hidden="true"></div>'
+)
+
+
 def build(check=False):
     site, projects, certs = data("site"), data("projects"), data("certifications")
     skills = data("skills")
@@ -385,6 +477,9 @@ def build(check=False):
         "CSS_ORBITS": asset_url("assets/css/orbits.css"),
         "JS_THEME": asset_url("assets/js/theme.js"),
         "JS_MAIN": asset_url("assets/js/main.js"),
+        "JS_VENDOR_GSAP": asset_url("assets/js/vendor/gsap.min.js"),
+        "JS_VENDOR_SCROLLTRIGGER": asset_url("assets/js/vendor/ScrollTrigger.min.js"),
+        "JS_VENDOR_LENIS": asset_url("assets/js/vendor/lenis.min.js"),
     }
     for filename, page in site["pages"].items():
         content = (SRC / "pages" / filename).read_text(encoding="utf-8")
@@ -392,8 +487,22 @@ def build(check=False):
         content = fill(
             content,
             {
-                "FEATURED_PROJECTS": "".join(project_card(p) for p in projects if p["featured"]),
-                "ALL_WEB_PROJECTS": "".join(project_card(p) for p in projects if p["category"] == "sites-web"),
+                # Les chiffres de l'accueil sont calculés depuis les données :
+                # aucun compteur ne peut annoncer plus que ce qui existe.
+                "WEB_PROJECTS_COUNT": str(
+                    len([p for p in projects if p["category"] == "sites-web" and p["url"]])
+                ),
+                "CERTIFICATIONS_COUNT": str(len(certs)),
+                "APP_PROJECTS_COUNT": str(
+                    len([p for p in projects if p["category"] == "applications"])
+                ),
+                "FEATURED_PROJECTS": "".join(
+                    project_card(p, featured=True if i == 0 else False)
+                    for i, p in enumerate(p for p in projects if p["featured"])
+                ),
+                "ALL_WEB_PROJECTS": "".join(
+                    project_card(p) for p in projects if p["category"] == "sites-web"
+                ),
                 "CERT_PREVIEWS": "".join(certificate_preview(c) for c in certs),
                 "CERTIFICATE_CARDS": "".join(certificate_card(c) for c in certs),
                 "SKILL_ORBITS": constellation(site, skills),
@@ -413,6 +522,7 @@ def build(check=False):
                 "THEME_MOON": icon("fa-moon", "theme-icon-moon"),
                 "THEME_SUN": icon("fa-sun", "theme-icon-sun"),
                 "ICON_ARROW": icon("fa-arrow-up-right-from-square"),
+                "EMAIL": E(site["email"]),
                 "CURRENT_PROJECTS": ' aria-current="page"' if filename == "projets.html" else "",
                 "CURRENT_CERTIFICATIONS": ' aria-current="page"' if filename == "certification.html" else "",
             },
@@ -428,6 +538,9 @@ def build(check=False):
                 "SCHEMA": json.dumps(schema_for(page, site, skills), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),
                 "PAGE_ID": Path(filename).stem,
                 "ICON_SPRITE": SPRITE,
+                "PRELOADER": preloader(),
+                "CURSOR": cursor_layer(),
+                "PROGRESS": PROGRESS,
                 "HEADER": nav,
                 "FOOTER": footer(site, ""),
                 "CONTENT": content,

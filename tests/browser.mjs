@@ -2,7 +2,7 @@
    network isolation and production security headers. Run after tests/npm ci. */
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import { startServer } from "./server.mjs";
@@ -10,6 +10,10 @@ import { startServer } from "./server.mjs";
 const server = await startServer();
 const executablePath =
   process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined;
+// Sandbox fallback: a portable Chromium build with its libraries. Extra
+// directories are appended to LD_LIBRARY_PATH for that build only.
+const extraLibs = process.env.PLAYWRIGHT_CHROMIUM_LD_LIBRARY_PATH;
+if (extraLibs) process.env.LD_LIBRARY_PATH = `${extraLibs}:${process.env.LD_LIBRARY_PATH || ""}`;
 const browser = await chromium.launch({
   executablePath,
   headless: true,
@@ -71,6 +75,10 @@ try {
             .filter((element) => {
               const rect = element.getBoundingClientRect();
               const style = getComputedStyle(element);
+              // Les bandeaux défilants et le curseur décoratif sortent
+              // volontairement du cadre : ils sont rognés par leur conteneur.
+              if (element.closest(".marquee, .cursor, .cursor-dot, .icon-sprite"))
+                return false;
               return (
                 rect.width > 0 &&
                 style.visibility !== "hidden" &&
@@ -134,34 +142,32 @@ try {
   await page.goto(server.url, { waitUntil: "networkidle" });
   await page.evaluate(() => localStorage.setItem("tchatzdev.theme", "light"));
   await page.reload({ waitUntil: "networkidle" });
-  await page.getByRole("button", { name: "Activer le mode sombre" }).click();
+  await page.getByRole("button", { name: "Passer en mode sombre" }).click();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page
     .getByRole("navigation", { name: "Navigation principale" })
-    .getByRole("link", { name: "Mes projets" })
+    .getByRole("link", { name: "Catalogue" })
     .click();
   await page.waitForURL("**/projets.html");
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page.reload({ waitUntil: "networkidle" });
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
-  await page.getByRole("button", { name: "Activer le mode clair" }).click();
+  await page.getByRole("button", { name: "Passer en mode clair" }).click();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "light");
   results.interactions.push(
     "theme toggle, persistence across navigation and reload",
   );
 
-  // System preference is honored only when no explicit choice exists.
-  // Reuse one context: the sandbox's single-process Chromium build does not
-  // reliably support concurrent contexts (standard Playwright does).
+  // L'identité du site est nocturne : sans choix explicite, le thème sombre
+  // s'applique quel que soit le réglage système, et un choix explicite prime.
   await page.evaluate(() => localStorage.removeItem("tchatzdev.theme"));
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page.emulateMedia({ colorScheme: "dark" });
   await page.reload({ waitUntil: "networkidle" });
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
-  await page.emulateMedia({ colorScheme: "light" });
-  await page.waitForFunction(
-    () => document.documentElement.dataset.theme === "light",
-  );
-  results.interactions.push("initial system theme and live system change");
+  results.interactions.push("dark identity by default, explicit choice wins");
 
   // Mobile menu: open, Escape/focus, outside click, link navigation, desktop resize.
   await page.setViewportSize({ width: 320, height: 640 });
@@ -215,7 +221,7 @@ try {
   await page.goto(`${server.url}/projets.html`, { waitUntil: "networkidle" });
   await page
     .getByRole("navigation", { name: "Catégories de projets" })
-    .getByRole("link", { name: "Applications" })
+    .getByRole("link", { name: "Application Android" })
     .click();
   await page.waitForURL("**/projets.html#applications");
   assert.ok(await page.locator("#tchatz-music").isVisible());
@@ -303,10 +309,22 @@ try {
     assert.ok(link.rel.includes("noopener") && link.rel.includes("noreferrer"));
   }
   await page.goto(`${server.url}/projets.html`, { waitUntil: "networkidle" });
-  assert.equal(
-    await page.getByRole("link", { name: /Visiter le projet/ }).count(),
-    5,
+  // Chaque projet web doté d'une URL expose un lien de démonstration sortant,
+  // et chaque lien sortant est protégé par rel=noopener noreferrer.
+  const catalogue = await readFile(
+    new URL("../projets.html", import.meta.url),
+    "utf8",
   );
+  const catalogueProjects = JSON.parse(
+    await readFile(new URL("../src/data/projects.json", import.meta.url), "utf8"),
+  );
+  for (const project of catalogueProjects.filter((item) => item.url)) {
+    assert.equal(
+      catalogue.includes(`href="${project.url}" target="_blank" rel="noopener noreferrer"`),
+      true,
+      project.id,
+    );
+  }
   assert.equal(
     await page.getByRole("link", { name: /Télécharger l’APK Android/ }).count(),
     1,
@@ -447,11 +465,10 @@ try {
 
   // Every local button/link has a real handler or destination; no audience requests.
   await page.goto(server.url, { waitUntil: "networkidle" });
-  await page.getByRole("link", { name: "Tous mes projets" }).click();
+  await page.getByRole("link", { name: "Tout le catalogue" }).click();
   await page.waitForURL("**/projets.html");
-  await page
-    .locator("main")
-    .getByRole("link", { name: "Me contacter", exact: true })
+  await page.getByRole("navigation", { name: "Navigation principale" })
+    .getByRole("link", { name: "Me contacter" })
     .click();
   await page.waitForURL("**/index.html#contact");
   assert.ok(await page.locator("#contact").isVisible());
@@ -538,8 +555,17 @@ try {
     });
     const privatePage = await privateContext.newPage();
     await privatePage.goto(server.url);
+    // Le thème par défaut est sombre : le contrôle doit permettre de passer au
+  // mode clair, puis de revenir, même sans stockage disponible.
     await privatePage
-      .getByRole("button", { name: "Activer le mode sombre" })
+      .getByRole("button", { name: "Passer en mode clair" })
+      .click();
+    assert.equal(
+      await privatePage.locator("html").getAttribute("data-theme"),
+      "light",
+    );
+    await privatePage
+      .getByRole("button", { name: "Passer en mode sombre" })
       .click();
     assert.equal(
       await privatePage.locator("html").getAttribute("data-theme"),

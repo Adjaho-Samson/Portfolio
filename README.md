@@ -2,11 +2,13 @@
 
 Portfolio statique de **Samson Adjaho** : réalisations web, application Android, certifications, compétences, services et initiative AGORA. Aucun framework, backend applicatif, compte visiteur ou traceur d’audience n’est nécessaire au fonctionnement du site.
 
-Identité visuelle : bordeaux profond (`#7c1f2f`), anthracite (`#1b1d21`), blanc cassé (`#f4f1ec`). Titres en **Plus Jakarta Sans**, textes en **Inter**, polices variables auto-hébergées. Icônes **Font Awesome Free 7** et marques **Simple Icons 16**, intégrées dans un sprite SVG local.
+Identité visuelle 2026 : **noir profond** (`#07080a`), **rouge électrique** (`#ff2d3f`), **gris métallique** (`#b9c0c8`) et blanc franc (`#f4f5f6`). Le thème sombre est l’identité par défaut ; un thème clair reste accessible depuis l’en-tête et le choix explicite est conservé. Titres en **Plus Jakarta Sans**, textes en **Inter**, polices variables auto-hébergées. Icônes **Font Awesome Free 7** et marques **Simple Icons 16** dans un sprite SVG local.
+
+Mouvement : **GSAP 3.15** + **ScrollTrigger** pour les révélations, la parallaxe et les compteurs, **Lenis 1.3** pour le défilement doux. Les trois bibliothèques sont copiées dans `assets/js/vendor/` (CSP `script-src 'self'`, aucune requête externe) et désactivées par `prefers-reduced-motion` ou `Save-Data`.
 
 ## Pages
 
-- `index.html` — accueil et sélection de réalisations ;
+- `index.html` — accueil : hero cinématique, sélection de réalisations, à propos, compétences et constellation, services, parcours, certifications, AGORA, contact ;
 - `projets.html` — catalogue « Sites web » et « Applications » ;
 - `certification.html` — certificats originaux, aperçus et téléchargements ;
 - `404.html` — page d’erreur statique.
@@ -35,8 +37,10 @@ Prérequis : Python 3.11+ pour la génération et les tests structurels. Aucune 
 | `assets/css/orbits.css` | Généré : rayons, durées et positions de la constellation |
 | `src/data/skills.json` | Compétences, orbites et groupes affichés |
 | `assets/downloads/` | APK officiel de Tchatz Music servi directement par le site |
-| `assets/js/theme.js` | Thème initial système, choix explicite et persistance locale |
-| `assets/js/main.js` | Menu, révélations progressives et visionneuse de certificats |
+| `assets/js/theme.js` | Thème sombre par défaut, choix explicite et persistance locale |
+| `assets/js/main.js` | Préchargeur, Lenis, révélations GSAP, en-tête, menu, curseur, ancres, visionneuse de certificats |
+| `assets/js/vendor/` | GSAP, ScrollTrigger et Lenis copiés des paquets npm officiels |
+| `assets/vendor-licenses/` | Licences et versions des bibliothèques servies localement |
 | `assets/images/` | Captures fournies, portrait optimisé et aperçus réels des PDF |
 | `assets/fonts/` | Plus Jakarta Sans et Inter (variables, latin) et licences OFL |
 | `assets/icons/` | Licences des jeux d’icônes (Font Awesome Free, Simple Icons) |
@@ -46,7 +50,7 @@ Prérequis : Python 3.11+ pour la génération et les tests structurels. Aucune 
 | `tests/` | Vérifications structurelles et navigateur |
 | `docs/` | Audit initial et compte rendu de validation |
 
-La clé de thème est `tchatzdev.theme`. Seul le choix `light` ou `dark` est conservé localement. En l’absence de choix, le système décide ; si le stockage est refusé, le thème fonctionne en mémoire pour la page courante.
+La clé de thème est `tchatzdev.theme`. Seul le choix `light` ou `dark` est conservé localement. En l’absence de choix, le site affiche son identité sombre (et non la préférence système) ; si le stockage est refusé, le thème fonctionne en mémoire pour la page courante.
 
 ## Vérifications
 
@@ -54,8 +58,7 @@ Structure, contenu, liens locaux, absence d’intégration d’audience et cohé
 
 ```sh
 python3 -m unittest tests/test_static.py -v
-node --check assets/js/theme.js
-node --check assets/js/main.js
+for f in assets/js/theme.js assets/js/main.js tests/browser.mjs tests/server.mjs; do node --check "$f"; done
 ```
 
 Les tests couvrent l’identité visuelle, le logo, le pied de page, la
@@ -63,7 +66,7 @@ constellation (12 compétences, 3 orbites, noms accessibles, positions généré
 sans style inline à cause de la CSP), les icônes officielles et le téléchargement
 de l’APK (fichier réel, taille, empreinte SHA-256, en-têtes Vercel).
 
-Navigateur réel Chromium (layouts, thèmes, menu, dialogues, accessibilité axe-core, en-têtes de sécurité et absence de requêtes externes) :
+Navigateur réel Chromium (layouts, thèmes, menu, dialogues, APK, accessibilité axe-core, en-têtes de sécurité et absence de requêtes externes) :
 
 ```sh
 npm --prefix tests ci
@@ -77,6 +80,8 @@ Si Chromium est déjà installé :
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/chemin/vers/chromium node tests/browser.mjs
 ```
 
+Sur une distribution où Chromium exige des bibliothèques supplémentaires (par exemple un binaire `@sparticuz/chromium`), ajouter `PLAYWRIGHT_CHROMIUM_LD_LIBRARY_PATH=/chemin/vers/libs`.
+
 Le test démarre son propre serveur local et applique les en-têtes de `vercel.json`. Les captures et le rapport JSON sont écrits dans `test-results/`, ignoré par Git. `PORTFOLIO_QUICK=1` réduit la matrice de largeurs pour un contrôle rapide ; la validation complète utilise dix largeurs, de 320 à 1920 px.
 
 ## Déploiement Vercel
@@ -89,13 +94,16 @@ Les URL historiques `index.html` et `certification.html` sont conservées. `proj
 
 ## Contenus et ressources
 
-- TchatzSafe, Tchatz Klassio et SpeedType utilisent les captures fournies pour cette refonte.
+- TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook et Prince Art utilisent les captures fournies pour cette refonte.
+- Agora Factures affiche son icône officielle (aucune capture d’interface n’étant disponible) ; le visuel est décrit comme tel.
+- TchatzStudy ne dispose ni d’URL publique ni de capture : la fiche annonce le projet, décrit son intention et propose un échange direct au lieu d’un faux lien. Technos et fonctions ne sont pas inventées.
 - Trina Hook et Prince Art conservent leurs captures existantes, optimisées en WebP.
 - Tchatz Music utilise son logo officiel. Aucune capture réelle de l’interface Android n’étant disponible, aucune interface mobile n’est simulée.
 - Les quatre aperçus de certification sont rendus depuis les PDF originaux. Les intitulés, dates et numéros proviennent de ces documents.
 - L’APK v1.0.0 est un build debug réellement publié. Les limites de signature et d’installation sont indiquées avant téléchargement.
 - Les polices Plus Jakarta Sans et Inter sont auto-hébergées ; leurs licences sont jointes.
-- Les icônes Font Awesome Free 7 (CC BY 4.0) et Simple Icons 16 (CC0 1.0) sont intégrées en SVG ; licences dans `assets/icons/`.
+- Les icônes Font Awesome Free 7 (CC BY 4.0) et Simple Icons 16 (CC0 1.0) sont intégrées en SVG ; licences dans `assets/icons/`. Toute icône du sprite est utilisée par au moins une page (vérifié par les tests).
+- GSAP / ScrollTrigger (licence standard GreenSock) et Lenis (MIT) sont servis localement ; licences et versions dans `assets/vendor-licenses/`.
 - L’APK `assets/downloads/Tchatz-Music-1.0.0-debug.apk` (14 821 978 octets, SHA-256 `99595ce5…305e2b`) est identique à l’asset publié de la release `v1.0.0`.
 
-L’audit préalable et les résultats effectivement obtenus sont documentés dans `docs/AUDIT-INITIAL-2026-11.md`, `docs/COMPTE-RENDU-2026-11.md` et, pour la refonte bordeaux/anthracite, `docs/REFONTE-BORDEAUX-2026-11.md`.
+L’audit préalable et les résultats effectivement obtenus sont documentés dans `docs/AUDIT-INITIAL-2026-11.md`, `docs/COMPTE-RENDU-2026-11.md`, `docs/REFONTE-BORDEAUX-2026-11.md` (étape intermédiaire) et `docs/REFONTE-NOIR-ROUGE-2026-11.md` (refonte visuelle et animée actuelle).

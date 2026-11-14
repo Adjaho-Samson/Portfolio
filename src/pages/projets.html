@@ -1,13 +1,14 @@
 <section class="page-intro wrap" aria-labelledby="projects-page-title">
-  <p class="eyebrow">Le travail, concrètement</p>
-  <h1 id="projects-page-title">Mes projets<span class="accent">.</span></h1>
+  <p class="eyebrow">Catalogue TchatzDev</p>
+  <h1 id="projects-page-title">Le travail,<br /><span class="accent">concrètement.</span></h1>
   <p>
     Du navigateur au téléphone : des réalisations conçues pour apprendre,
-    organiser, créer et rendre service.
+    organiser, créer et rendre service. Chaque fiche présente le besoin de
+    départ, ce qui a été livré et les technologies utilisées.
   </p>
   <nav class="category-nav" aria-label="Catégories de projets">
-    <a href="#sites-web">{{icon:fa-laptop-code}} Sites web</a
-    ><a href="#applications">{{icon:fa-mobile-screen}} Applications</a>
+    <a href="#sites-web">{{icon:fa-laptop-code}} Sites web &amp; applications</a>
+    <a href="#applications">{{icon:fa-mobile-screen}} Application Android</a>
   </nav>
 </section>
 <section
@@ -15,14 +16,17 @@
   id="sites-web"
   aria-labelledby="web-title"
 >
-  <div class="section-heading" data-reveal>
+  <div class="section-head-row" data-reveal>
     <div>
-      <p class="eyebrow">A / Sites web</p>
-      <h2 id="web-title">Des expériences dans le navigateur.</h2>
-      <p>Applications pédagogiques, outils pratiques et sites vitrines.</p>
+      <p class="section-label"><span>A</span>Sites web</p>
+      <h2 class="section-title" id="web-title">Des expériences dans le navigateur.</h2>
     </div>
+    <p class="section-lead">
+      Applications pédagogiques, outils pratiques et sites vitrines — tous
+      accessibles en ligne.
+    </p>
   </div>
-  <div class="project-grid catalog-grid" data-reveal>{{ALL_WEB_PROJECTS}}</div>
+  <div class="projects-grid" data-reveal data-stagger>{{ALL_WEB_PROJECTS}}</div>
 </section>
 <section
   class="section section-tinted"
@@ -30,15 +34,17 @@
   aria-labelledby="applications-title"
 >
   <div class="wrap">
-    <div class="section-heading" data-reveal>
+    <div class="section-head-row" data-reveal>
       <div>
-        <p class="eyebrow">B / Applications</p>
-        <h2 id="applications-title">Le logiciel, dans la poche.</h2>
-        <p>
-          Une application Android native, pensée autour de la bibliothèque
-          musicale de l’appareil.
-        </p>
+        <p class="section-label"><span>B</span>Applications</p>
+        <h2 class="section-title" id="applications-title">
+          Le logiciel, dans la poche.
+        </h2>
       </div>
+      <p class="section-lead">
+        Une application Android native, pensée autour de la bibliothèque
+        musicale de l’appareil.
+      </p>
     </div>
     <article
       class="application-card"
@@ -49,7 +55,7 @@
       <div class="application-brand">
         <img
           src="assets/images/tchatz-music-logo.webp"
-          alt="Logo officiel de Tchatz Music : un T fusionné avec une note rouge"
+          alt="Logo officiel de Tchatz Music : un T monogramme et une note rouge"
           width="256"
           height="256"
           loading="lazy"
@@ -62,11 +68,14 @@
           Identité visuelle officielle.<br />Aucune capture réelle de
           l’interface mobile n’est encore disponible.
         </p>
+        <div class="tags app-brand-tags">
+          <span>Kotlin</span><span>Jetpack Compose</span><span>Media3</span>
+        </div>
       </div>
       <div class="application-content">
         <div class="card-overline">
           <span>Android natif · Lecteur local</span
-          ><span class="tag tag-wine">APK v{{RELEASE_VERSION}}</span>
+          ><span class="tag tag-accent">APK v{{RELEASE_VERSION}}</span>
         </div>
         <h3 id="music-title">Tchatz Music</h3>
         <p class="card-summary">
@@ -144,7 +153,7 @@
       <p class="eyebrow">Et votre idée ?</p>
       <h2>Parlons de ce que<br />vous souhaitez construire.</h2>
     </div>
-    <a class="button button-primary" href="index.html#contact"
+    <a class="button button-primary" href="index.html#contact" data-magnetic
       >Me contacter {{icon:fa-arrow-up-right-from-square}}</a
     >
   </div>
