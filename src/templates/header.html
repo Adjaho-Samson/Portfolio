@@ -5,13 +5,12 @@
       <button
         class="theme-toggle"
         type="button"
-        hidden
         data-theme-toggle
-        aria-label="Activer le mode sombre"
-        title="Activer le mode sombre"
+        aria-label="Passer en mode clair"
+        title="Passer en mode clair"
       >
         {{THEME_MOON}} {{THEME_SUN}}
-        <span class="theme-label" data-theme-label>Mode sombre</span>
+        <span class="theme-label" data-theme-label>Passer en mode clair</span>
       </button>
       <button
         class="menu-toggle"
@@ -24,26 +23,43 @@
       </button>
     </div>
     <nav class="navigation" id="navigation" aria-label="Navigation principale">
-      <ul class="nav-links">
-        <li><a href="{{PREFIX}}index.html#parcours">À propos</a></li>
-        <li>
-          <a href="{{PREFIX}}index.html#competences">Compétences</a>
-        </li>
-        <li>
-          <a href="{{PREFIX}}projets.html" {{CURRENT_PROJECTS}}>Mes projets</a>
-        </li>
-        <li>
-          <a href="{{PREFIX}}certification.html" {{CURRENT_CERTIFICATIONS}}
-            >Certifications</a
-          >
-        </li>
-        <li><a href="{{PREFIX}}index.html#agora">AGORA</a></li>
-        <li>
-          <a class="nav-contact" href="{{PREFIX}}index.html#contact"
-            >Me contacter {{ICON_ARROW}}</a
-          >
-        </li>
-      </ul>
+      <div class="nav-inner">
+        <ul class="nav-links">
+          <li>
+            <a href="{{PREFIX}}index.html#projets" data-nav-index="01" data-section="projets">Projets</a>
+          </li>
+          <li>
+            <a href="{{PREFIX}}index.html#parcours" data-nav-index="02" data-section="parcours">À propos</a>
+          </li>
+          <li>
+            <a href="{{PREFIX}}index.html#competences" data-nav-index="03" data-section="competences"
+              >Compétences</a
+            >
+          </li>
+          <li>
+            <a href="{{PREFIX}}projets.html" {{CURRENT_PROJECTS}} data-nav-index="04"
+              >Catalogue</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{PREFIX}}certification.html"
+              {{CURRENT_CERTIFICATIONS}}
+              data-nav-index="05"
+              >Certifications</a
+            >
+          </li>
+          <li>
+            <a class="nav-contact" href="{{PREFIX}}index.html#contact"
+              >Me contacter {{ICON_ARROW}}</a
+            >
+          </li>
+        </ul>
+        <p class="nav-meta">
+          <span>Abomey-Calavi · Bénin</span>
+          <span>{{EMAIL}}</span>
+        </p>
+      </div>
     </nav>
   </div>
 </header>

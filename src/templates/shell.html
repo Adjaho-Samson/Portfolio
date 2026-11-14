@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="fr" data-theme="light">
+<html lang="fr" data-theme="dark" class="no-js">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#1b1d21" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#07080a" />
     <title>{{TITLE}}</title>
     <meta name="description" content="{{DESCRIPTION}}" />
     <link rel="canonical" href="{{CANONICAL}}" />
@@ -54,11 +54,17 @@
     <script type="application/ld+json">
       {{SCHEMA}}
     </script>
+    <script src="{{JS_VENDOR_GSAP}}" defer></script>
+    <script src="{{JS_VENDOR_SCROLLTRIGGER}}" defer></script>
+    <script src="{{JS_VENDOR_LENIS}}" defer></script>
     <script src="{{JS_MAIN}}" defer></script>
   </head>
   <body data-page="{{PAGE_ID}}">
     <a class="skip-link" href="#contenu">Aller au contenu</a>
     {{ICON_SPRITE}}
+    {{PRELOADER}}
+    {{CURSOR}}
+    {{PROGRESS}}
     {{HEADER}}
     <main id="contenu" tabindex="-1">{{CONTENT}}</main>
     {{FOOTER}}

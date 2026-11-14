@@ -2,6 +2,8 @@
 
 Date de validation locale : **7 novembre 2026**. Branche de travail : `arena/a1057887-portfolio`. Aucun déploiement distant ni suppression de ressource cloud n’a été effectué.
 
+> **Mise à jour du 14 novembre 2026.** Une refonte visuelle et animée a suivi ce compte rendu : identité noir / rouge / métal, hero cinématique, préchargeur, GSAP + ScrollTrigger + Lenis, huit projets au catalogue. Les sections ci-dessous décrivent l’étape de novembre qui reste exacte sur le plan factuel (contenus, coordonnées, suppressions, sécurité) ; pour l’état actuel, se référer à **`REFONTE-NOIR-ROUGE-2026-11.md`**, qui prévaut en cas d’écart (palette, nombre de tests, nombre de projets).
+
 ## 1. Audit préalable
 
 L’audit a été enregistré dans `AUDIT-INITIAL-2026-11.md` avant la refonte. Il couvrait les pages, styles, scripts, configuration Vercel, intégration d’audience, ressources, tests et contenu.
@@ -23,7 +25,7 @@ Mesures de départ sur l’accueil, avec Chromium : `scrollWidth` de **388 / 415
 
 ### Contenus vérifiés
 
-- **Cinq projets web distincts** : TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook et Prince Art. Captures fournies ou déjà présentes, descriptions contextualisées, fonctionnalités et technologies vérifiées dans les sources publiques en lecture seule.
+- **Cinq projets web distincts** à cette date : TchatzSafe, Tchatz Klassio, SpeedType, Trina Hook et Prince Art. Deux projets supplémentaires (Agora Factures, TchatzStudy) ont été ajoutés lors de la refonte du 14 novembre, portant le catalogue à sept projets web et une application. Captures fournies ou déjà présentes, descriptions contextualisées, fonctionnalités et technologies vérifiées dans les sources publiques en lecture seule.
 - Sélection de trois projets sur l’accueil et catalogue complet dans `projets.html`, avec catégories « A. Sites web » et « B. Applications ».
 - **Tchatz Music** présenté séparément comme application Android native : Kotlin, Jetpack Compose, Media3, Room et DataStore ; lecture locale, playlists, favoris, recherche, file d’attente, mode aléatoire et répétition. Ces éléments ont été recoupés avec le code et le README du projet, pas présentés comme un test sur téléphone personnel.
 - Lien de téléchargement direct vers l’APK debug v1.0.0 réellement publié. Taille publiée : **14 821 978 octets**. Android 8.0 minimum, cible API 35. Limites du build debug affichées. Aucun lien Play Store inventé et aucune fausse capture d’interface Android.

@@ -126,24 +126,47 @@ class StaticPortfolioTests(unittest.TestCase):
             self.assertIn('assets/js/theme.js', text)
             self.assertIn('aria-controls="navigation"', text)
             self.assertIn('href="#contenu"', text)
-            self.assertIn('Mes projets', text)
+            self.assertIn('Catalogue', text)
         theme = (ROOT / "assets/js/theme.js").read_text()
-        self.assertIn("prefers-color-scheme: dark", theme)
+        # Identité nocturne par défaut, choix explicite conservé, stockage refusé géré.
+        self.assertIn('apply(saved || "dark")', theme)
         self.assertIn("localStorage.setItem", theme)
         self.assertIn("catch", theme)
         css = (ROOT / "assets/css/portfolio.css").read_text()
-        self.assertIn('[data-theme="dark"]', css)
+        self.assertIn('[data-theme="light"]', css)
+        self.assertIn("color-scheme: dark", css)
         self.assertIn("prefers-reduced-motion: reduce", css)
         self.assertNotIn("overflow-x: hidden", css)
 
-    def test_project_catalog_has_five_unique_web_projects_and_one_native_app(self):
-        self.assertEqual(len(self.projects), 5)
-        self.assertEqual(len({p["id"] for p in self.projects}), 5)
+    def test_project_catalog_has_unique_web_projects_and_one_native_app(self):
+        web = [p for p in self.projects if p["category"] == "sites-web"]
+        self.assertEqual(len(web), 7)
+        self.assertEqual(len(self.projects), 8)
+        self.assertEqual(len({p["id"] for p in self.projects}), 8)
+        # Les projets demandés sont présents, avec leurs vrais liens.
+        requested = {
+            "tchatzsafe": "https://tchatzsafe.vercel.app/",
+            "tchatz-music": None,
+            "tchatzstudy": None,
+            "tchatz-klassio": "https://tchatzklassio.vercel.app/",
+            "agora-factures": "https://agorafactu.vercel.app",
+        }
+        by_id = {p["id"]: p for p in self.projects}
+        for pid, url in requested.items():
+            self.assertIn(pid, by_id)
+            if url is not None:
+                self.assertEqual(by_id[pid]["url"], url)
         catalog = self.texts["projets.html"]
         for project in self.projects:
             self.assertEqual(catalog.count(f'id="{project["id"]}"'), 1)
-            self.assertIn(project["url"], catalog)
-            self.assertTrue((ROOT / "assets/images" / project["image"]).is_file())
+            if project["url"]:
+                self.assertIn(project["url"], catalog)
+            if project.get("image"):
+                self.assertTrue((ROOT / "assets/images" / project["image"]).is_file())
+            # Aucun faux lien : une fiche sans URL n'expose pas de bouton externe.
+            if not project["url"]:
+                block = catalog.split(f'id="{project["id"]}"', 1)[1].split("</article>", 1)[0]
+                self.assertNotIn('target="_blank" rel="noopener noreferrer">Voir', block)
         self.assertIn('id="sites-web"', catalog)
         self.assertIn('id="applications"', catalog)
         self.assertIn('id="tchatz-music"', catalog)
@@ -151,7 +174,7 @@ class StaticPortfolioTests(unittest.TestCase):
         self.assertIn("build debug", catalog)
         self.assertIn("Aucune capture réelle", catalog)
         self.assertIn('id="tchatz-music"', catalog)
-        self.assertEqual(self.texts["index.html"].count('class="project-card"'), 3)
+        self.assertEqual(self.texts["index.html"].count('class="project-card'), 3)
 
     def test_stylesheets_and_scripts_are_versioned_for_cache_busting(self):
         """Après un déploiement, un navigateur ne doit jamais rejouer l'ancien CSS."""
@@ -160,6 +183,9 @@ class StaticPortfolioTests(unittest.TestCase):
             "assets/css/orbits.css",
             "assets/js/theme.js",
             "assets/js/main.js",
+            "assets/js/vendor/gsap.min.js",
+            "assets/js/vendor/ScrollTrigger.min.js",
+            "assets/js/vendor/lenis.min.js",
         )
         for relative in assets:
             digest = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()[:10]
@@ -286,9 +312,10 @@ class StaticPortfolioTests(unittest.TestCase):
     def test_identity_logo_footer_and_typography(self):
         css = (ROOT / "assets/css/portfolio.css").read_text()
         # Nouvelle identité : bordeaux, anthracite, blanc cassé.
-        for token in ("--wine:", "--ink:", "--bg:", "--on-inverse:"):
+        for token in ("--bg:", "--accent:", "--steel:", "--text:", "--on-inverse:"):
             self.assertIn(token, css)
-        self.assertIn('[data-theme="dark"]', css)
+        self.assertIn("--accent: #ff2d3f", css)
+        self.assertIn('[data-theme="light"]', css)
         # Typographie : Plus Jakarta Sans pour les titres, Inter pour les textes.
         self.assertIn("Plus Jakarta Sans", css)
         self.assertIn("Inter", css)
